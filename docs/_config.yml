@@ -23,6 +23,7 @@ sidebar:
   - label: Financial Services Network
     children:
       - fsn.tink
+      - fsn.mastercard
   - label: Rewards Network
     children:
       - rewards-network.merchant-net
