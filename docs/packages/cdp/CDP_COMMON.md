@@ -3,7 +3,7 @@ id: cdp.common
 title: Customer Data Platform - Common Utilities
 sidebar_label: Common Utilities
 ---
-# Zastrozzi CDP Common Library Documentation
+# Customer Data Platform - Common Utilities
 
 This document details the **Zastrozzi CDP Common Library**. This library provides shared functionality and state management features used throughout our project. It leverages NgRx for managing common state (via actions, effects, reducers, selectors, and facades), exposes shared models and enums, and includes utility features such as the Utility Dock for presenting overlay panels.
 
@@ -46,7 +46,7 @@ A high-level overview of the CDP Common library layout (located in `/packages/cd
 - **Root Files:**  
   - `.eslintrc.json`, `jest.config.ts`, `ng-package.json`, `package.json`, `project.json`
   - TypeScript configurations: `tsconfig.json`, `tsconfig.lib.json`, `tsconfig.lib.prod.json`, `tsconfig.spec.json`
-  - [README.md](packages/cdp/common/README.md)
+  - [README.md](../../../packages/cdp/common/README.md)
 
 - **src/**  
   - `index.ts` – Re-exports the module and public APIs.
@@ -58,8 +58,8 @@ A high-level overview of the CDP Common library layout (located in `/packages/cd
       Aggregates exports (e.g. models, state, utilities) for convenient consumption.
     - **+state/**  
       - `identifiers.ts` – Defines namespaced keys such as `CDPCommon` and `UTILITY_DOCK_STATE_FEATURE_KEY`.
-      - **actions/** – Contains action definitions for shared state. For example, [utility-dock.actions.ts](packages/cdp/common/src/lib/+state/actions/utility-dock.actions.ts) defines actions to open, close, and toggle utility dock panels.
-      - **effects/** – Implements side effects (e.g. [utility-dock.effects.ts](packages/cdp/common/src/lib/+state/effects/utility-dock.effects.ts)).
+      - **actions/** – Contains action definitions for shared state. For example, [utility-dock.actions.ts](../../../packages/cdp/common/src/lib/+state/actions/utility-dock.actions.ts) defines actions to open, close, and toggle utility dock panels.
+      - **effects/** – Implements side effects (e.g. [utility-dock.effects.ts](../../../packages/cdp/common/src/lib/+state/effects/utility-dock.effects.ts)).
       - **reducers/** – Reducers update state slices (e.g. for the utility dock).
       - **selectors/** – Provides selectors to extract utility dock panel data.
       - **facades/** – Exposes high-level interfaces such as the `CDPCommonUtilityDockFacade`.
@@ -77,7 +77,7 @@ A high-level overview of the CDP Common library layout (located in `/packages/cd
 - **Purpose:**  
   The primary Angular module for the CDP Common library. It combines shared functionality from various state slices, registers utility facades, and imports dependencies such as the Platform Common and Layout modules.
 - **Setup:**  
-  Defined in [cdp-common.module.ts](packages/cdp/common/src/lib/cdp-common.module.ts), it also provides state environment providers via its `forRoot()` method.
+  Defined in [cdp-common.module.ts](../../../packages/cdp/common/src/lib/cdp-common.module.ts), it also provides state environment providers via its `forRoot()` method.
 
 ---
 
@@ -85,15 +85,15 @@ A high-level overview of the CDP Common library layout (located in `/packages/cd
 
 ### Identifiers & State Assembly
 - **Identifiers:**  
-  The file [identifiers.ts](packages/cdp/common/src/lib/+state/identifiers.ts) defines:
+  The file [identifiers.ts](../../../packages/cdp/common/src/lib/+state/identifiers.ts) defines:
   - `CDP_COMMON_ACTION_IDENTIFIER` – A prefix for CDP Common actions.
   - `UTILITY_DOCK_STATE_FEATURE_KEY` – The state key used for the Utility Dock.
 - **State Assembly:**  
-  The shared state is constructed by combining reducers (exported in [state.ts](packages/cdp/common/src/lib/+state/state.ts)) and is re-exported for ease of use.
+  The shared state is constructed by combining reducers (exported in [state.ts](../../../packages/cdp/common/src/lib/+state/state.ts)) and is re-exported for ease of use.
 
 ### Actions
 
-The CDP Common library includes actions for managing the Utility Dock, found in [utility-dock.actions.ts](packages/cdp/common/src/lib/+state/actions/utility-dock.actions.ts):
+The CDP Common library includes actions for managing the Utility Dock, found in [utility-dock.actions.ts](../../../packages/cdp/common/src/lib/+state/actions/utility-dock.actions.ts):
 
 - **openUtilityDockPanel**  
   Dispatches an action to open a specific utility dock panel.
@@ -107,7 +107,7 @@ The CDP Common library includes actions for managing the Utility Dock, found in 
 
 ### Effects
 - **Purpose:**  
-  Effects in [utility-dock.effects.ts](packages/cdp/common/src/lib/+state/effects/utility-dock.effects.ts) listen for utility dock actions and perform asynchronous tasks such as updating overlay displays.
+  Effects in [utility-dock.effects.ts](../../../packages/cdp/common/src/lib/+state/effects/utility-dock.effects.ts) listen for utility dock actions and perform asynchronous tasks such as updating overlay displays.
 - **Implementation:**  
   Effects use RxJS operators (`switchMap`, `map`, `catchError`) to process actions and dispatch further updates based on side effects.
 
@@ -115,13 +115,13 @@ The CDP Common library includes actions for managing the Utility Dock, found in 
 - **Purpose:**  
   Reducers manage state transitions in response to Utility Dock actions.
 - **Implementation:**  
-  The utility dock reducer (exported via [reducers.ts](packages/cdp/common/src/lib/+state/reducers/reducers.ts)) uses NgRx’s `createReducer` and `on` to update state immutably.
+  The utility dock reducer (exported via [reducers.ts](../../../packages/cdp/common/src/lib/+state/reducers/reducers.ts)) uses NgRx’s `createReducer` and `on` to update state immutably.
 
 ### Selectors
 - **Purpose:**  
   Selectors extract slices of the CDP Common state for the Utility Dock.
 - **Implementation:**  
-  Utility Dock selectors (exported in [selectors/index.ts](packages/cdp/common/src/lib/+state/selectors/selectors.ts)) provide:
+  Utility Dock selectors (exported in [selectors/index.ts](../../../packages/cdp/common/src/lib/+state/selectors/selectors.ts)) provide:
   - The full list of utility dock panels.
   - The expansion status of a specific dock panel.
   - Other computed values relevant to the Utility Dock.
@@ -162,7 +162,7 @@ Facades encapsulate NgRx interactions and expose a clean API. The main facade in
 
 - **Models:**  
   Defined in the `model/` folder, these include:
-  - Shared models (in [model/common](packages/cdp/common/src/lib/model/common/index.ts)) such as the structure for utility dock panels.
+  - Shared models (in [model/common](../../../packages/cdp/common/src/lib/model/common/index.ts)) such as the structure for utility dock panels.
 - **Enums:**  
   Located in the `model/enums` folder (e.g. [utility-dock.panel-type.ts](packages/cdp/common/src/lib/model/enums/utility-dock.panel-type.ts)), which define available panel types for the Utility Dock.
 
