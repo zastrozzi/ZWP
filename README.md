@@ -6,23 +6,23 @@ This repository hosts multiple Angular applications and supporting libraries mai
 
 1. Install dependencies:
    ```bash
-   npm install
+   yarn install
    ```
 2. Serve an application (replace `<app>` with one of the app names listed below):
    ```bash
-   npx nx serve <app>
+   yarn nx serve <app>
    ```
 3. Build a project:
    ```bash
-   npx nx build <project>
+   yarn nx build <project>
    ```
 4. Run unit tests:
    ```bash
-   npx nx test <project>
+   yarn nx test <project>
    ```
 5. Lint a project:
    ```bash
-   npx nx lint <project>
+   yarn nx lint <project>
    ```
 
 ## Projects
