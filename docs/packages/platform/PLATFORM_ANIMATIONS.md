@@ -1,3 +1,8 @@
+---
+id: platform.animations
+title: Platform - Animations
+sidebar_label: Animations
+---
 # Platform Animations Documentation
 
 This document details the **platform.animations** library. The module provides a collection of reusable animation definitions (actions, entrances, and exits), directives to manage animation triggers, components to wrap animated content, and services to control animation behavior programmatically.

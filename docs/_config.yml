@@ -1,0 +1,9 @@
+remote_theme: zendesk/jekyll-theme-zendesk-garden@main
+sidebar
+  - home
+  - label: Platform
+    children:
+      - platform.analytics
+      - platform.animations
+      - platform.auth
+      - platform.common

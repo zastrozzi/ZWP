@@ -1,3 +1,8 @@
+---
+id: home
+title: Zastrozzi Web Platform Documentation
+sidebar_label: Home
+---
 # Zastrozzi Web Platform Documentation
 
 Looking for ZWP repository? You can [view on GitHub here](https://github.com/zastrozzi/ZWP) or click on the badges below.

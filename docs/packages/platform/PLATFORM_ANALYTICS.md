@@ -1,3 +1,8 @@
+---
+id: platform.analytics
+title: Platform - Analytics
+sidebar_label: Analytics
+---
 # Platform Analytics Documentation
 
 This document details the **platform.analytics** library. The module is built using Angular and Nx tooling, and it supports Google Analytics integration along with additional tracking functionalities for your application.

@@ -1,3 +1,8 @@
+---
+id: platform.common
+title: Platform - Common Utilities
+sidebar_label: Common Utilities
+---
 # Platform Common Documentation
 
 This document describes the **platform.common** library. This package provides shared functionality across the application. It includes state management (actions, reducers, selectors, facades), reusable UI components, utility functions, and common models used by other projects.
