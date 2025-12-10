@@ -28,7 +28,7 @@ export class EnduserPhoneFacade {
         return this.store.dispatch(EnduserPhoneRemoteActions.listEnduserPhones.request({ enduserId, pagination: pagination }))
     }
 
-    updateEnduserPhoneFilters(filters: Partial<Model.EnduserPhoneFilters>) {
+    updateEnduserPhoneFilters(filters: Partial<Model.Filters.EnduserPhoneFilters>) {
         return this.store.dispatch(EnduserPhoneLocalActions.updateEnduserPhoneFilters({ filters }))
     }
 }

@@ -28,7 +28,7 @@ export class EnduserAddressFacade {
         return this.store.dispatch(EnduserAddressRemoteActions.listEnduserAddresses.request({ enduserId, pagination: pagination }))
     }
 
-    updateEnduserAddressFilters(filters: Partial<Model.EnduserAddressFilters>) {
+    updateEnduserAddressFilters(filters: Partial<Model.Filters.EnduserAddressFilters>) {
         return this.store.dispatch(EnduserAddressLocalActions.updateEnduserAddressFilters({ filters }))
     }
 }

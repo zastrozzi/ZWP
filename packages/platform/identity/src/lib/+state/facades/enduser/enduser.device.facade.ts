@@ -24,7 +24,7 @@ export class EnduserDeviceFacade {
         return this.store.dispatch(EnduserDeviceRemoteActions.listEnduserDevices.request({ enduserId, pagination: pagination }))
     }
 
-    updateEnduserDeviceFilters(filters: Partial<Model.EnduserDeviceFilters>) {
+    updateEnduserDeviceFilters(filters: Partial<Model.Filters.EnduserDeviceFilters>) {
         return this.store.dispatch(EnduserDeviceLocalActions.updateEnduserDeviceFilters({ filters }))
     }
 }

@@ -28,7 +28,7 @@ export class AdminUserCredentialFacade {
         return this.store.dispatch(AdminUserCredentialRemoteActions.listAdminUserCredentials.request({ adminUserId, pagination: pagination }))
     }
 
-    updateAdminUserCredentialFilters(filters: Partial<Model.AdminUserCredentialFilters>) {
+    updateAdminUserCredentialFilters(filters: Partial<Model.Filters.AdminUserCredentialFilters>) {
         return this.store.dispatch(AdminUserCredentialLocalActions.updateAdminUserCredentialFilters({ filters }))
     }
 }

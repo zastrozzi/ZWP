@@ -26,7 +26,7 @@ export class AdminUserSessionFacade {
         return this.store.dispatch(AdminUserSessionRemoteActions.listAdminUserSessions.request({ adminUserId, pagination: pagination }))
     }
 
-    updateAdminUserSessionFilters(filters: Partial<Model.AdminUserSessionFilters>) {
+    updateAdminUserSessionFilters(filters: Partial<Model.Filters.AdminUserSessionFilters>) {
         return this.store.dispatch(AdminUserSessionLocalActions.updateAdminUserSessionFilters({ filters }))
     }
 

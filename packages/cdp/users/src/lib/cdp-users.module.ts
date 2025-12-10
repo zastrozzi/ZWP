@@ -4,16 +4,7 @@ import { createNamespacedFeatureKey, GLOBAL_API_LOCATION, GlobalAPILocation, ZWP
 import { ZWPAuthModule } from '@zwp/platform.auth'
 import {
     ADMIN_USER_FACADES,
-    AdminUserActivityFacade,
-    AdminUserCredentialFacade,
-    AdminUserDeviceFacade,
-    AdminUserEmailFacade,
-    AdminUserFacade,
-    AdminUserSessionFacade,
-    ENDUSER_FACADES,
-    EnduserActivityFacade,
-    EnduserFacade,
-    EnduserSessionFacade,
+    ENDUSER_FACADES
 } from './+state/facades'
 import { provideState } from '@ngrx/store'
 import { Identifiers } from './+state/identifiers'
@@ -45,10 +36,6 @@ import { RouterModule, Routes } from '@angular/router'
 import { CDPUsersAPIConfig, CDP_USERS_API_BASE_URL, CDP_USERS_API_CONFIG } from './config'
 import { Services } from './services'
 import { UKGovHMRCModule } from '@zwp/ukgov.hmrc'
-
-
-
-
 
 @NgModule({
     imports: [

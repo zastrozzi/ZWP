@@ -2,8 +2,10 @@ import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { Identifiers } from '../../identifiers'
 import { Reducers } from '../../reducers'
 import { AdminUserSelectors } from './admin-user.selectors'
-// import { Model } from '../../../model'
+import { Model } from '../../../model'
 import {
+    AuditEventActionType,
+    AuditEventActionTypeVerb,
     auditEventFilterEntityMap,
     createNamespacedFeatureKey,
     isNull,
@@ -11,10 +13,9 @@ import {
     selectFilteredElements,
     selectPaginatedElements,
     selectRemoteState,
-    // transformEnum,
+    transformEnum
 } from '@zwp/platform.common'
-// import { CDPCommon } from '@zwp/cdp.common'
-// import { AuditEventActionType, AuditEventActionTypeVerb } from '@zwp/platform.common'
+import { CDPCommon } from '@zwp/cdp.common'
 import { PlatformActor } from '../../../model/enums'
 
 const selectAdminUserActivityState = createFeatureSelector<Reducers.AdminUserActivityFeatureState>(
@@ -113,37 +114,37 @@ const selectPaginatedFilteredAdminUserActivities = (adminUserId: Nullable<string
         (activities, pagination) => selectPaginatedElements(activities, pagination)
     )
 
-// const selectAllAdminUserActivityWithAdminUser = createSelector(
-//     selectAllAdminUserActivity,
-//     AdminUserSelectors.selectAdminUserEntities,
-//     (activities, users) =>
-//         activities
-//             .map((activity): Model.AdminUserActivityWithAdminUserResponse | null => {
-//                 const adminUser = users[activity.platformActorId]
-//                 if (adminUser) {
-//                     const actionTypeVerb = transformEnum(
-//                         activity.eventType,
-//                         AuditEventActionType,
-//                         AuditEventActionTypeVerb
-//                     )
-//                     const schemaArticle = transformEnum(
-//                         activity.schema,
-//                         CDPCommon.Model.KnownSchema,
-//                         CDPCommon.Model.KnownSchemaArticle
-//                     )
-//                     const schemaLabel = transformEnum(
-//                         activity.schema,
-//                         CDPCommon.Model.KnownSchema,
-//                         CDPCommon.Model.KnownSchemaLabel
-//                     )
-//                     const activityDescription = `${adminUser.firstName} ${actionTypeVerb} ${schemaArticle} ${schemaLabel}`
-//                     return { activity, adminUser, description: activityDescription }
-//                 } else {
-//                     return null
-//                 }
-//             })
-//             .compactMap((record) => record)
-// )
+const selectAllAdminUserActivitiesWithAdminUser = createSelector(
+    selectAllAdminUserActivities,
+    AdminUserSelectors.selectAdminUserEntities,
+    (activities, users) =>
+        activities
+            .map((activity): Model.AdminUserActivityWithAdminUserResponse | null => {
+                const adminUser = users[activity.platformActorId]
+                if (adminUser) {
+                    const actionTypeVerb = transformEnum(
+                        activity.eventType,
+                        AuditEventActionType,
+                        AuditEventActionTypeVerb
+                    )
+                    const schemaArticle = transformEnum(
+                        activity.schema,
+                        CDPCommon.Model.KnownSchema,
+                        CDPCommon.Model.KnownSchemaArticle
+                    )
+                    const schemaLabel = transformEnum(
+                        activity.schema,
+                        CDPCommon.Model.KnownSchema,
+                        CDPCommon.Model.KnownSchemaLabel
+                    )
+                    const activityDescription = `${adminUser.firstName} ${actionTypeVerb} ${schemaArticle} ${schemaLabel}`
+                    return { activity, adminUser, description: activityDescription }
+                } else {
+                    return null
+                }
+            })
+            .compactMap((record) => record)
+)
 
 export const AdminUserActivitySelectors = {
     selectAdminUserActivityState,
@@ -162,5 +163,5 @@ export const AdminUserActivitySelectors = {
     selectPaginatedAdminUserActivities,
     selectPaginatedFilteredAdminUserActivities,
     selectedAdminUserActivity,
-    // selectAllAdminUserActivityWithAdminUser,
+    selectAllAdminUserActivitiesWithAdminUser
 }

@@ -32,7 +32,7 @@ export class EnduserFacade {
         return this.store.dispatch(EnduserLocalActions.selectEnduser({ enduserId }))
     }
 
-    updateEnduserFilters(filters: Partial<Model.EnduserFilters>) {
+    updateEnduserFilters(filters: Partial<Model.Filters.EnduserFilters>) {
         return this.store.dispatch(EnduserLocalActions.updateEnduserFilters({ filters }))
     }
 

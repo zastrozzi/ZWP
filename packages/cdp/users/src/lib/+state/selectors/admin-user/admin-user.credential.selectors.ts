@@ -30,19 +30,6 @@ const selectAdminUserCredentialsForSelectedAdminUser = createSelector(
     (adminUserId, credentials) => credentials.filter(credential => credential.adminUserId === adminUserId)
 )
 
-
-// const selectFilteredAdminUserCredentials = createSelector(
-//     selectAllAdminUserCredentials,
-//     selectAdminUserCredentialFilters,
-//     (credentials, filters) => credentials.filter(credential => {
-//         let include = true
-//         if (filters.adminUserId) {
-//             include = include && credential.adminUserId === filters.adminUserId
-//         }
-//         return include
-//     })
-// )
-
 const selectedAdminUserCredential = createSelector(
     selectAdminUserCredentialEntities,
     selectSelectedAdminUserCredentialId,

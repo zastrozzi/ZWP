@@ -1,5 +1,5 @@
 import { Provider } from '@angular/core'
-// import { TemplateAPIConfig } from '../config'
+import { IdentityAPIConfig } from '../config'
 
 import * as LiveServices from './live'
 import * as MockServices from './mock'
@@ -10,9 +10,13 @@ export * from './abstract'
 export * from './live'
 export * from './mock'
 
-// export const environmentProviders = (apiConfig: TemplateAPIConfig): Provider[] => [
-    // { 
-    //     provide: AbstractServices.TEMPLATE_API_SERVICE,
-    //     useExisting: apiConfig.apiState === ModuleAPIState.LIVE ? LiveServices.TemplateLiveAPIService : MockServices.TemplateMockAPIService
-    // }
-// ]
+export const environmentProviders = (apiConfig: IdentityAPIConfig): Provider[] => [
+    {
+        provide: AbstractServices.ADMIN_USER_API_SERVICE,
+        useExisting: apiConfig.apiState === ModuleAPIState.LIVE ? LiveServices.PlatformAdminUserLiveAPIService : MockServices.PlatformAdminUserMockAPIService
+    },
+    {
+        provide: AbstractServices.ENDUSER_API_SERVICE,
+        useExisting: apiConfig.apiState === ModuleAPIState.LIVE ? LiveServices.PlatformEnduserLiveAPIService : MockServices.PlatformEnduserMockAPIService
+    }
+]

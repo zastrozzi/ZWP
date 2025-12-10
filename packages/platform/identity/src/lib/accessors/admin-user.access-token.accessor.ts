@@ -5,13 +5,13 @@ import { EMPTY, Observable, catchError, delay, map, mergeMap, of, withLatestFrom
 import { ADMIN_USER_API_SERVICE } from "../services/abstract";
 import { Model } from "../model";
 import { APIRoutes } from "../api-routes";
-import { CDP_USERS_API_CONFIG, CDP_USERS_API_BASE_URL } from "../config";
+import { IDENTITY_API_BASE_URL, IDENTITY_API_CONFIG } from "../config";
 
 @Injectable({ providedIn: 'root' })
 export class AdminUserAccessTokenAccessor implements PlatformAuth.Model.AccessTokenAccessor {
     private authFacade = inject(UserAuthFacade)
-    private config = inject(CDP_USERS_API_CONFIG)
-    private baseUrl = inject(CDP_USERS_API_BASE_URL)
+    private config = inject(IDENTITY_API_CONFIG)
+    private baseUrl = inject(IDENTITY_API_BASE_URL)
     private http = inject(ZWPHTTPService)
 
     getAccessToken(): Observable<Nullable<string>> {

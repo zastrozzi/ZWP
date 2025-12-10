@@ -3,9 +3,8 @@ import { Identifiers } from '../../identifiers'
 import { Reducers } from '../../reducers'
 import { AdminUserSelectors } from './admin-user.selectors'
 import { Model } from '../../../model'
-import { createNamespacedFeatureKey, transformEnum } from '@zwp/platform.common'
+import { createNamespacedFeatureKey, transformEnum, AuditEventActionType, AuditEventActionTypeVerb } from '@zwp/platform.common'
 import { CDPCommon } from '@zwp/cdp.common'
-import { AuditEventActionType, AuditEventActionTypeVerb } from '@zwp/platform.common'
 
 const selectAdminUserActivityState = createFeatureSelector<Reducers.AdminUserActivityFeatureState>(
     createNamespacedFeatureKey(

@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { ZWPCommonModule } from '@zwp/platform.common'
+import { GLOBAL_API_LOCATION, GlobalAPILocation, ZWPCommonModule } from '@zwp/platform.common'
 import { State } from './+state'
 import { IDENTITY_API_CONFIG, IDENTITY_API_BASE_URL, IdentityAPIConfig } from './config'
 import { Services } from './services'
@@ -19,7 +19,7 @@ import { ZWPAuthModule } from '@zwp/platform.auth'
         // ...INTERNAL_COMPONENTS.ALL
     ],
     providers: [
-        // ...State.Facades.ALL
+        ...State.Facades.ALL
     ],
     exports: [
         
@@ -33,8 +33,14 @@ export class PlatformIdentityModule {
             ngModule: PlatformIdentityModule,
             providers: [
                 { provide: IDENTITY_API_CONFIG, useValue: apiConfig },
-                // ...State.environmentProviders,
-                // ...Services.environmentProviders(apiConfig)
+                {
+                    provide: IDENTITY_API_BASE_URL,
+                    useFactory: (config: IdentityAPIConfig, apiLocation: GlobalAPILocation) =>
+                        apiLocation === GlobalAPILocation.LOCAL ? config.localBaseUrl : config.remoteBaseUrl,
+                    deps: [IDENTITY_API_CONFIG, GLOBAL_API_LOCATION],
+                },
+                ...State.environmentProviders,
+                ...Services.environmentProviders(apiConfig)
             ]
         }
     }

@@ -157,10 +157,10 @@ export const serialiseEnumQueryFilter = <Enum>(paramName: string, filter: EnumQu
     return params
 }
 
-export const serialiseBooleanQueryFilter = (filter: BooleanQueryFilter): string => {
-    let objectToSerialise = {}
-    if (filter.equalTo) objectToSerialise = { ...objectToSerialise, eq: filter.equalTo }
-    return JSON.stringify(objectToSerialise)
+export const serialiseBooleanQueryFilter = (paramName: string, filter: BooleanQueryFilter): HttpParams => {
+    let params = new HttpParams()
+    if (filter.equalTo) params = params.append(`${paramName}[eq]`, filter.equalTo)
+    return params
 }
 
 export const serialiseDateQueryFilterParams = (paramName: string, filter: Observable<Nullable<DateQueryFilter>>): HttpParams => {

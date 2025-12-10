@@ -55,7 +55,7 @@ export class AdminUserFacade {
         return this.store.dispatch(AdminUserRemoteActions.deleteAdminUser.request({ adminUserId }))
     }
 
-    updateAdminUserFilters(filters: Partial<Model.AdminUserFilters>) {
+    updateAdminUserFilters(filters: Partial<Model.Filters.AdminUserFilters>) {
         return this.store.dispatch(AdminUserLocalActions.updateAdminUserFilters({ filters }))
     }
 

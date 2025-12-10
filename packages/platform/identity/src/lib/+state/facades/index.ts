@@ -1,2 +1,2 @@
-export * from './admin-user'
-export * from './enduser'
+import * as Facades from './facades';
+export { Facades };

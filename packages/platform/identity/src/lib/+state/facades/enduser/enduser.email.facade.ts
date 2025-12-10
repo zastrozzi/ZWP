@@ -28,7 +28,7 @@ export class EnduserEmailFacade {
         return this.store.dispatch(EnduserEmailRemoteActions.listEnduserEmails.request({ enduserId, pagination: pagination }))
     }
 
-    updateEnduserEmailFilters(filters: Partial<Model.EnduserEmailFilters>) {
+    updateEnduserEmailFilters(filters: Partial<Model.Filters.EnduserEmailFilters>) {
         return this.store.dispatch(EnduserEmailLocalActions.updateEnduserEmailFilters({ filters }))
     }
 }

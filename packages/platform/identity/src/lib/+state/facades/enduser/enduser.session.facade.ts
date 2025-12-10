@@ -26,7 +26,7 @@ export class EnduserSessionFacade {
         return this.store.dispatch(EnduserSessionRemoteActions.listEnduserSessions.request({ enduserId, pagination: pagination }))
     }
 
-    updateEnduserSessionFilters(filters: Partial<Model.EnduserSessionFilters>) {
+    updateEnduserSessionFilters(filters: Partial<Model.Filters.EnduserSessionFilters>) {
         return this.store.dispatch(EnduserSessionLocalActions.updateEnduserSessionFilters({ filters }))
     }
 

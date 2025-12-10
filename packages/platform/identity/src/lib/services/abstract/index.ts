@@ -1,1 +1,2 @@
-export * from './template.api.service'
+export * from './admin-user.api-service'
+export * from './enduser.api-service'

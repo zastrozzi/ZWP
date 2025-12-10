@@ -24,7 +24,7 @@ export class AdminUserDeviceFacade {
         return this.store.dispatch(AdminUserDeviceRemoteActions.listAdminUserDevices.request({ adminUserId, pagination: pagination }))
     }
 
-    updateAdminUserDeviceFilters(filters: Partial<Model.AdminUserDeviceFilters>) {
+    updateAdminUserDeviceFilters(filters: Partial<Model.Filters.AdminUserDeviceFilters>) {
         return this.store.dispatch(AdminUserDeviceLocalActions.updateAdminUserDeviceFilters({ filters }))
     }
 }

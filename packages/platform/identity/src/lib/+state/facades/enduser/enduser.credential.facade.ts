@@ -28,7 +28,7 @@ export class EnduserCredentialFacade {
         return this.store.dispatch(EnduserCredentialRemoteActions.listEnduserCredentials.request({ enduserId, pagination: pagination }))
     }
 
-    updateEnduserCredentialFilters(filters: Partial<Model.EnduserCredentialFilters>) {
+    updateEnduserCredentialFilters(filters: Partial<Model.Filters.EnduserCredentialFilters>) {
         return this.store.dispatch(EnduserCredentialLocalActions.updateEnduserCredentialFilters({ filters }))
     }
 }

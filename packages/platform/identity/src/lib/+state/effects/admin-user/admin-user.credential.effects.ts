@@ -5,7 +5,7 @@ import { ZWPDebuggableInjectable, createRemoteEffect, remoteStateUpdateFailure, 
 import { AdminUserCredentialRemoteActions, AdminUserCredentialLocalActions, AdminUserRemoteActions } from '../../actions'
 import { debounceTime, delay, map, withLatestFrom } from 'rxjs'
 import { UserAuthFacade } from '@zwp/platform.auth'
-import { AdminUserFacade } from '../../facades'
+import { Facades } from '../../facades'
 
 @Injectable()
 @ZWPDebuggableInjectable({ serviceName: 'AdminUserCredentialEffects', options: { skipMethodDebugger: true } })
@@ -13,7 +13,7 @@ export class AdminUserCredentialEffects implements OnInitEffects {
     private actions$ = inject(Actions)
     private adminUserAPI = inject(Services.ADMIN_USER_API_SERVICE)
     private userAuthFacade = inject(UserAuthFacade)
-    private adminUserFacade = inject(AdminUserFacade)
+    private adminUserFacade = inject(Facades.AdminUserFacade)
 
     updateRemoteStateRequest$ = createEffect(() => this.actions$.pipe(
         ofType(...AdminUserCredentialRemoteActions.requestActions),

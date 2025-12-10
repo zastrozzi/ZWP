@@ -1,2 +1,2 @@
-export * from './admin-user'
-export * from './enduser'
+import * as Effects from './effects'
+export { Effects }

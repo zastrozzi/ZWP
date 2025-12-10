@@ -6,7 +6,7 @@ import { AdminUserSessionLocalActions, AdminUserSessionRemoteActions } from '../
 import { debounceTime, delay, map, withLatestFrom } from 'rxjs'
 import { UserAuthFacade } from '@zwp/platform.auth'
 import { Action } from '@ngrx/store'
-import { AdminUserFacade } from '../../facades'
+import { Facades } from '../../facades'
 
 @Injectable()
 @ZWPDebuggableInjectable({ serviceName: 'AdminUserSessionEffects', options: { skipMethodDebugger: true } })
@@ -14,7 +14,7 @@ export class AdminUserSessionEffects implements OnInitEffects {
     private actions$ = inject(Actions)
     private adminUserAPI = inject(Services.ADMIN_USER_API_SERVICE)
     private userAuthFacade = inject(UserAuthFacade)
-    private adminUserFacade = inject(AdminUserFacade)
+    private adminUserFacade = inject(Facades.AdminUserFacade)
 
     updateRemoteStateRequest$ = createEffect(() => this.actions$.pipe(
         ofType(...AdminUserSessionRemoteActions.requestActions),

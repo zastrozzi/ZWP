@@ -84,5 +84,7 @@ export const AdminUserSessionSelectors = {
     selectFilteredAdminUserSessions,
     selectPaginatedAdminUserSessions,
     selectPaginatedFilteredAdminUserSessions,
-    selectedAdminUserSession
+    selectedAdminUserSession,
+    selectAdminUserSessionsForSelectedAdminUser,
+    selectAdminUserSessionsForAdminUser
 }

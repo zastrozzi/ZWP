@@ -84,5 +84,7 @@ export const AdminUserCredentialSelectors = {
     selectFilteredAdminUserCredentials,
     selectPaginatedAdminUserCredentials,
     selectPaginatedFilteredAdminUserCredentials,
-    selectedAdminUserCredential
+    selectedAdminUserCredential,
+    selectAdminUserCredentialsForSelectedAdminUser,
+    selectAdminUserCredentialsForAdminUser
 }

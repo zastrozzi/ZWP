@@ -84,5 +84,7 @@ export const AdminUserDeviceSelectors = {
     selectFilteredAdminUserDevices,
     selectPaginatedAdminUserDevices,
     selectPaginatedFilteredAdminUserDevices,
-    selectedAdminUserDevice
+    selectedAdminUserDevice,
+    selectAdminUserDevicesForSelectedAdminUser,
+    selectAdminUserDevicesForAdminUser
 }

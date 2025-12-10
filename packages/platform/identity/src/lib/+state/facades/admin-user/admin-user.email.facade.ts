@@ -28,7 +28,7 @@ export class AdminUserEmailFacade {
         return this.store.dispatch(AdminUserEmailRemoteActions.listAdminUserEmails.request({ adminUserId, pagination: pagination }))
     }
 
-    updateAdminUserEmailFilters(filters: Partial<Model.AdminUserEmailFilters>) {
+    updateAdminUserEmailFilters(filters: Partial<Model.Filters.AdminUserEmailFilters>) {
         return this.store.dispatch(AdminUserEmailLocalActions.updateAdminUserEmailFilters({ filters }))
     }
 }

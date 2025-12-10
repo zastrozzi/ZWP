@@ -26,7 +26,7 @@ const selectAdminUserById = (id: string) => createSelector(selectAdminUserEntiti
 const selectedAdminUser = createSelector(
     selectAdminUserEntities,
     selectSelectedAdminUserId,
-    (entities, selectedId) => selectedId && entities[selectedId]
+    (entities, selectedId) => entities[selectedId ?? '']
 )
 
 export const AdminUserSelectors = {

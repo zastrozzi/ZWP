@@ -84,5 +84,7 @@ export const AdminUserEmailSelectors = {
     selectFilteredAdminUserEmails,
     selectPaginatedAdminUserEmails,
     selectPaginatedFilteredAdminUserEmails,
-    selectedAdminUserEmail
+    selectedAdminUserEmail,
+    selectAdminUserEmailsForSelectedAdminUser,
+    selectAdminUserEmailsForAdminUser
 }
