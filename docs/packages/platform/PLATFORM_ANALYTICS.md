@@ -1,6 +1,6 @@
 ---
 id: platform.analytics
-title: Platform - Analytics
+title: Core Platform - Analytics
 sidebar_label: Analytics
 ---
 # Platform Analytics Documentation

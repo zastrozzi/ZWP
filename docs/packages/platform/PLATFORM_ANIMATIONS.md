@@ -1,6 +1,6 @@
 ---
 id: platform.animations
-title: Platform - Animations
+title: Core Platform - Animations
 sidebar_label: Animations
 ---
 # Platform Animations Documentation

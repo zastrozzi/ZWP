@@ -1,3 +1,8 @@
+---
+id: platform.google-cloud
+title: Core Platform - Google Cloud
+sidebar_label: Google Cloud
+---
 # Platform Google Cloud Documentation
 
 This document details the **platform.google-cloud** library. This package provides tools to integrate with Google Cloud services – such as Cloud Storage for file uploads, storage buckets, and storage objects – in your Angular application. It includes state management via NgRx (with actions, effects, reducers, selectors, and facades), API route definitions, service implementations (both live and mock), and reusable UI components for cloud interactions.

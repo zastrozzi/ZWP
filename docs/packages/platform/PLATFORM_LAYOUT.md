@@ -1,3 +1,8 @@
+---
+id: platform.layout
+title: Core Platform - Layout
+sidebar_label: Layout
+---
 # Platform Layout Documentation
 
 This document details the **platform.layout** library. This package provides the foundational layout framework for your application. It includes a rich set of tools for arranging panels, menus, windows, tables, and more. The package leverages NgRx for state management (via actions, effects, reducers, selectors, and facades), reusable UI components, decorators, directives, and services to manage overlays, notifications, and more.

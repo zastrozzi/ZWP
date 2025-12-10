@@ -1,7 +1,7 @@
 ---
 id: platform.auth
-title: Platform - Authentication / Authorisation
-sidebar_label: Authentication / Authorisation
+title: Core Platform - Auth
+sidebar_label: Auth
 ---
 # Platform Auth Documentation
 

@@ -1,9 +1,32 @@
 remote_theme: zendesk/jekyll-theme-zendesk-garden@main
+title: Zastrozzi Web Platform (@zwp)
 sidebar:
   - home
-  - label: Platform
+  - label: Core Platform
     children:
       - platform.analytics
       - platform.animations
       - platform.auth
       - platform.common
+      - platform.dynamic-query
+      - platform.flows
+      - platform.google-cloud
+      - platform.identity
+      - platform.layout
+      - platform.privacy
+  - label: Customer Data Platform
+    children:
+      - cdp.common
+      - cdp.partner-net
+      - cdp.routing
+      - cdp.users
+  - label: Financial Services Network
+    children:
+      - fsn.tink
+  - label: Rewards Network
+    children:
+      - rewards-network.merchant-net
+      - rewards-network.tillo
+  - label: Government Utilities
+    children:
+      - ukgov.hmrc

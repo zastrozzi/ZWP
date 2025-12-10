@@ -1,6 +1,6 @@
 ---
 id: platform.common
-title: Platform - Common Utilities
+title: Core Platform - Common Utilities
 sidebar_label: Common Utilities
 ---
 # Platform Common Documentation

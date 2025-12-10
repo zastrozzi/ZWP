@@ -1,3 +1,8 @@
+---
+id: cdp.common
+title: Customer Data Platform - Common Utilities
+sidebar_label: Common Utilities
+---
 # Zastrozzi CDP Common Library Documentation
 
 This document details the **Zastrozzi CDP Common Library**. This library provides shared functionality and state management features used throughout our project. It leverages NgRx for managing common state (via actions, effects, reducers, selectors, and facades), exposes shared models and enums, and includes utility features such as the Utility Dock for presenting overlay panels.

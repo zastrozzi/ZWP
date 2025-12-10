@@ -1,6 +1,6 @@
 ---
 id: home
-title: Zastrozzi Web Platform Documentation
+title: Home
 sidebar_label: Home
 ---
 # Zastrozzi Web Platform Documentation

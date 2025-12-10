@@ -1,3 +1,8 @@
+---
+id: fsn.tink
+title: Financial Services Network - Tink
+sidebar_label: Tink
+---
 # Zastrozzi FSN‑Tink Library Documentation
 
 This document details the **Zastrozzi FSN‑Tink Library**. The FSN‑Tink library is part of the Zastrozzi Financial Services Network and provides comprehensive functionality for financial services integrations. It includes state management via NgRx, live and mock API service implementations, a rich set of UI components, and extensive configuration options. The library is designed to be modular and scalable across features like account management, credentials, provider consents, merchant data, transactions, users, and webhook endpoints.
