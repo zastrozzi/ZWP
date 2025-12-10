@@ -1,0 +1,49 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es2015",
+        "module": "esnext",
+        "lib": ["es2017", "dom"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": ".",
+        "paths": {
+            "@zwp/cdp.common": ["packages/cdp/common/src/index.ts"],
+            "@zwp/cdp.users": ["packages/cdp/users/src/index.ts"],
+            "@zwp/cdp.partner-net": ["packages/cdp/partner-net/src/index.ts"],
+            "@zwp/cdp.routing": ["packages/cdp/routing/src/index.ts"],
+
+            "@zwp/fsn.mastercard": ["packages/fsn/mastercard/src/index.ts"],
+            "@zwp/fsn.tink": ["packages/fsn/tink/src/index.ts"],
+
+            "@zwp/platform.auth": ["packages/platform/auth/src/index.ts"],
+            "@zwp/platform.common": ["packages/platform/common/src/index.ts"],
+            "@zwp/platform.common/extensions/array": ["packages/platform/common/extensions/array/src/index.ts"],
+            "@zwp/platform.dynamic-query": ["packages/platform/dynamic-query/src/index.ts"],
+            "@zwp/platform.google-cloud": ["packages/platform/google-cloud/src/index.ts"],
+            "@zwp/platform.layout": ["packages/platform/layout/src/index.ts"],
+            "@zwp/platform.privacy": ["packages/platform/privacy/src/index.ts"],
+            "@zwp/platform.animations": ["packages/platform/animations/src/index.ts"],
+            "@zwp/platform.analytics": ["packages/platform/analytics/src/index.ts"],
+            "@zwp/platform.analytics/google": ["packages/platform/analytics/google/src/index.ts"],
+            "@zwp/platform.flows": ["packages/platform/flows/src/index.ts"],
+
+            "@zwp/rewards-network.merchant-net": ["packages/rewards-network/merchant-net/src/index.ts"],
+            "@zwp/rewards-network.awin": ["packages/rewards-network/awin/src/index.ts"],
+            "@zwp/rewards-network.tillo": ["packages/rewards-network/tillo/src/index.ts"],
+
+            "@zwp/ukgov.hmrc": ["packages/ukgov/hmrc/src/index.ts"],
+        },
+        "strict": true
+    },
+    "exclude": ["node_modules", "tmp", "templates"]
+}
+  

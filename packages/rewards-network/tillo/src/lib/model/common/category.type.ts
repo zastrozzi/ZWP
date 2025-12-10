@@ -1,0 +1,53 @@
+export enum Category {
+    baby = "baby",
+    beauty = "beauty",
+    books = "books",
+    cars = "cars",
+    charity = "charity",
+    craft = "craft",
+    cryptocurrency = "cryptocurrency",
+    cycling = "cycling",
+    departmentStore = "department-store",
+    fashion = "fashion",
+    electronics = "electronics",
+    foodAndDrink = "food-and-drink",
+    gaming = "gaming",
+    home = "home",
+    jewellery = "jewellery",
+    music = "music",
+    other = "other",
+    schoolVouchers = "school-vouchers",
+    sports = "sports",
+    supermarket = "supermarket",
+    toys = "toys",
+    travelAndLeisure = "travel-and-leisure",
+    tvAndMovies = "tv-and-movies"
+
+}
+
+export enum CategoryLabel {
+    baby = "Baby",
+    beauty = "Beauty",
+    books = "Books",
+    cars = "Cars",
+    charity = "Charity",
+    craft = "Craft",
+    cryptocurrency = "Cryptocurrency",
+    cycling = "Cycling",
+    departmentStore = "Department Store",
+    fashion = "Fashion",
+    electronics = "Electronics",
+    foodAndDrink = "Food and Drink",
+    gaming = "Gaming",
+    home = "Home",
+    jewellery = "Jewellery",
+    music = "Music",
+    other = "Other",
+    schoolVouchers = "School Vouchers",
+    sports = "Sports",
+    supermarket = "Supermarket",
+    toys = "Toys",
+    travelAndLeisure = "Travel and Leisure",
+    tvAndMovies = "Tv and Movies"
+
+}

@@ -1,0 +1,1 @@
+export type MenuClose = void | 'click' | 'keydown' | 'tab'

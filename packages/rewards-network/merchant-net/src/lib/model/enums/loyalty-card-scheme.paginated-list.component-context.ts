@@ -1,0 +1,5 @@
+export enum LoyaltyCardSchemePaginatedListComponentContext {
+    LOYALTY_CARD_SCHEME_LIST = 'LOYALTY_CARD_SCHEME_LIST',
+    MERCHANT_DETAIL = 'MERCHANT_DETAIL',
+    BRAND_DETAIL = 'BRAND_DETAIL'
+}

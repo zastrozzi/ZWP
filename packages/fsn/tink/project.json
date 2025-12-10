@@ -1,0 +1,55 @@
+{
+    "name": "fsn.tink",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "library",
+    "sourceRoot": "packages/fsn/tink/src",
+    "prefix": "fsn.tink",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/angular:package",
+            "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+            "options": {
+                "project": "packages/fsn/tink/ng-package.json"
+            },
+            "configurations": {
+                "production": {
+                    "tsConfig": "packages/fsn/tink/tsconfig.lib.prod.json"
+                },
+                "development": {
+                    "tsConfig": "packages/fsn/tink/tsconfig.lib.json"
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "deploy": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "cd dist/packages/fsn/tink && npm publish --access public"
+            },
+            "dependsOn": ["build"]
+
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "packages/fsn/tink/jest.config.ts",
+                "passWithNoTests": true
+            },
+            "configurations": {
+                "ci": {
+                    "ci": true,
+                    "codeCoverage": true
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["packages/fsn/tink/**/*.ts", "packages/fsn/tink/**/*.html"]
+            }
+        }
+    },
+    "tags": []
+}

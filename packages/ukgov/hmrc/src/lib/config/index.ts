@@ -1,0 +1,1 @@
+export * from './ukgov-hmrc.config'

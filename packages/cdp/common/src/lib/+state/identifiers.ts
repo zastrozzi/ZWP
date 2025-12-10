@@ -1,0 +1,8 @@
+const CDP_COMMON_ACTION_IDENTIFIER = 'CDPCommon'
+
+const UTILITY_DOCK_STATE_FEATURE_KEY = 'UtilityDock'
+
+export const Identifiers = {
+    CDP_COMMON_ACTION_IDENTIFIER,
+    UTILITY_DOCK_STATE_FEATURE_KEY
+}

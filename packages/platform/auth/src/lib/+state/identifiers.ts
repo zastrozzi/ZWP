@@ -1,0 +1,7 @@
+const AUTH_ACTION_IDENTIFIER = 'Auth'
+const USER_AUTH_STATE_FEATURE_KEY = 'UserAuth'
+
+export const Identifiers = {
+    AUTH_ACTION_IDENTIFIER,
+    USER_AUTH_STATE_FEATURE_KEY
+}

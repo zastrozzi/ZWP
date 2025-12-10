@@ -1,0 +1,7 @@
+export * from './geometry-collection.2d'
+export * from './line-string.2d'
+export * from './multi-line-string.2d'
+export * from './multi-point.2d'
+export * from './multi-polygon.2d'
+export * from './point.2d'
+export * from './polygon.2d'

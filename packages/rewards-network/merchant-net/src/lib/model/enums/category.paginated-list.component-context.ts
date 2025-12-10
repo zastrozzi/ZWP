@@ -1,0 +1,6 @@
+export enum CategoryPaginatedListComponentContext {
+    CATEGORY_LIST = 'CATEGORY_LIST',
+    CATEGORY_TREE = 'CATEGORY_TREE',
+    CATEGORY_DETAIL = 'CATEGORY_DETAIL',
+    OFFER_DETAIL = 'OFFER_DETAIL'
+}

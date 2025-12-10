@@ -1,0 +1,1 @@
+export const WINDOW_OVERLAY_ZINDEX_CLASSES: string[] = [ ...Array(100).keys() ].map(i => 'zwp-window-overlay-zindex-' + i.toString())

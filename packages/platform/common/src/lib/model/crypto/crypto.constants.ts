@@ -1,0 +1,1 @@
+export const ZWP_JWT_PARTS = 3

@@ -1,0 +1,1 @@
+export type ZWPAnimationTriggerMode = 'scrolling' | 'intersectionObserver' | 'auto'

@@ -1,0 +1,1 @@
+export type ZWPScrollAxisAlignment = "start" | "center" | "end" | "nearest"

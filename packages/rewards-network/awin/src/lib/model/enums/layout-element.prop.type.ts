@@ -1,0 +1,11 @@
+export enum LayoutElementPropType {
+    TEXT = "TEXT",
+    FONT_SIZE = "FONT_SIZE",
+    FONT_WEIGHT = "FONT_WEIGHT",
+    BG_COLOR = "BG_COLOR",
+    FG_COLOR = "FG_COLOR",
+    IMAGE_URL = "IMAGE_URL",
+    EXTERNAL_URL = "EXTERNAL_URL",
+    CHILD_AXIS = "CHILD_AXIS",
+    CHILD_ALIGNMENT = "CHILD_ALIGNMENT",
+}

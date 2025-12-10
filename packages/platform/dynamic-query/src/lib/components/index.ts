@@ -1,0 +1,12 @@
+import { QUERYABLE_SCHEMA_COMPONENTS } from './queryable-schema'
+import { STRUCTURED_QUERY_COMPONENTS } from './structured-query'
+
+export const INTERNAL_COMPONENTS = {
+    STRUCTURED_QUERY_COMPONENTS,
+    QUERYABLE_SCHEMA_COMPONENTS,
+
+    ALL: [
+        ...STRUCTURED_QUERY_COMPONENTS.ALL,
+        ...QUERYABLE_SCHEMA_COMPONENTS.ALL
+    ]
+}

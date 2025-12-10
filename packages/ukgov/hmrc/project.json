@@ -1,0 +1,55 @@
+{
+    "name": "ukgov.hmrc",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "library",
+    "sourceRoot": "packages/ukgov/hmrc/src",
+    "prefix": "ukgov.hmrc",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/angular:package",
+            "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+            "options": {
+                "project": "packages/ukgov/hmrc/ng-package.json"
+            },
+            "configurations": {
+                "production": {
+                    "tsConfig": "packages/ukgov/hmrc/tsconfig.lib.prod.json"
+                },
+                "development": {
+                    "tsConfig": "packages/ukgov/hmrc/tsconfig.lib.json"
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "deploy": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "cd dist/packages/ukgov/hmrc && npm publish --access public"
+            },
+            "dependsOn": ["build"]
+
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "packages/ukgov/hmrc/jest.config.ts",
+                "passWithNoTests": true
+            },
+            "configurations": {
+                "ci": {
+                    "ci": true,
+                    "codeCoverage": true
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["packages/ukgov/hmrc/**/*.ts", "packages/ukgov/hmrc/**/*.html"]
+            }
+        }
+    },
+    "tags": []
+}

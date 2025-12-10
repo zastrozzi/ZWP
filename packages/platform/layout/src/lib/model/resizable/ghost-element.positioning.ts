@@ -1,0 +1,1 @@
+export type GhostElementPositioning = 'fixed' | 'absolute'

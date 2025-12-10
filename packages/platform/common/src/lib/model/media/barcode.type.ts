@@ -1,0 +1,73 @@
+import { makeTransformEnumPipeSignature } from '../transform-enum-pipe.signature'
+
+export enum BarcodeType {
+    codabar = "codabar",
+    code11 = "code_11",
+    code39 = "code_39",
+    code39Mod43 = "code_39_mod_43",
+    code93 = "code_93",
+    code128 = "code_128",
+    code128a = "code_128a",
+    code128b = "code_128b",
+    code128c = "code_128c",
+    ean8 = "ean_8",
+    ean13 = "ean_13",
+    gs1DataBar = "gs1_data_bar",
+    gs1DataBarExpanded = "gs1_databar_expanded",
+    gs1DataBarLimited = "gs1_databar_limited",
+    interleaved2of5 = "interleaved_2_5",
+    interleaved2of5Mod10 = "interleaved_2_5_mod_10",
+    itf14 = "itf_14",
+    msi = "msi",
+    rm4scc = "rm_4_scc",
+    upca = "upca",
+    upce = "upce",
+    uspsIntelligentMail = "usps_intelligent_mail",
+    uspsPostnet = "usps_postnet",
+    
+    // 2D Barcodes
+    aztec = "aztec",
+    dataMatrix = "data_matrix",
+    maxiCode = "maxi_code",
+    microPDF417 = "micro_pdf_417",
+    microQR = "micro_qr",
+    pdf417 = "pdf_417",
+    qr = "qr",
+}
+
+export enum BarcodeTypeLabel {
+    codabar = "Codabar",
+    code11 = "Code 11",
+    code39 = "Code 39",
+    code39Mod43 = "Code 39 Mod 43",
+    code93 = "Code 93",
+    code128 = "Code 128",
+    code128a = "Code 128A",
+    code128b = "Code 128B",
+    code128c = "Code 128C",
+    ean8 = "EAN 8",
+    ean13 = "EAN 13",
+    gs1DataBar = "GS1 DataBar",
+    gs1DataBarExpanded = "GS1 DataBar Expanded",
+    gs1DataBarLimited = "GS1 DataBar Limited",
+    interleaved2of5 = "Interleaved 2 of 5",
+    interleaved2of5Mod10 = "Interleaved 2 of 5 Mod 10",
+    itf14 = "ITF 14",
+    msi = "MSI",
+    rm4scc = "RM 4 SCC",
+    upca = "UPC-A",
+    upce = "UPC-E",
+    uspsIntelligentMail = "USPS Intelligent Mail",
+    uspsPostnet = "USPS Postnet",
+    
+    // 2D Barcodes
+    aztec = "Aztec",
+    dataMatrix = "Data Matrix",
+    maxiCode = "Maxi Code",
+    microPDF417 = "Micro PDF 417",
+    microQR = "Micro QR",
+    pdf417 = "PDF 417",
+    qr = "QR",
+}
+
+export const barcodeTypeLabelPipeSignature = makeTransformEnumPipeSignature(BarcodeType, BarcodeTypeLabel)

@@ -1,0 +1,30 @@
+export type HTTPMediaTypeKey = 
+    'any' |
+    'plainText' |
+    'html' |
+    'css' |
+    'urlEncodedForm' |
+    'formData' |
+    'multipartFormData' |
+    'json' |
+    'jsonAPI' |
+    'jsonSequence' |
+    'xml' |
+    'dtd' |
+    'pdf' |
+    'zip' |
+    'tar' |
+    'gzip' |
+    'bzip2' |
+    'binary' |
+    'gif' |
+    'jpeg' |
+    'png' |
+    'svg' |
+    'audio' |
+    'midi' |
+    'mp3' |
+    'wave' |
+    'ogg' |
+    'avi' |
+    'mpeg'
