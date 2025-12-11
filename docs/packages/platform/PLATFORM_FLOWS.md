@@ -3,7 +3,9 @@ id: platform.flows
 title: Core Platform - Flows
 sidebar_label: Flows
 ---
-# Platform Flows Documentation
+# Core Platform - Flows
+
+### [View on Github]({{ site.repo_root_url }}/packages/platform/flows)
 
 This document details the **platform.flows** library. This package manages and executes complex workflow logic within your application. It provides a complete set of tools including state management, API services, model definitions, and (when needed) UI components to capture and operate on flows, flow nodes, flow prompts, and flow containers.
 

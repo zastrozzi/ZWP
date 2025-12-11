@@ -3,7 +3,9 @@ id: platform.animations
 title: Core Platform - Animations
 sidebar_label: Animations
 ---
-# Platform Animations Documentation
+# Core Platform - Animations
+
+### [View on Github]({{ site.repo_root_url }}/packages/platform/animations)
 
 This document details the **platform.animations** library. The module provides a collection of reusable animation definitions (actions, entrances, and exits), directives to manage animation triggers, components to wrap animated content, and services to control animation behavior programmatically.
 

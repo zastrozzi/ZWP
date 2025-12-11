@@ -3,7 +3,9 @@ id: rewards-network.merchant-net
 title: Rewards Network - Merchant Management
 sidebar_label: Merchant Management
 ---
-# Zastrozzi Rewards Network Merchant Net Library Documentation
+# Rewards Network - Merchant Management
+
+### [View on Github]({{ site.repo_root_url }}/packages/rewards-network/merchant-net)
 
 This document details the **Zastrozzi Rewards Network Merchant Net Library**. This library is part of the Rewards Network module and provides functionality to manage merchants, their locations, assets, brands, categories, invoices, and more. It leverages NgRx state management, provides abstracted and live API service implementations, a comprehensive set of UI components, and centralized API routes, ensuring modularity and scalability in merchant data management.
 

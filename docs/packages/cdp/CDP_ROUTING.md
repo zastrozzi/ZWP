@@ -3,7 +3,9 @@ id: cdp.routing
 title: Customer Data Platform - Routing
 sidebar_label: Routing
 ---
-# Zastrozzi CDP Routing Library Documentation
+# Customer Data Platform - Routing
+
+### [View on Github]({{ site.repo_root_url }}/packages/cdp/routing)
 
 This document details the **Zastrozzi CDP Routing Library**. This library provides the routing configuration and navigation framework for the Zastrozzi CDP suite. It integrates tightly with Angular Router to manage authenticated layouts, navigation panels, guards, and interceptors. It also aggregates route definitions for various features including home, customers, partner network, HMRC, and more.
 
