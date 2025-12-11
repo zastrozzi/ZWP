@@ -1,64 +1,91 @@
-import { filterDictionary, isNil, isUndefined, ZWPDictionary, reduceDictionary, reduceRightDictionary, createNamespacedFeatureKey } from "@zwp/platform.common";
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { Model } from "../../model";
-import { Identifiers } from "../identifiers";
-import { Reducers } from "../reducers";
+import {
+    filterDictionary,
+    isNil,
+    isUndefined,
+    ZWPDictionary,
+    reduceDictionary,
+    reduceRightDictionary,
+    createNamespacedFeatureKey,
+} from '@zwp/platform.common'
+import { createFeatureSelector, createSelector } from '@ngrx/store'
+import { Model } from '../../model'
+import { Identifiers } from '../identifiers'
+import { Reducers } from '../reducers'
 
 const fileDataState = createFeatureSelector<Reducers.FileDataFeatureState>(
-    createNamespacedFeatureKey(
-        Identifiers.PLATFORM_FILES_ACTION_IDENTIFIER,
-        Identifiers.FILE_DATA_STATE_FEATURE_KEY
-    )
+    createNamespacedFeatureKey(Identifiers.PLATFORM_FILES_ACTION_IDENTIFIER, Identifiers.FILE_DATA_STATE_FEATURE_KEY)
 )
 
 const fileDataItemEntitySelectors = Reducers.fileDataItemEntityAdapter.getSelectors()
 
 const fileDataItemIds = createSelector(fileDataState, (state) => fileDataItemEntitySelectors.selectIds(state.items))
-const fileDataItemEntities = createSelector(fileDataState, (state) => fileDataItemEntitySelectors.selectEntities(state.items))
+const fileDataItemEntities = createSelector(fileDataState, (state) =>
+    fileDataItemEntitySelectors.selectEntities(state.items)
+)
 const allFileDataItems = createSelector(fileDataState, (state) => fileDataItemEntitySelectors.selectAll(state.items))
-const totalFileDataItems = createSelector(fileDataState, (state) => fileDataItemEntitySelectors.selectTotal(state.items))
+const totalFileDataItems = createSelector(fileDataState, (state) =>
+    fileDataItemEntitySelectors.selectTotal(state.items)
+)
 
 // const allDirEntities = createSelector(allEntities, (all) => all.filter(e => e.isDir === true))
 // const allNonDirEntities = createSelector(allEntities, (all) => all.filter(e => e.isDir === false))
 
-const directoryFileDataItemEntities = createSelector(fileDataItemEntities, dict => filterDictionary(dict, item => item?.isDir === true))
-const nonDirectoryFileDataItemEntities = createSelector(fileDataItemEntities, dict => filterDictionary(dict, item => item?.isDir === false))
+const directoryFileDataItemEntities = createSelector(fileDataItemEntities, (dict) =>
+    filterDictionary(dict, (item) => item?.isDir === true)
+)
+const nonDirectoryFileDataItemEntities = createSelector(fileDataItemEntities, (dict) =>
+    filterDictionary(dict, (item) => item?.isDir === false)
+)
 
-const fileDataItemChildIdsByParent = createSelector(
-    fileDataItemEntities,
-    dict => reduceDictionary(dict, (acc, curr) => {
-        if (!isUndefined(curr[1]) && !isUndefined(curr[1].parentFileDataItemId)) {
-            if (isNil(acc[curr[1].parentFileDataItemId])) {
-                acc[curr[1].parentFileDataItemId] = [curr[0]]
-            } else {
-                acc[curr[1].parentFileDataItemId] = [...acc[curr[1].parentFileDataItemId], curr[0]]
+const fileDataItemChildIdsByParent = createSelector(fileDataItemEntities, (dict) =>
+    reduceDictionary(
+        dict,
+        (acc, curr) => {
+            if (!isUndefined(curr[1]) && !isUndefined(curr[1].parentFileDataItemId)) {
+                if (isNil(acc[curr[1].parentFileDataItemId])) {
+                    acc[curr[1].parentFileDataItemId] = [curr[0]]
+                } else {
+                    acc[curr[1].parentFileDataItemId] = [...acc[curr[1].parentFileDataItemId], curr[0]]
+                }
             }
-        }
-        return acc
-    }, {} as ZWPDictionary<string[]>)
+            return acc
+        },
+        {} as ZWPDictionary<string[]>
+    )
 )
 
-const fileDataItemDescendantIdsByParent = createSelector(
-    fileDataItemChildIdsByParent,
-    dict => reduceRightDictionary(dict, (acc, curr) => {
-        acc[curr[0]] = [...new Set([
-            ...(acc[curr[0]] ?? []),
-            ...(curr[1] ?? []),
-            ...(curr[1] ?? []).map((c1) => [...(acc[c1] ?? []), ...(acc[c1]?.compactMap(ac1 => acc[ac1]).flat() ?? [])]).flat()
-        ])]
-        return acc
-    }, {} as ZWPDictionary<string[]>)
+const fileDataItemDescendantIdsByParent = createSelector(fileDataItemChildIdsByParent, (dict) =>
+    reduceRightDictionary(
+        dict,
+        (acc, curr) => {
+            acc[curr[0]] = [
+                ...new Set([
+                    ...(acc[curr[0]] ?? []),
+                    ...(curr[1] ?? []),
+                    ...(curr[1] ?? [])
+                        .map((c1) => [...(acc[c1] ?? []), ...(acc[c1]?.compactMap((ac1) => acc[ac1]).flat() ?? [])])
+                        .flat(),
+                ]),
+            ]
+            return acc
+        },
+        {} as ZWPDictionary<string[]>
+    )
 )
 
-const fileDataItemById = (id: string) => createSelector(fileDataItemEntities, dict => dict[id])
-const fileDataItemsByIds = (ids: string[]) => createSelector(fileDataItemEntities, dict => ids.compactMap(id => dict[id]))
-const fileDataItemsByParentId = (parentId: string) => createSelector(allFileDataItems, items => items.filter(e => e.parentFileDataItemId === parentId))
+const fileDataItemById = (id: string) => createSelector(fileDataItemEntities, (dict) => dict[id])
+const fileDataItemsByIds = (ids: string[]) =>
+    createSelector(fileDataItemEntities, (dict) => ids.compactMap((id) => dict[id]))
+const fileDataItemsByParentId = (parentId: string) =>
+    createSelector(allFileDataItems, (items) => items.filter((e) => e.parentFileDataItemId === parentId))
 
-const fileDataItemsByParentIds = (parentIds: string[]) => createSelector(allFileDataItems, items => parentIds.reduce((acc, k) => {
-    acc[k] = items.filter(e => e.parentFileDataItemId === k)
-    return acc
-}, {} as {[id: string]: Model.FileDataItem[]}))
-
+const fileDataItemsByParentIds = (parentIds: string[]) =>
+    createSelector(allFileDataItems, (items) =>
+        parentIds.reduce((acc, k) => {
+            acc[k] = items.filter((e) => e.parentFileDataItemId === k)
+            return acc
+        }, {} as { [id: string]: Model.FileDataItem[] })
+    )
 
 export const FileDataSelectors = {
     fileDataItemIds,
@@ -72,5 +99,5 @@ export const FileDataSelectors = {
     fileDataItemById,
     fileDataItemsByIds,
     fileDataItemsByParentId,
-    fileDataItemsByParentIds
+    fileDataItemsByParentIds,
 }

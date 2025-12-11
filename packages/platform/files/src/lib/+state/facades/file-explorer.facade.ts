@@ -1,14 +1,14 @@
-import { inject, Injectable } from "@angular/core";
-import { isNil, isNull, ZWPDebuggableInjectable, ZWPRouterFacade, Nullable } from "@zwp/platform.common";
-import { ZWPDummyDataService } from "@zwp/platform.dummy-data";
-import { select, Store } from "@ngrx/store";
-import { BehaviorSubject } from "rxjs";
-import { v4 } from "uuid";
-import { Model } from "../../model";
-import { FileDataActions } from "../actions";
-import { FileExplorerActions } from "../actions/file-explorer.actions";
-import { Selectors } from "../selectors";
-import { CdkDragDrop, CdkDropList } from "@angular/cdk/drag-drop";
+import { inject, Injectable } from '@angular/core'
+import { isNil, isNull, ZWPDebuggableInjectable, ZWPRouterFacade, Nullable } from '@zwp/platform.common'
+import { ZWPDummyDataService } from '@zwp/platform.dummy-data'
+import { select, Store } from '@ngrx/store'
+import { BehaviorSubject } from 'rxjs'
+import { v4 } from 'uuid'
+import { Model } from '../../model'
+import { FileDataActions } from '../actions'
+import { FileExplorerActions } from '../actions/file-explorer.actions'
+import { Selectors } from '../selectors'
+import { CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop'
 
 @Injectable()
 @ZWPDebuggableInjectable({ serviceName: 'ZWPFileExplorerFacade', options: { skipMethodDebugger: true } })
@@ -38,24 +38,43 @@ export class ZWPFileExplorerFacade {
 
     fileExplorerPreviewTouch$ = new BehaviorSubject<boolean>(false)
 
-    explorerItemIsSelected$ = (id: string) => this.store.pipe(select(Selectors.FileExplorerSelectors.explorerItemIsSelected(id)))
+    explorerItemIsSelected$ = (id: string) =>
+        this.store.pipe(select(Selectors.FileExplorerSelectors.explorerItemIsSelected(id)))
 
-    selectFileExplorerItem(id: string) { this.store.dispatch(FileExplorerActions.selectFileExplorerItem({ id })) }
-    selectFileExplorerItems(ids: string[]) { this.store.dispatch(FileExplorerActions.selectFileExplorerItems({ ids })) }
-    deselectAllFileExplorerItems() { this.store.dispatch(FileExplorerActions.deselectAllFileExplorerItems()) }
-    addFileExplorerItemToSelection(id: string) { this.store.dispatch(FileExplorerActions.addFileExplorerItemToSelection({ id })) }
-    removeFileExplorerItemFromSelection(id: string) { this.store.dispatch(FileExplorerActions.removeFileExplorerItemFromSelection({ id })) }
-    addFileExplorerItemsToSelection(ids: string[]) { this.store.dispatch(FileExplorerActions.addFileExplorerItemsToSelection({ ids })) }
-    removeFileExplorerItemsFromSelection(ids: string[]) { this.store.dispatch(FileExplorerActions.removeFileExplorerItemsFromSelection({ ids })) }
-    handleFileExplorerItemSelection(id: string) { this.store.dispatch(FileExplorerActions.handleFileExplorerItemSelection({ id })) }
+    selectFileExplorerItem(id: string) {
+        this.store.dispatch(FileExplorerActions.selectFileExplorerItem({ id }))
+    }
+    selectFileExplorerItems(ids: string[]) {
+        this.store.dispatch(FileExplorerActions.selectFileExplorerItems({ ids }))
+    }
+    deselectAllFileExplorerItems() {
+        this.store.dispatch(FileExplorerActions.deselectAllFileExplorerItems())
+    }
+    addFileExplorerItemToSelection(id: string) {
+        this.store.dispatch(FileExplorerActions.addFileExplorerItemToSelection({ id }))
+    }
+    removeFileExplorerItemFromSelection(id: string) {
+        this.store.dispatch(FileExplorerActions.removeFileExplorerItemFromSelection({ id }))
+    }
+    addFileExplorerItemsToSelection(ids: string[]) {
+        this.store.dispatch(FileExplorerActions.addFileExplorerItemsToSelection({ ids }))
+    }
+    removeFileExplorerItemsFromSelection(ids: string[]) {
+        this.store.dispatch(FileExplorerActions.removeFileExplorerItemsFromSelection({ ids }))
+    }
+    handleFileExplorerItemSelection(id: string) {
+        this.store.dispatch(FileExplorerActions.handleFileExplorerItemSelection({ id }))
+    }
 
-    updateFileExplorerItemParent(id: string, previousParentId: Nullable<string>, parentId: Nullable<string>) { this.store.dispatch(FileDataActions.updateParent({ itemId: id, previousParentId, parentId }))}
+    updateFileExplorerItemParent(id: string, previousParentId: Nullable<string>, parentId: Nullable<string>) {
+        this.store.dispatch(FileDataActions.updateParent({ itemId: id, previousParentId, parentId }))
+    }
 
-    selectCurrentDirectory(id: Nullable<string>) { this.store.dispatch(FileExplorerActions.selectCurrentDirectory({ id })) }
+    selectCurrentDirectory(id: Nullable<string>) {
+        this.store.dispatch(FileExplorerActions.selectCurrentDirectory({ id }))
+    }
 
-    
-    
-    navigateDirectory(id: Nullable<string>) { 
+    navigateDirectory(id: Nullable<string>) {
         if (isNull(id)) {
             this.routerFacade.navigate(['/file-browser', 'root'])
         } else {
@@ -63,8 +82,12 @@ export class ZWPFileExplorerFacade {
         }
     }
 
-    selectViewMode(mode: Model.FileExplorerViewMode) { this.store.dispatch(FileExplorerActions.selectViewMode({ mode }))}
-    selectGroupingViewMode(mode: Model.FileExplorerGroupingViewMode) { this.store.dispatch(FileExplorerActions.selectGroupingViewMode({ mode }))}
+    selectViewMode(mode: Model.FileExplorerViewMode) {
+        this.store.dispatch(FileExplorerActions.selectViewMode({ mode }))
+    }
+    selectGroupingViewMode(mode: Model.FileExplorerGroupingViewMode) {
+        this.store.dispatch(FileExplorerActions.selectGroupingViewMode({ mode }))
+    }
 
     deleteFileExplorerItem(id: string) {
         this.store.dispatch(FileDataActions.remove({ id }))
@@ -75,7 +98,7 @@ export class ZWPFileExplorerFacade {
             id: v4(),
             name: this.dummyDataService.randomName(),
             isDir: isDir,
-            parentFileDataItemId: directoryId
+            parentFileDataItemId: directoryId,
         }
         this.store.dispatch(FileDataActions.create({ item: randomFileDataItem }))
     }
@@ -107,32 +130,50 @@ export class ZWPFileExplorerFacade {
     createRandomFileData(isDir: boolean) {
         const randomFileDataItem: Model.FileDataItem = {
             id: v4(),
-            
+
             name: this.dummyDataService.randomName(),
-            isDir: isDir
+            isDir: isDir,
         }
         this.store.dispatch(FileDataActions.create({ item: randomFileDataItem }))
     }
 
     handleDragDropped(event: CdkDragDrop<any>, drops: CdkDropList[]) {
-        let dropPointData: any 
-        drops.forEach(container => container?.getSortedItems().forEach((item: any) => {
-            const boundingRect = item.element.nativeElement.getBoundingClientRect()
-            if ((boundingRect.x < event.dropPoint.x) && ((boundingRect.x + boundingRect.width) > event.dropPoint.x) && (boundingRect.y < event.dropPoint.y) && ((boundingRect.y + boundingRect.height) > event.dropPoint.y) && item.data.id !== event.item.data.id) {
-                dropPointData = item.data
-            }
-        }))
+        let dropPointData: any
+        drops.forEach((container) =>
+            container?.getSortedItems().forEach((item: any) => {
+                const boundingRect = item.element.nativeElement.getBoundingClientRect()
+                if (
+                    boundingRect.x < event.dropPoint.x &&
+                    boundingRect.x + boundingRect.width > event.dropPoint.x &&
+                    boundingRect.y < event.dropPoint.y &&
+                    boundingRect.y + boundingRect.height > event.dropPoint.y &&
+                    item.data.id !== event.item.data.id
+                ) {
+                    dropPointData = item.data
+                }
+            })
+        )
 
-        if (!isNil(dropPointData) && !isNil(dropPointData.id) && !isNil(event.item.data.id) && dropPointData.id !== event.item.data.id && dropPointData.isDir) {
-            this.store.dispatch(FileExplorerActions.handleFileExplorerItemDragDropped({ dropId: dropPointData.id}))
+        if (
+            !isNil(dropPointData) &&
+            !isNil(dropPointData.id) &&
+            !isNil(event.item.data.id) &&
+            dropPointData.id !== event.item.data.id &&
+            dropPointData.isDir
+        ) {
+            this.store.dispatch(FileExplorerActions.handleFileExplorerItemDragDropped({ dropId: dropPointData.id }))
             // this.updateFileExplorerItemParent(event.item.data.id, null, dropPointData.id)
         }
     }
 
-    handleDragStart(event: MouseEvent | TouchEvent, id: string, isDir: boolean, name: string) { 
+    handleDragStart(event: MouseEvent | TouchEvent, id: string, isDir: boolean, name: string) {
         event.preventDefault()
         event.stopPropagation()
-        if (event.type === 'touchmove') { this.fileExplorerPreviewTouch$.next(true) } else { this.fileExplorerPreviewTouch$.next(false) }
+        if (event.type === 'touchmove') {
+            this.fileExplorerPreviewTouch$.next(true)
+        } else {
+            this.fileExplorerPreviewTouch$.next(false)
+        }
         this.store.dispatch(FileExplorerActions.handleFileExplorerItemDragStart({ id, isDir, name }))
     }
 }

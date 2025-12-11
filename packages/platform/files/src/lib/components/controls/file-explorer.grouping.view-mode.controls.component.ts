@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject, Input } from "@angular/core";
-import { Facades } from "../../+state/facades";
-import { Model } from "../../model";
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core'
+import { Facades } from '../../+state/facades'
+import { Model } from '../../model'
 
 @Component({
     selector: 'zwp-file-explorer-grouping-view-mode-controls',
@@ -8,27 +8,37 @@ import { Model } from "../../model";
     template: `
         <div fxLayout="column">
             <div *ngIf="title !== ''" fxLayout="row">
-                <span [zwpTextStyle]="'caption1'" [style.color]="'secondary-label' | zwpColorTheme">{{ title | uppercase }}</span>
+                <span [zwpTextStyle]="'caption1'" [style.color]="'secondary-label' | zwpColorTheme">{{
+                    title | uppercase
+                }}</span>
             </div>
         </div>
         <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="5px">
-            <zwp-md-icon-button 
-                (btnClick)="selectGroupingViewModeCombined()" 
+            <zwp-md-icon-button
+                (btnClick)="selectGroupingViewModeCombined()"
                 textStyle="headline"
-                icon="list_alt" 
-                [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme" 
+                icon="list_alt"
+                [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme"
                 [iconPadding]="5"
-                [iconColor]="(groupingViewMode$ | async) === combined ? (buttonSelectedColorTheme | zwpColorTheme) : (buttonUnselectedColorTheme | zwpColorTheme)"
+                [iconColor]="
+                    (groupingViewMode$ | async) === combined
+                        ? (buttonSelectedColorTheme | zwpColorTheme)
+                        : (buttonUnselectedColorTheme | zwpColorTheme)
+                "
                 matTooltip="Files & Folders Combined"
             ></zwp-md-icon-button>
             <zwp-divider [vertical]="true" zwpPadding="5 0 5 0"></zwp-divider>
-            <zwp-md-icon-button 
-                (btnClick)="selectGroupingViewModeItemType()" 
+            <zwp-md-icon-button
+                (btnClick)="selectGroupingViewModeItemType()"
                 textStyle="headline"
-                icon="all_inbox" 
-                [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme" 
+                icon="all_inbox"
+                [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme"
                 [iconPadding]="5"
-                [iconColor]="(groupingViewMode$ | async) === itemType ? (buttonSelectedColorTheme | zwpColorTheme) : (buttonUnselectedColorTheme | zwpColorTheme)"
+                [iconColor]="
+                    (groupingViewMode$ | async) === itemType
+                        ? (buttonSelectedColorTheme | zwpColorTheme)
+                        : (buttonUnselectedColorTheme | zwpColorTheme)
+                "
                 matTooltip="Files & Folders Separated"
             ></zwp-md-icon-button>
             <!-- <zwp-divider [vertical]="true" zwpPadding="5 0 5 0"></zwp-divider>
@@ -42,14 +52,14 @@ import { Model } from "../../model";
                 matTooltip="Files & Folders Separated by Type"
             ></zwp-md-icon-button> -->
         </div>
-    `
+    `,
 })
 export class FileExplorerGroupingViewModeControlsComponent {
-    @Input() buttonBackgroundColorTheme = "clear"
-    @Input() buttonSelectedColorTheme = "primary"
-    @Input() buttonUnselectedColorTheme = "tertiary-label"
+    @Input() buttonBackgroundColorTheme = 'clear'
+    @Input() buttonSelectedColorTheme = 'primary'
+    @Input() buttonUnselectedColorTheme = 'tertiary-label'
 
-    @Input() title = ""
+    @Input() title = ''
 
     private fileExplorerFacade = inject(Facades.ZWPFileExplorerFacade)
 
@@ -59,7 +69,13 @@ export class FileExplorerGroupingViewModeControlsComponent {
 
     groupingViewMode$ = this.fileExplorerFacade.groupingViewMode$
 
-    selectGroupingViewModeCombined() { this.fileExplorerFacade.selectGroupingViewMode(this.combined) }
-    selectGroupingViewModeItemType() { this.fileExplorerFacade.selectGroupingViewMode(this.itemType) }
-    selectGroupingViewModeFileType() { this.fileExplorerFacade.selectGroupingViewMode(this.fileType) }
+    selectGroupingViewModeCombined() {
+        this.fileExplorerFacade.selectGroupingViewMode(this.combined)
+    }
+    selectGroupingViewModeItemType() {
+        this.fileExplorerFacade.selectGroupingViewMode(this.itemType)
+    }
+    selectGroupingViewModeFileType() {
+        this.fileExplorerFacade.selectGroupingViewMode(this.fileType)
+    }
 }

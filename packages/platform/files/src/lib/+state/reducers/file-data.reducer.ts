@@ -10,38 +10,38 @@ export interface FileDataFeatureState {
 export const fileDataItemEntityAdapter: EntityAdapter<Model.FileDataItem> = createEntityAdapter<Model.FileDataItem>()
 
 const initialFileDataFeatureState: FileDataFeatureState = {
-    items: fileDataItemEntityAdapter.getInitialState()
+    items: fileDataItemEntityAdapter.getInitialState(),
 }
 
 export const fileDataReducer = createReducer(
     initialFileDataFeatureState,
     on(FileDataActions.create, (state, { item }) => ({
         ...state,
-        items: fileDataItemEntityAdapter.setOne(item, state.items)
+        items: fileDataItemEntityAdapter.setOne(item, state.items),
     })),
     on(FileDataActions.createMany, (state, { items }) => ({
         ...state,
-        items: fileDataItemEntityAdapter.setMany(items, state.items)
+        items: fileDataItemEntityAdapter.setMany(items, state.items),
     })),
     on(FileDataActions.remove, (state, { id }) => ({
         ...state,
-        items: fileDataItemEntityAdapter.removeOne(id, state.items)
+        items: fileDataItemEntityAdapter.removeOne(id, state.items),
     })),
     on(FileDataActions.updateParent, (state, { itemId, parentId }) => ({
         ...state,
         items: fileDataItemEntityAdapter.updateOne(
-            {id: itemId, changes: { parentFileDataItemId: parentId ?? undefined }}, 
+            { id: itemId, changes: { parentFileDataItemId: parentId ?? undefined } },
             state.items
-        )
+        ),
     })),
     on(FileDataActions.updateParents, (state, { updates }) => ({
         ...state,
         items: fileDataItemEntityAdapter.updateMany(
             updates.map((update) => ({
-                id: update.itemId, 
-                changes: { parentFileDataItemId: update.parentId ?? undefined }
-            })), 
+                id: update.itemId,
+                changes: { parentFileDataItemId: update.parentId ?? undefined },
+            })),
             state.items
-        )
+        ),
     }))
 )

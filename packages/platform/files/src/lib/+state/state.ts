@@ -13,12 +13,18 @@ export * from './identifiers'
 
 export const environmentProviders: EnvironmentProviders[] = [
     provideState(
-        createNamespacedFeatureKey(Identifiers.PLATFORM_FILES_ACTION_IDENTIFIER, Identifiers.FILE_EXPLORER_STATE_FEATURE_KEY),
+        createNamespacedFeatureKey(
+            Identifiers.PLATFORM_FILES_ACTION_IDENTIFIER,
+            Identifiers.FILE_EXPLORER_STATE_FEATURE_KEY
+        ),
         Reducers.fileExplorerReducer
     ),
     provideState(
-        createNamespacedFeatureKey(Identifiers.PLATFORM_FILES_ACTION_IDENTIFIER, Identifiers.FILE_DATA_STATE_FEATURE_KEY),
+        createNamespacedFeatureKey(
+            Identifiers.PLATFORM_FILES_ACTION_IDENTIFIER,
+            Identifiers.FILE_DATA_STATE_FEATURE_KEY
+        ),
         Reducers.fileDataReducer
     ),
-    ...Effects.environmentProviders
+    ...Effects.environmentProviders,
 ]
