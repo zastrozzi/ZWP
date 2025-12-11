@@ -41,7 +41,7 @@ This library is intended for integration with other modules in our project, ensu
 
 ## Directory Structure
 
-A high-level overview of the CDP Common library layout (located in `/packages/cdp/common`):
+A high-level overview of the CDP Common library layout (located in [`/packages/cdp/common`]({{ site.repo_root_url }}/packages/cdp/common)):
 
 - **Root Files:**  
   - `.eslintrc.json`, `jest.config.ts`, `ng-package.json`, `package.json`, `project.json`
