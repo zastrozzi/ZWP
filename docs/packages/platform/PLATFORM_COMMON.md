@@ -5,7 +5,7 @@ sidebar_label: Common Utilities
 ---
 # Core Platform - Common Utilities
 
-[**View on Github**]({{ site.repo_root_url }}/packages/platform/common)
+[**View on GitHub**]({{ site.repo_root_url }}/packages/platform/common)
 
 This document describes the **platform.common** library. This package provides shared functionality across the application. It includes state management (actions, reducers, selectors, facades), reusable UI components, utility functions, and common models used by other projects.
 

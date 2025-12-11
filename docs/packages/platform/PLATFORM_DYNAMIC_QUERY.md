@@ -5,7 +5,7 @@ sidebar_label: Dynamic Query
 ---
 # Core Platform - Dynamic Query
 
-[**View on Github**]({{ site.repo_root_url }}/packages/platform/dynamic-query)
+[**View on GitHub**]({{ site.repo_root_url }}/packages/platform/dynamic-query)
 
 This document details the **platform.dynamic-query** library. This package provides tools for building dynamic queries against structured data. It combines state management, API route definitions, configurable services, and a set of reusable components for rendering query results and query configuration UIs.
 

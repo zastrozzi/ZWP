@@ -5,7 +5,7 @@ sidebar_label: Analytics
 ---
 # Core Platform - Analytics
 
-[**View on Github**]({{ site.repo_root_url }}/packages/platform/analytics)
+[**View on GitHub**]({{ site.repo_root_url }}/packages/platform/analytics)
 
 This document details the **platform.analytics** library. The module is built using Angular and Nx tooling, and it supports Google Analytics integration along with additional tracking functionalities for your application.
 

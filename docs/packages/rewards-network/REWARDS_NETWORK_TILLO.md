@@ -5,7 +5,7 @@ sidebar_label: Tillo
 ---
 # Rewards Network - Tillo
 
-[**View on Github**]({{ site.repo_root_url }}/packages/rewards-network/tillo)
+[**View on GitHub**]({{ site.repo_root_url }}/packages/rewards-network/tillo)
 
 This document details the **Zastrozzi Rewards Network Tillo Library**. This library is part of the Rewards Network module and provides functionality to manage digital codes, floats, brands, and related financial operations. It leverages NgRx state management, live and mock API service implementations, a comprehensive set of UI components, and centralized API routes, ensuring modularity and scalability in digital code and float management.
 
