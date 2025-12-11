@@ -44,7 +44,7 @@ The **FSN‑Tink Library** provides robust functionality for financial instituti
 
 ## Directory Structure
 
-A high-level overview of the FSN‑Tink library layout (located in `/packages/fsn/tink`({{ site.repo_root_url }}/packages/fsn/tink)):
+A high-level overview of the FSN‑Tink library layout (located in [`/packages/fsn/tink`]({{ site.repo_root_url }}/packages/fsn/tink)):
 
 ```
 .eslintrc.json
