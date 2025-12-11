@@ -57,19 +57,19 @@ A high-level overview of the auth package structure:
     - **+state/**  
       - **identifiers.ts:** Defines the namespaced identifiers.
       - **actions/**
-        - Contains definitions in [user-auth.actions.ts](packages/platform/auth/src/lib/+state/actions/user-auth.actions.ts) for setting and removing tokens, managing the local device identifier, and rehydrating state.
+        - Contains definitions in [user-auth.actions.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/actions/user-auth.actions.ts) for setting and removing tokens, managing the local device identifier, and rehydrating state.
       - **effects/**
-        - Houses side effect handling in [user-auth.effects.ts](packages/platform/auth/src/lib/+state/effects/user-auth.effects.ts) to process actions and trigger API calls.
+        - Houses side effect handling in [user-auth.effects.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/effects/user-auth.effects.ts) to process actions and trigger API calls.
       - **facades/**
-        - [UserAuthFacade](packages/platform/auth/src/lib/+state/facades/user-auth.facade.ts) abstracts NgRx interactions by dispatching actions and providing helper methods to retrieve authentication data.
+        - [UserAuthFacade]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/facades/user-auth.facade.ts) abstracts NgRx interactions by dispatching actions and providing helper methods to retrieve authentication data.
       - **reducers/**
-        - [user-auth.reducer.ts](packages/platform/auth/src/lib/+state/reducers/user-auth.reducer.ts) manages state changes for tokens and device identifiers.
+        - [user-auth.reducer.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/reducers/user-auth.reducer.ts) manages state changes for tokens and device identifiers.
       - **selectors/**
-        - Exports multiple selectors (e.g. [user-auth.selectors.ts](packages/platform/auth/src/lib/+state/selectors/user-auth.selectors.ts)) to access parts of the auth state.
+        - Exports multiple selectors (e.g. [user-auth.selectors.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/selectors/user-auth.selectors.ts)) to access parts of the auth state.
     - **model/**
-      - Defines authentication-related models and type definitions (e.g. [access-token.accessor.ts](packages/platform/auth/src/lib/+state/model/access-token.accessor.ts), [authed-user.response.ts](packages/platform/auth/src/lib/+state/model/authed-user.response.ts)).
+      - Defines authentication-related models and type definitions (e.g. [access-token.accessor.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/model/access-token.accessor.ts), [authed-user.response.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/model/authed-user.response.ts)).
     - **services/**
-      - Provides services such as [AuthedAPIService](packages/platform/auth/src/lib/services/authed.api.service.ts) that encapsulate HTTP logic for authenticated API calls.
+      - Provides services such as [AuthedAPIService]({{ site.repo_root_url }}/packages/platform/auth/src/lib/services/authed.api.service.ts) that encapsulate HTTP logic for authenticated API calls.
 
 ---
 
@@ -81,7 +81,7 @@ A high-level overview of the auth package structure:
 - **Setup:**  
   The module imports common Angular modules and the [ZWPCommonModule](#) from the common package, and sets up the auth features with persistence (via static methods `mock()` and `live()`).
 - **Configuration:**  
-  Uses helper functions such as `createNamespacedFeatureKey` (see [zwp.auth.module.ts](packages/platform/auth/src/lib/zwp.auth.module.ts)) to properly namespace auth state.
+  Uses helper functions such as `createNamespacedFeatureKey` (see [zwp.auth.module.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/zwp.auth.module.ts)) to properly namespace auth state.
 
 ---
 
@@ -90,7 +90,7 @@ A high-level overview of the auth package structure:
 The auth state is managed using NgRx. The following sections detail the key parts:
 
 ### Actions
-- **File:** [user-auth.actions.ts](packages/platform/auth/src/lib/+state/actions/user-auth.actions.ts)
+- **File:** [user-auth.actions.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/actions/user-auth.actions.ts)
 - **Purpose:**  
   Define actions to set and remove access tokens, refresh tokens, manage the local device identifier, and rehydrate the auth state.
 - **Examples:**
@@ -102,7 +102,7 @@ The auth state is managed using NgRx. The following sections detail the key part
   Uses `createAction` combined with `createActionType` from the common package to produce namespaced action types.
 
 ### Reducers
-- **File:** [user-auth.reducer.ts](packages/platform/auth/src/lib/+state/reducers/user-auth.reducer.ts)
+- **File:** [user-auth.reducer.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/reducers/user-auth.reducer.ts)
 - **Purpose:**  
   Handle state transitions based on dispatched actions. Updates include:
   - Setting and clearing tokens.
@@ -112,7 +112,7 @@ The auth state is managed using NgRx. The following sections detail the key part
   Combines multiple state transitions with NgRx's `on` operator.
 
 ### Effects
-- **File:** [user-auth.effects.ts](packages/platform/auth/src/lib/+state/effects/user-auth.effects.ts)
+- **File:** [user-auth.effects.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/effects/user-auth.effects.ts)
 - **Purpose:**  
   Listen for dispatched actions and execute side effects such as calling APIs or triggering persistence actions.
 - **Key Points:**  
@@ -121,7 +121,7 @@ The auth state is managed using NgRx. The following sections detail the key part
   - Often involves delays and distinct filter operators to aggregate or delay actions for improved UX.
 
 ### Selectors
-- **File:** [user-auth.selectors.ts](packages/platform/auth/src/lib/+state/selectors/user-auth.selectors.ts)
+- **File:** [user-auth.selectors.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/selectors/user-auth.selectors.ts)
 - **Purpose:**  
   Provide a convenient way to access specific parts of the auth state.
 - **Examples:**
@@ -134,7 +134,7 @@ The auth state is managed using NgRx. The following sections detail the key part
 ## Facades
 
 ### UserAuthFacade
-- **File:** [user-auth.facade.ts](packages/platform/auth/src/lib/+state/facades/user-auth.facade.ts)
+- **File:** [user-auth.facade.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/facades/user-auth.facade.ts)
 - **Purpose:**  
   Simplify interactions with the auth state by abstracting the complexity of dispatching actions and reading state.
 - **Features:**  
@@ -152,7 +152,7 @@ The auth state is managed using NgRx. The following sections detail the key part
 - **Purpose:**  
   Define types and interfaces for authentication-related data.
 - **Contents:**  
-  - Token accessors and payload definitions (e.g. [access-token.accessor.ts](packages/platform/auth/src/lib/+state/model/access-token.accessor.ts) and [access-token.payload.ts](packages/platform/auth/src/lib/+state/model/access-token.payload.ts)).
+  - Token accessors and payload definitions (e.g. [access-token.accessor.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/model/access-token.accessor.ts) and [access-token.payload.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/model/access-token.payload.ts)).
   - Models for the authenticated user response.
   - Enumerations and interfaces that ensure type safety when managing auth data.
 
@@ -161,7 +161,7 @@ The auth state is managed using NgRx. The following sections detail the key part
 ## Services
 
 ### AuthedAPIService
-- **File:** [authed.api.service.ts](packages/platform/auth/src/lib/services/authed.api.service.ts)
+- **File:** [authed.api.service.ts]({{ site.repo_root_url }}/packages/platform/auth/src/lib/services/authed.api.service.ts)
 - **Purpose:**  
   Encapsulates logic for making HTTP requests that require authentication.
 - **Features:**  
@@ -179,9 +179,9 @@ The auth state is managed using NgRx. The following sections detail the key part
   The package includes `.eslintrc.json`, `jest.config.ts`, and various `tsconfig` files to ensure consistency in style and type checking.
 - **Testing:**  
   - Unit tests are configured using Jest.  
-  - The [test-setup.ts](packages/platform/auth/src/test-setup.ts) file sets up the testing environment.
+  - The [test-setup.ts]({{ site.repo_root_url }}/packages/platform/auth/src/test-setup.ts) file sets up the testing environment.
 - **Nx Integration:**  
-  The [project.json](packages/platform/auth/project.json) defines targets for building (`nx build platform.auth`), testing (`nx test platform.auth`), and linting (`nx lint platform.auth`).
+  The [project.json]({{ site.repo_root_url }}/packages/platform/auth/project.json) defines targets for building (`nx build platform.auth`), testing (`nx test platform.auth`), and linting (`nx lint platform.auth`).
 
 ---
 
@@ -211,7 +211,7 @@ The auth state is managed using NgRx. The following sections detail the key part
     ```
 
 4. **Dispatching Actions and Using the Facade:**
-    The [UserAuthFacade](packages/platform/auth/src/lib/+state/facades/user-auth.facade.ts) can be injected into any Angular service or component to manage authentication state. For example:
+    The [UserAuthFacade]({{ site.repo_root_url }}/packages/platform/auth/src/lib/+state/facades/user-auth.facade.ts) can be injected into any Angular service or component to manage authentication state. For example:
     ```typescript
     constructor(private authFacade: UserAuthFacade) {}
 

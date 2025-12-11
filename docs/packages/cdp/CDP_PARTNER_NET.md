@@ -48,7 +48,7 @@ The **cdp.partner‑net** library provides partner‑related features including 
 
 ## Directory Structure
 
-A high-level directory structure for the library (located in `/packages/cdp/partner-net`) is as follows:
+A high-level directory structure for the library (located in [`/packages/cdp/partner-net`]({{ site.repo_root_url }}/packages/cdp/partner-net)) is as follows:
 
 ```
 .eslintrc.json
@@ -120,7 +120,7 @@ src/
 ### Identifiers & State Assembly
 
 **Identifiers:**  
-Defined in [identifiers.ts](packages/cdp/partner-net/src/lib/+state/identifiers.ts), these include:
+Defined in [identifiers.ts]({{ site.repo_root_url }}/packages/cdp/partner-net/src/lib/+state/identifiers.ts), these include:
 - `CDP_COMMON_ACTION_IDENTIFIER` (often used as a prefix)
 - `PARTNER_STATE_FEATURE_KEY`
 - `PARTNER_TYPE_STATE_FEATURE_KEY`
@@ -506,11 +506,11 @@ The library provides UI components grouped by domain:
 
 - **Partner Components:**  
   - `PartnerPaginatedListComponent`:  
-    Renders a paginated table displaying partner data. It supports filtering (using a filter chip component), sorting, and pagination. Buttons in each row trigger events like navigation (open partner details), inspector view, and clipboard actions. See [partner.paginated-list.component.ts](packages/cdp/partner-net/src/lib/components/partner/partner.paginated-list.component.ts) for details.
+    Renders a paginated table displaying partner data. It supports filtering (using a filter chip component), sorting, and pagination. Buttons in each row trigger events like navigation (open partner details), inspector view, and clipboard actions. See [partner.paginated-list.component.ts]({{ site.repo_root_url }}/packages/cdp/partner-net/src/lib/components/partner/partner.paginated-list.component.ts) for details.
 - **Asset & Subgroup Components:**  
   Exported via folders such as `asset` and `subgroup` (see the index file in `/components`). These components integrate with their respective facades.
 - **Reusable Components:**  
-  Other internal components are exported in the INTERNAL_COMPONENTS object (see [components/index.ts](packages/cdp/partner-net/src/lib/components/index.ts)), which aggregates asset, partner, and subgroup components.
+  Other internal components are exported in the INTERNAL_COMPONENTS object (see [components/index.ts]({{ site.repo_root_url }}/packages/cdp/partner-net/src/lib/components/index.ts)), which aggregates asset, partner, and subgroup components.
 
 ---
 

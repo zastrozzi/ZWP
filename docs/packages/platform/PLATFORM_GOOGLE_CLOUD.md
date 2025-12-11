@@ -58,7 +58,7 @@ A high-level overview of the package layout:
 - **Root Files:**  
   - Configuration files: `.eslintrc.json`, `jest.config.ts`, `ng-package.json`, `package.json`, `project.json`
   - TypeScript configuration: `tsconfig.json`, `tsconfig.lib.json`, `tsconfig.lib.prod.json`, `tsconfig.spec.json`
-  - [README.md](packages/platform/google-cloud/README.md)
+  - [README.md]({{ site.repo_root_url }}/packages/platform/google-cloud/README.md)
 
 - **src/**  
   - `index.ts` – Main entry point re-exporting module features.
@@ -86,7 +86,7 @@ A high-level overview of the package layout:
     - **components/**  
       Contains reusable UI components such as file upload panels and paginated storage bucket lists.
     - **config/**  
-      Configuration files and injection tokens (see [google-cloud.api-config.ts](packages/platform/google-cloud/src/lib/config/google-cloud.api-config.ts)).
+      Configuration files and injection tokens (see [google-cloud.api-config.ts]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/config/google-cloud.api-config.ts)).
     - **model/**  
       Aggregates models, enums, filters, requests, and responses related to Google Cloud (e.g. file-upload models, storage bucket responses, etc.).
     - **routes/**  
@@ -102,9 +102,9 @@ A high-level overview of the package layout:
 - **Purpose:**  
   The central Angular module for Google Cloud integration. It ties together state management, service providers, and UI components.
 - **Setup:**  
-  In [platform.google-cloud.module.ts](packages/platform/google-cloud/src/lib/platform.google-cloud.module.ts), common modules are imported and state features are provided using helper methods (e.g. `createNamespacedFeatureKey`).
+  In [platform.google-cloud.module.ts]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/platform.google-cloud.module.ts), common modules are imported and state features are provided using helper methods (e.g. `createNamespacedFeatureKey`).
 - **Configuration:**  
-  Static methods such as `forRoot(apiConfig: GoogleCloudAPIConfig)` configure providers. The module sets up API configuration tokens using [google-cloud.api-config.ts](packages/platform/google-cloud/src/lib/config/google-cloud.api-config.ts).
+  Static methods such as `forRoot(apiConfig: GoogleCloudAPIConfig)` configure providers. The module sets up API configuration tokens using [google-cloud.api-config.ts]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/config/google-cloud.api-config.ts).
 
 ---
 
@@ -114,9 +114,9 @@ The package leverages NgRx for predictable state handling across its domains.
 
 ### Identifiers & State Assembly
 - **Identifiers:**  
-  Defined in [identifiers.ts](packages/platform/google-cloud/src/lib/+state/identifiers.ts), these keys ensure consistency across actions and reducers (e.g. `FILE_UPLOAD_STATE_FEATURE_KEY`, `STORAGE_BUCKET_STATE_FEATURE_KEY`, and `STORAGE_OBJECT_STATE_FEATURE_KEY`).
+  Defined in [identifiers.ts]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/+state/identifiers.ts), these keys ensure consistency across actions and reducers (e.g. `FILE_UPLOAD_STATE_FEATURE_KEY`, `STORAGE_BUCKET_STATE_FEATURE_KEY`, and `STORAGE_OBJECT_STATE_FEATURE_KEY`).
 - **State Assembly:**  
-  The state is composed in individual reducer files (e.g. [storage-bucket.reducer.ts](packages/platform/google-cloud/src/lib/+state/reducers/storage-bucket.reducer.ts)) and aggregated via an index for easy consumption.
+  The state is composed in individual reducer files (e.g. [storage-bucket.reducer.ts]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/+state/reducers/storage-bucket.reducer.ts)) and aggregated via an index for easy consumption.
 
 ### Actions
 
@@ -125,7 +125,7 @@ Actions in Google Cloud are grouped according to functionality:
 #### File Upload Actions
 - **createFileUpload:**  
   Dispatches an action to initiate a file upload.  
-  *Payload:* A file upload model (see [file-upload.actions.ts](packages/platform/google-cloud/src/lib/+state/actions/file-upload.actions.ts)).
+  *Payload:* A file upload model (see [file-upload.actions.ts]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/+state/actions/file-upload.actions.ts)).
 - **updateFileUpload:**  
   Updates the status or progress of an ongoing file upload.
 - **deleteFileUpload:**  
@@ -161,9 +161,9 @@ Actions in Google Cloud are grouped according to functionality:
 - **Purpose:**  
   Effects listen for dispatched actions to perform asynchronous API operations.  
 - **Examples:**  
-  - [GoogleCloudStorageBucketEffects](packages/platform/google-cloud/src/lib/+state/effects/storage-bucket.effects.ts) manages remote calls for listing, updating, and deleting buckets.
-  - [GoogleCloudFileUploadEffects](packages/platform/google-cloud/src/lib/+state/effects/file-upload.effects.ts) handles file upload events (e.g. triggering UI panels).
-  - [GoogleCloudStorageObjectEffects](packages/platform/google-cloud/src/lib/+state/effects/storage-object.effects.ts) coordinates uploads and status updates for storage objects.
+  - [GoogleCloudStorageBucketEffects]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/+state/effects/storage-bucket.effects.ts) manages remote calls for listing, updating, and deleting buckets.
+  - [GoogleCloudFileUploadEffects]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/+state/effects/file-upload.effects.ts) handles file upload events (e.g. triggering UI panels).
+  - [GoogleCloudStorageObjectEffects]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/+state/effects/storage-object.effects.ts) coordinates uploads and status updates for storage objects.
 - **Implementation:**  
   Effects use RxJS operators (e.g. `switchMap`, `map`, `catchError`) and the helper `createRemoteEffect` to integrate with API services.
 
@@ -178,7 +178,7 @@ Actions in Google Cloud are grouped according to functionality:
 - **Purpose:**  
   Selectors provide convenient access to slices of the cloud state (e.g. list of buckets, file upload status, selected storage object).  
 - **Implementation:**  
-  Files under [selectors/](packages/platform/google-cloud/src/lib/+state/selectors/) compose state slices and expose computed data to the UI.
+  Files under [selectors/]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/+state/selectors/) compose state slices and expose computed data to the UI.
 
 ### Facades
 
@@ -221,9 +221,9 @@ Models encompass the data definitions used in Google Cloud operations:
 ## API Routes & Configurations
 
 - **API Routes:**  
-  Located in the `api-routes/` folder, route definitions such as [storage-bucket.routes.ts](packages/platform/google-cloud/src/lib/api-routes/storage-bucket.routes.ts) and storage-object.routes.ts centralize endpoint addresses.
+  Located in the `api-routes/` folder, route definitions such as [storage-bucket.routes.ts]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/api-routes/storage-bucket.routes.ts) and storage-object.routes.ts centralize endpoint addresses.
 - **Configurations:**  
-  The file [google-cloud.api-config.ts](packages/platform/google-cloud/src/lib/config/google-cloud.api-config.ts) defines the `GoogleCloudAPIConfig` interface and instantiates injection tokens:
+  The file [google-cloud.api-config.ts]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/config/google-cloud.api-config.ts) defines the `GoogleCloudAPIConfig` interface and instantiates injection tokens:
   - `GOOGLE_CLOUD_API_CONFIG`
   - `GOOGLE_CLOUD_API_BASE_URL`
   
@@ -271,7 +271,7 @@ They simulate responses for testing and development:
 - **StorageObjectMockAPIService:**  
   Simulates object uploads and queries with preset delays and static data.
 
-Services are wired through the module using factory providers defined in [services/services.ts](packages/platform/google-cloud/src/lib/services/services.ts).
+Services are wired through the module using factory providers defined in [services/services.ts]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/services/services.ts).
 
 ---
 
@@ -279,13 +279,13 @@ Services are wired through the module using factory providers defined in [servic
 
 The package includes UI components to assist with cloud interactions:
 - **File Upload Components:**  
-  Such as [FileUploadUtilityPanelComponent](packages/platform/google-cloud/src/lib/components/file-upload/file-upload.utility-panel.component.ts) to display upload progress and status.
+  Such as [FileUploadUtilityPanelComponent]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/components/file-upload/file-upload.utility-panel.component.ts) to display upload progress and status.
 - **Storage Bucket Components:**  
   Components (e.g. paginated list or detail views) allow users to interact with bucket data.
 - **Storage Object Components:**  
   Enable viewing, filtering, and managing objects within a bucket.
   
-These components are exported via the [components index](packages/platform/google-cloud/src/lib/components/index.ts).
+These components are exported via the [components index]({{ site.repo_root_url }}/packages/platform/google-cloud/src/lib/components/index.ts).
 
 ---
 

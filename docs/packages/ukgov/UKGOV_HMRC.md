@@ -99,7 +99,7 @@ The library leverages NgRx to provide robust state management for HMRC-specific 
 
 ### Identifiers & Actions
 - **Identifiers:**  
-  Located in [identifiers.ts](packages/ukgov/hmrc/src/lib/+state/identifiers.ts), identifiers such as `UKGOV_HMRC_ACTION_IDENTIFIER`, `EIM32712_OCCUPATION_STATE_FEATURE_KEY`, and `EIM32712_INDUSTRY_STATE_FEATURE_KEY` namespace HMRC actions.
+  Located in [identifiers.ts]({{ site.repo_root_url }}/packages/ukgov/hmrc/src/lib/+state/identifiers.ts), identifiers such as `UKGOV_HMRC_ACTION_IDENTIFIER`, `EIM32712_OCCUPATION_STATE_FEATURE_KEY`, and `EIM32712_INDUSTRY_STATE_FEATURE_KEY` namespace HMRC actions.
 - **Actions:**  
   Defined in the `+state/actions/` folder (e.g. in `eim-32712.occupation.actions.ts`), actions exist to:
   - Create, retrieve, list, update, and delete occupations.

@@ -52,7 +52,7 @@ A high-level breakdown of the package structure is as follows:
   - `README.md` – Brief library description (expandable with detailed docs).
 
 - **extensions/array/**  
-  Extends native array functionality. The included [README.md](packages/platform/common/extensions/array/README.md) explains usage and integration.
+  Extends native array functionality. The included [README.md]({{ site.repo_root_url }}/packages/platform/common/extensions/array/README.md) explains usage and integration.
 
 - **src/**  
   Contains all source code:
@@ -62,13 +62,13 @@ A high-level breakdown of the package structure is as follows:
     - **+state/**  
       Handles state management using Ngrx:
       - `actions/`, `effects/`, `facades/`, `reducers/`, `selectors/`  
-        Define actions, middleware effects, UI facades, and reducers for managing application state. For example, [`identifiers.ts`](packages/platform/common/src/lib/+state/identifiers.ts) generates namespaced action keys.
+        Define actions, middleware effects, UI facades, and reducers for managing application state. For example, [`identifiers.ts`]({{ site.repo_root_url }}/packages/platform/common/src/lib/+state/identifiers.ts) generates namespaced action keys.
     - **components/**  
-      Contains reusable Angular components such as buttons and dialogs. The [index.ts](packages/platform/common/src/lib/components/index.ts) re-exports these components.
+      Contains reusable Angular components such as buttons and dialogs. The [index.ts]({{ site.repo_root_url }}/packages/platform/common/src/lib/components/index.ts) re-exports these components.
     - **decorators/** and **directives/**  
       Provides custom Angular decorators and directives enhancing component functionality.
     - **model/**  
-      Defines data models and type definitions. Notably, [`model/media/file-extension.ts`](packages/platform/common/src/lib/model/media/file-extension.ts) maps file extensions to HTTP media type information.
+      Defines data models and type definitions. Notably, [`model/media/file-extension.ts`]({{ site.repo_root_url }}/packages/platform/common/src/lib/model/media/file-extension.ts) maps file extensions to HTTP media type information.
     - **modules/**  
       Contains Angular modules that bundle functionality:
       - **zwp.ngrx.module.ts:** Establishes base Ngrx state, including theming, router, application, keyboard, and persistence states.
@@ -80,11 +80,11 @@ A high-level breakdown of the package structure is as follows:
     - **pipes/**  
       Provides Angular pipes for reusable transformations.
     - **services/**  
-      Contains utility services. For example, the [HTTP utils](packages/platform/common/src/lib/utils/http.utils.ts) provide functions to configure HTTP headers and manage API requests. This file also declares enums such as `GlobalAPILocation` and `ModuleAPIState` for API configuration.
+      Contains utility services. For example, the [HTTP utils]({{ site.repo_root_url }}/packages/platform/common/src/lib/utils/http.utils.ts) provide functions to configure HTTP headers and manage API requests. This file also declares enums such as `GlobalAPILocation` and `ModuleAPIState` for API configuration.
     - **utils/**  
       A collection of helper functions:
       - HTTP helpers that set default headers and handle environment-specific content types.
-      - Array and string manipulation utilities. All utilities are re-exported from the main [`index.ts`](packages/platform/common/src/index.ts) for simplified import.
+      - Array and string manipulation utilities. All utilities are re-exported from the main [`index.ts`]({{ site.repo_root_url }}/packages/platform/common/src/index.ts) for simplified import.
 
 ---
 
@@ -100,7 +100,7 @@ The module system is a core part of **platform.common**:
 - **ZWPNgrxPersistenceModule:**  
   - Offers both `forRoot` and `forFeature` methods to register persistent state.
   - Uses a meta-reducer factory (`persistenceMetaReducerFactory`) to integrate persistent storage into Ngrx.
-  - The `_setupPersistentState` function registers persistent features with the [ZWPPersistenceService](packages/platform/common/src/lib/services).
+  - The `_setupPersistentState` function registers persistent features with the [ZWPPersistenceService]({{ site.repo_root_url }}/packages/platform/common/src/lib/services).
 
 - **ZWPNgrxHistoryModule:**  
   - Provides similar methods (`forRoot` / `forFeature`) to integrate history tracking.
@@ -118,7 +118,7 @@ The module system is a core part of **platform.common**:
 State management is organized under the **+state** directory with the following responsibilities:
 
 - **Actions & Identifiers:**  
-  - Actions are defined with unique, namespaced identifiers (see [`identifiers.ts`](packages/platform/common/src/lib/+state/identifiers.ts)).
+  - Actions are defined with unique, namespaced identifiers (see [`identifiers.ts`]({{ site.repo_root_url }}/packages/platform/common/src/lib/+state/identifiers.ts)).
   - These form the foundation for dispatched events within the application.
 
 - **Reducers & Effects:**  
@@ -139,7 +139,7 @@ State management is organized under the **+state** directory with the following 
 The **model** folder declares and exports types related to:
 
 - **Media and File Extensions:**  
-  - Defines mappings between file extensions and their corresponding HTTP media types (see [`model/media/file-extension.ts`](packages/platform/common/src/lib/model/media/file-extension.ts)).
+  - Defines mappings between file extensions and their corresponding HTTP media types (see [`model/media/file-extension.ts`]({{ site.repo_root_url }}/packages/platform/common/src/lib/model/media/file-extension.ts)).
   
 - **Application-specific models:**  
   - Contains definitions for audit, configuration, and other common entities used throughout the projects.
@@ -150,11 +150,11 @@ The **model** folder declares and exports types related to:
 
 - **Components:**  
   - Angular components (e.g., buttons, dialogs) are designed to be reusable across different modules and projects.
-  - Their exports are coordinated via the [components index](packages/platform/common/src/lib/components/index.ts).
+  - Their exports are coordinated via the [components index]({{ site.repo_root_url }}/packages/platform/common/src/lib/components/index.ts).
 
 - **Extensions:**  
   - The `extensions/array` folder provides enhancements to built-in array functionalities.
-  - Users can refer to its [README](packages/platform/common/extensions/array/README.md) for guidance on usage.
+  - Users can refer to its [README]({{ site.repo_root_url }}/packages/platform/common/extensions/array/README.md) for guidance on usage.
 
 ---
 
@@ -163,7 +163,7 @@ The **model** folder declares and exports types related to:
 The **utils** folder encompasses helper functions that aid in reducing boilerplate and handling common tasks:
 
 - **HTTP Utilities:**  
-  - The [http.utils.ts](packages/platform/common/src/lib/utils/http.utils.ts) includes helper functions that standardize HTTP header setup. It dynamically sets headers such as `Accept` and `Content-Type` based on provided options.  
+  - The [http.utils.ts]({{ site.repo_root_url }}/packages/platform/common/src/lib/utils/http.utils.ts) includes helper functions that standardize HTTP header setup. It dynamically sets headers such as `Accept` and `Content-Type` based on provided options.  
   - Enums like `GlobalAPILocation` and `ModuleAPIState` support API configuration.
 
 - **Array and String Utilities:**  
@@ -207,7 +207,7 @@ To build and use the package:
     ```
 
 3. **Importing Modules:**
-    - The package is re-exported from [`src/index.ts`](packages/platform/common/src/index.ts), so you can consume modules like:
+    - The package is re-exported from [`src/index.ts`]({{ site.repo_root_url }}/packages/platform/common/src/index.ts), so you can consume modules like:
     ```ts
     import { ExampleModule } from '@zwp/platform.common';
     ```

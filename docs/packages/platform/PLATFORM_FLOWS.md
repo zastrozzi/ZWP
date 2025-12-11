@@ -55,7 +55,7 @@ A high-level overview of the flows package layout:
 - **Root Files:**  
   - Configuration: `.eslintrc.json`, `jest.config.ts`, `ng-package.json`, `package.json`, `project.json`
   - TypeScript configurations: `tsconfig.json`, `tsconfig.lib.json`, `tsconfig.lib.prod.json`, `tsconfig.spec.json`
-  - [README.md](packages/platform/flows/README.md)
+  - [README.md]({{ site.repo_root_url }}/packages/platform/flows/README.md)
 
 - **src/**  
   - `index.ts` – Main entry point re-exporting the module.
@@ -69,15 +69,15 @@ A high-level overview of the flows package layout:
       - **actions/**  
         Contains action definitions for flow nodes, containers, and prompts.
       - **effects/**  
-        Manages side effects (e.g. [flow-node.effects.ts](packages/platform/flows/src/lib/+state/effects/flow-node.effects.ts)).
+        Manages side effects (e.g. [flow-node.effects.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/effects/flow-node.effects.ts)).
       - **reducers/**  
-        Contains reducers that update state immutably (e.g. [flow-container.reducer.ts](packages/platform/flows/src/lib/+state/reducers/flow-container.reducer.ts)).
+        Contains reducers that update state immutably (e.g. [flow-container.reducer.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/reducers/flow-container.reducer.ts)).
       - **selectors/**  
         Provides selectors to derive and access slices of the flow state.
       - **facades/**  
         Provides simplified APIs for components to interact with flows state.
     - **model/**  
-      Aggregates model definitions including requests, responses, filters, and relationships. For example, [flow-continuation.responses.ts](packages/platform/flows/src/lib/model/responses/flow-continuation.responses.ts) defines continuation models.
+      Aggregates model definitions including requests, responses, filters, and relationships. For example, [flow-continuation.responses.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/model/responses/flow-continuation.responses.ts) defines continuation models.
     - **services/**  
       Contains API service implementations for flows:
       - **Flow Node API Services:** Live and Mock implementations for flow nodes.
@@ -93,7 +93,7 @@ A high-level overview of the flows package layout:
 - **Purpose:**  
   The primary Angular module for the flows package. It wires up state slices and effects using NgRx.
 - **Setup:**  
-  In [zwp.flows.module.ts](packages/platform/flows/src/lib/zwp.flows.module.ts), state is provided by helper functions such as `createNamespacedFeatureKey`. For example, the flow container state is registered as:
+  In [zwp.flows.module.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/zwp.flows.module.ts), state is provided by helper functions such as `createNamespacedFeatureKey`. For example, the flow container state is registered as:
   ```ts
   provideState(
       createNamespacedFeatureKey(
@@ -113,7 +113,7 @@ The flows package uses NgRx to manage state changes and side effects in a predic
 
 ### Identifiers & State Assembly
 - **Identifiers:**  
-  [identifiers.ts](packages/platform/flows/src/lib/+state/identifiers.ts) defines keys such as `FLOWS_ACTION_IDENTIFIER`, `FLOW_NODE_STATE_FEATURE_KEY`, and `FLOW_CONTAINER_STATE_FEATURE_KEY` to ensure consistency.
+  [identifiers.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/identifiers.ts) defines keys such as `FLOWS_ACTION_IDENTIFIER`, `FLOW_NODE_STATE_FEATURE_KEY`, and `FLOW_CONTAINER_STATE_FEATURE_KEY` to ensure consistency.
 - **State Assembly:**  
   State for flow nodes and containers is composed in individual reducer files and aggregated in an index for easy consumption.
 
@@ -125,51 +125,51 @@ Actions trigger state changes. Here we detail the main action groups:
 - **createFlowNode:**  
   Initiates the creation of a new flow node.  
   *Payload:* Node details (e.g. title, content, continuation options).  
-  *File:* [flow-node.actions.ts](packages/platform/flows/src/lib/+state/actions/flow-node.actions.ts)
+  *File:* [flow-node.actions.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/actions/flow-node.actions.ts)
 
 - **updateFlowNode:**  
   Triggers an update to an existing flow node.  
   *Payload:* Node ID and updated fields.  
-  *File:* [flow-node.actions.ts](packages/platform/flows/src/lib/+state/actions/flow-node.actions.ts)
+  *File:* [flow-node.actions.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/actions/flow-node.actions.ts)
 
 - **deleteFlowNode:**  
   Initiates removal of a specified flow node.  
   *Payload:* Node ID.  
-  *File:* [flow-node.actions.ts](packages/platform/flows/src/lib/+state/actions/flow-node.actions.ts)
+  *File:* [flow-node.actions.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/actions/flow-node.actions.ts)
 
 - **loadFlowNode:**  
   Requests to load detailed information for a given flow node (used to refresh node data).  
-  *File:* [flow-node.actions.ts](packages/platform/flows/src/lib/+state/actions/flow-node.actions.ts)
+  *File:* [flow-node.actions.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/actions/flow-node.actions.ts)
 
 #### Detailed Flow Container Actions
 - **createFlowContainer:**  
   Dispatches an action to create a new flow container.  
   *Payload:* Container details such as name and configuration options.  
-  *File:* [flow-container.actions.ts](packages/platform/flows/src/lib/+state/actions/flow-container.actions.ts)
+  *File:* [flow-container.actions.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/actions/flow-container.actions.ts)
 
 - **updateFlowContainer:**  
   Updates an existing container’s details.  
   *Payload:* Container ID and updates.  
-  *File:* [flow-container.actions.ts](packages/platform/flows/src/lib/+state/actions/flow-container.actions.ts)
+  *File:* [flow-container.actions.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/actions/flow-container.actions.ts)
 
 - **deleteFlowContainer:**  
   Removes a flow container by ID.  
-  *File:* [flow-container.actions.ts](packages/platform/flows/src/lib/+state/actions/flow-container.actions.ts)
+  *File:* [flow-container.actions.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/actions/flow-container.actions.ts)
 
 - **getFlowContainer:**  
   Triggers retrieval of a specific container’s details.  
-  *File:* [flow-container.actions.ts](packages/platform/flows/src/lib/+state/actions/flow-container.actions.ts)
+  *File:* [flow-container.actions.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/actions/flow-container.actions.ts)
 
 - **listFlowContainers:**  
   Requests a listing/pagination of available flow containers.  
-  *File:* [flow-container.actions.ts](packages/platform/flows/src/lib/+state/actions/flow-container.actions.ts)
+  *File:* [flow-container.actions.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/actions/flow-container.actions.ts)
 
 ### Effects
 - **Purpose:**  
   Effects process asynchronous operations—such as API calls—in response to dispatched actions.
 - **Examples:**  
-  - In [flow-node.effects.ts](packages/platform/flows/src/lib/+state/effects/flow-node.effects.ts), the effect listens to `createFlowNode` and calls the appropriate API service.  
-  - In [flow-container.effects.ts](packages/platform/flows/src/lib/+state/effects/flow-container.effects.ts), similar patterns are used to manage container operations.
+  - In [flow-node.effects.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/effects/flow-node.effects.ts), the effect listens to `createFlowNode` and calls the appropriate API service.  
+  - In [flow-container.effects.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/effects/flow-container.effects.ts), similar patterns are used to manage container operations.
 - **Implementation:**  
   Effects use RxJS operators like `switchMap`, `catchError`, and `debounceTime` to manage side effects and dispatch subsequent actions.
 
@@ -177,8 +177,8 @@ Actions trigger state changes. Here we detail the main action groups:
 - **Purpose:**  
   Reducers update the state immutably when actions are dispatched.
 - **Examples:**  
-  - [flow-container.reducer.ts](packages/platform/flows/src/lib/+state/reducers/flow-container.reducer.ts) handles state updates when container actions occur.
-  - [flow-node.reducer.ts](packages/platform/flows/src/lib/+state/reducers/flow-node.reducer.ts) does likewise for flow nodes.
+  - [flow-container.reducer.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/reducers/flow-container.reducer.ts) handles state updates when container actions occur.
+  - [flow-node.reducer.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/reducers/flow-node.reducer.ts) does likewise for flow nodes.
 - **Implementation:**  
   Built using `createReducer` and `on` functions from NgRx.
 
@@ -186,7 +186,7 @@ Actions trigger state changes. Here we detail the main action groups:
 - **Purpose:**  
   Selectors derive and expose slices of the flow state, e.g. list of containers, selected node details, or pagination info.
 - **Examples:**  
-  - Selector files under [selectors/](packages/platform/flows/src/lib/+state/selectors/) allow UI components to subscribe to desired state parts via Observables.
+  - Selector files under [selectors/]({{ site.repo_root_url }}/packages/platform/flows/src/lib/+state/selectors/) allow UI components to subscribe to desired state parts via Observables.
 
 ### Facades
 
@@ -216,15 +216,15 @@ Facades provide an abstraction layer over NgRx so components can interact with t
 
 Models in the flows package define the data structures across the package:
 - **Flow Node Models:**  
-  Represent individual nodes with attributes like header, headline, content, and continuation arrays (e.g. defined in [flow-node.responses.ts](packages/platform/flows/src/lib/model/responses/flow-node.responses.ts)).
+  Represent individual nodes with attributes like header, headline, content, and continuation arrays (e.g. defined in [flow-node.responses.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/model/responses/flow-node.responses.ts)).
 - **Flow Container Models:**  
-  Represent containers grouping flow nodes (e.g. [flow-container.responses.ts](packages/platform/flows/src/lib/model/responses/flow-container.responses.ts)).
+  Represent containers grouping flow nodes (e.g. [flow-container.responses.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/model/responses/flow-container.responses.ts)).
 - **Flow Prompt Models:**  
   Define models for user prompts within flows.
 - **Filters and Requests:**  
   Detailed structures for query filters and API requests exist under `model/filters` and `model/requests`.
 - **Aggregation:**  
-  [model/index.ts](packages/platform/flows/src/lib/model/index.ts) re-exports all flow models.
+  [model/index.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/model/index.ts) re-exports all flow models.
 
 ---
 
@@ -269,7 +269,7 @@ The flows package provides API services for backend interactions.
   Simulates API calls as above, providing stubbed responses for development and testing.
 
 *Configuration:*  
-Both live and mock API services are wired through the module’s provider configuration in [zwp.flows.module.ts](packages/platform/flows/src/lib/zwp.flows.module.ts) using static methods `live()` or `mock()`.
+Both live and mock API services are wired through the module’s provider configuration in [zwp.flows.module.ts]({{ site.repo_root_url }}/packages/platform/flows/src/lib/zwp.flows.module.ts) using static methods `live()` or `mock()`.
 
 ---
 

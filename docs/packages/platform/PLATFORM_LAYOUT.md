@@ -54,7 +54,7 @@ A high-level overview of the package layout:
 - **Root Files:**  
   - Configuration: `.eslintrc.json`, `jest.config.ts`, `ng-package.json`, `package.json`, `project.json`
   - TypeScript configs: `tsconfig.json`, `tsconfig.lib.json`, `tsconfig.lib.prod.json`, `tsconfig.spec.json`
-  - [README.md](packages/platform/layout/README.md)
+  - [README.md]({{ site.repo_root_url }}/packages/platform/layout/README.md)
 
 - **src/**  
   - `index.ts` – Re-exports the module, components, state facades, and services.
@@ -99,7 +99,7 @@ A high-level overview of the package layout:
     - **model/**  
         Data models for windows, panels, menus, and overall layout configurations.
     - **modules/**  
-        Contains the core module [zwp.layout.module.ts](packages/platform/layout/src/lib/modules/zwp.layout.module.ts).
+        Contains the core module [zwp.layout.module.ts]({{ site.repo_root_url }}/packages/platform/layout/src/lib/modules/zwp.layout.module.ts).
     - **pipes/**  
         Custom pipes for layout theming and formatting.
     - **services/**  
@@ -116,7 +116,7 @@ A high-level overview of the package layout:
 - **Purpose:**  
   The main Angular module for layout configuration. It registers state slices, effects, and provides layout services.
 - **Setup:**  
-  Defined in [zwp.layout.module.ts](packages/platform/layout/src/lib/modules/zwp.layout.module.ts), it imports common modules (e.g. `ZWPCommonModule`, `RouterModule`) and aggregates exportable components, directives, and pipes.
+  Defined in [zwp.layout.module.ts]({{ site.repo_root_url }}/packages/platform/layout/src/lib/modules/zwp.layout.module.ts), it imports common modules (e.g. `ZWPCommonModule`, `RouterModule`) and aggregates exportable components, directives, and pipes.
 - **Configuration:**  
   The module supports panel, window, menu, and table layouts as well as optional persistence features.
 
@@ -126,7 +126,7 @@ A high-level overview of the package layout:
 
 ### Identifiers & State Assembly
 - **Identifiers:**  
-  See [identifiers.ts](packages/platform/layout/src/lib/+state/identifiers.ts) for keys such as `PLATFORM_LAYOUT_ACTION_IDENTIFIER`, `PANEL_LAYOUT_STATE_FEATURE_KEY`, `WINDOW_LAYOUT_STATE_FEATURE_KEY`, etc.
+  See [identifiers.ts]({{ site.repo_root_url }}/packages/platform/layout/src/lib/+state/identifiers.ts) for keys such as `PLATFORM_LAYOUT_ACTION_IDENTIFIER`, `PANEL_LAYOUT_STATE_FEATURE_KEY`, `WINDOW_LAYOUT_STATE_FEATURE_KEY`, etc.
 - **State Assembly:**  
   Each domain (windows, panels, utilities) is built via its reducer file and aggregated with helper functions.
 
@@ -138,7 +138,7 @@ Actions are organized into three main groups:
 - **createRequest**  
   Initiates the creation of a window.  
   *Payload:* `windowEntity` (object with id, label, icon, color, themeColor, componentName, position, etc.).  
-  *File:* [window-layout.actions.ts](packages/platform/layout/src/lib/+state/actions/window-layout.actions.ts)
+  *File:* [window-layout.actions.ts]({{ site.repo_root_url }}/packages/platform/layout/src/lib/+state/actions/window-layout.actions.ts)
 - **updatePositionRequest / updatePositionSuccess / updatePositionFailure**  
   Dispatches actions to update a window’s position.  
   *Payload:* window id and new `WindowPosition`.
@@ -165,7 +165,7 @@ Actions are organized into three main groups:
 - **closeLeftPanel**  
   Closes the left panel.
 - *(Additional actions may exist for detail panels or right panels.)*  
-  *File:* [panel-layout.actions.ts](packages/platform/layout/src/lib/+state/actions/panel-layout.actions.ts)
+  *File:* [panel-layout.actions.ts]({{ site.repo_root_url }}/packages/platform/layout/src/lib/+state/actions/panel-layout.actions.ts)
 
 #### Utility Layout Actions
 - **openUtilityPanel**  
@@ -174,7 +174,7 @@ Actions are organized into three main groups:
 - **closeUtilityPanel**  
   Closes a utility panel.  
   *Payload:* `utilityPanelId`.  
-  *File:* [utility-layout.actions.ts](packages/platform/layout/src/lib/+state/actions/utility-layout.actions.ts)
+  *File:* [utility-layout.actions.ts]({{ site.repo_root_url }}/packages/platform/layout/src/lib/+state/actions/utility-layout.actions.ts)
 
 ### Effects
 - **Purpose:**  
@@ -182,7 +182,7 @@ Actions are organized into three main groups:
   - Calling the `ZWPWindowOverlayService` to add overlays on window creation.
   - Persisting layout changes.
 - **Implementation:**  
-  Effects (e.g. in [window-layout.effects.ts](packages/platform/layout/src/lib/+state/effects/window-layout.effects.ts)) use RxJS operators like `switchMap`, `map`, `catchError`, and `concatLatestFrom` to dispatch success or failure actions.
+  Effects (e.g. in [window-layout.effects.ts]({{ site.repo_root_url }}/packages/platform/layout/src/lib/+state/effects/window-layout.effects.ts)) use RxJS operators like `switchMap`, `map`, `catchError`, and `concatLatestFrom` to dispatch success or failure actions.
 
 ### Reducers
 - **Purpose:**  

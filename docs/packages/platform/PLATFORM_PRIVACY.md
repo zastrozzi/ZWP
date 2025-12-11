@@ -52,7 +52,7 @@ A high-level overview of the privacy library layout (located in `/packages/platf
 - **Root Files:**  
   - `.eslintrc.json`, `jest.config.ts`, `ng-package.json`, `package.json`, `project.json`
   - TypeScript configs: `tsconfig.json`, `tsconfig.lib.json`, `tsconfig.lib.prod.json`, `tsconfig.spec.json`
-  - [README.md](packages/platform/privacy/README.md)
+  - [README.md]({{ site.repo_root_url }}/packages/platform/privacy/README.md)
 
 - **src/**  
   - `index.ts` – Main entry point re-exporting the module and public APIs.
@@ -88,7 +88,7 @@ A high-level overview of the privacy library layout (located in `/packages/platf
 - **Purpose:**  
   The primary Angular module for privacy management. It sets up state slices (via NgRx) for cookie consent and IP location, registers effects and facades, and declares exportable components such as the cookie banner.
 - **Setup:**  
-  Defined in [zwp.privacy.module.ts](packages/platform/privacy/src/lib/modules/zwp.privacy.module.ts), it imports common modules and provides configuration using the `ZWP_PRIVACY_MODULE_ROOT_CONFIG` injection token.
+  Defined in [zwp.privacy.module.ts]({{ site.repo_root_url }}/packages/platform/privacy/src/lib/modules/zwp.privacy.module.ts), it imports common modules and provides configuration using the `ZWP_PRIVACY_MODULE_ROOT_CONFIG` injection token.
 - **Configuration:**  
   The module’s `forRoot()` method accepts a configuration object of type `ZWPPrivacyModuleRootConfig` to enable or disable IP location tracking and configure cookie banner options.
 
@@ -98,7 +98,7 @@ A high-level overview of the privacy library layout (located in `/packages/platf
 
 ### Identifiers & State Assembly
 - **Identifiers:**  
-  Defined in [identifiers.ts](packages/platform/privacy/src/lib/+state/identifiers.ts), keys include:
+  Defined in [identifiers.ts]({{ site.repo_root_url }}/packages/platform/privacy/src/lib/+state/identifiers.ts), keys include:
   - `PLATFORM_PRIVACY_ACTION_IDENTIFIER`
   - `IP_LOCATION_STATE_FEATURE_KEY`
   - `COOKIE_CONSENT_STATE_FEATURE_KEY`
@@ -209,7 +209,7 @@ Facades provide a simplified API for components to interact with privacy state. 
   - Cookie properties, cookie categories (e.g. PERSONALISATION, ANALYTICS, MARKETING, PERFORMANCE, FUNCTIONAL, UNCATEGORISED).
   - IP location responses (including variants like `IPInfoStandardResponse`, `IPInfoFreeResponse`).
 - **Configuration Tokens:**  
-  The configuration for the privacy module is defined via `ZWPPrivacyModuleRootConfig` (see [privacy-module.root.config.ts](packages/platform/privacy/src/lib/model/config/privacy-module.root.config.ts)). It configures options like:
+  The configuration for the privacy module is defined via `ZWPPrivacyModuleRootConfig` (see [privacy-module.root.config.ts]({{ site.repo_root_url }}/packages/platform/privacy/src/lib/model/config/privacy-module.root.config.ts)). It configures options like:
   - Whether IP location tracking is enabled.
   - Which IP location API provider to use.
   - API keys for providers (e.g. IPInfo).

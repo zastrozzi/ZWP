@@ -52,7 +52,7 @@ A high-level overview of the package layout:
 - **Root Files:**  
   - Configuration: `.eslintrc.json`, `jest.config.ts`, `ng-package.json`, `package.json`, `project.json`
   - TypeScript configurations: `tsconfig.json`, `tsconfig.lib.json`, `tsconfig.lib.prod.json`, `tsconfig.spec.json`
-  - [README.md](packages/platform/identity/README.md)
+  - [README.md]({{ site.repo_root_url }}/packages/platform/identity/README.md)
 
 - **src/**  
   - `index.ts` – Main entry point re-exporting the module and library API.
@@ -80,7 +80,7 @@ A high-level overview of the package layout:
     - **components/**  
       Contains reusable UI components for identity management.
     - **config/**  
-      Holds configuration files, including [identity.api-config.ts](packages/platform/identity/src/lib/config/identity.api-config.ts).
+      Holds configuration files, including [identity.api-config.ts]({{ site.repo_root_url }}/packages/platform/identity/src/lib/config/identity.api-config.ts).
     - **model/**  
       Defines data models and types for user identity (e.g. profile models, credential models).
     - **routes/**  
@@ -96,7 +96,7 @@ A high-level overview of the package layout:
 - **Purpose:**  
   The central Angular module for identity management. It wires up state slices, imports necessary libraries (e.g. Angular Material, platform.common), and registers API providers.
 - **Setup:**  
-  Defined in [platform.identity.module.ts](packages/platform/identity/src/lib/platform.identity.module.ts). It uses helper functions (like `createNamespacedFeatureKey`) to register state features for both admin and enduser domains.
+  Defined in [platform.identity.module.ts]({{ site.repo_root_url }}/packages/platform/identity/src/lib/platform.identity.module.ts). It uses helper functions (like `createNamespacedFeatureKey`) to register state features for both admin and enduser domains.
 - **Configuration:**  
   The module supports static methods (for example, `.live()` or `.mock()`) for specifying whether to use live or mock API services.
 
@@ -108,9 +108,9 @@ The identity package uses NgRx to maintain state consistency for authentication 
 
 ### Identifiers & State Assembly
 - **Identifiers:**  
-  The file [identifiers.ts](packages/platform/identity/src/lib/+state/identifiers.ts) defines consistent keys such as `IDENTITY_ACTION_IDENTIFIER` and keys for various state slices (e.g., admin-user and enduser state).
+  The file [identifiers.ts]({{ site.repo_root_url }}/packages/platform/identity/src/lib/+state/identifiers.ts) defines consistent keys such as `IDENTITY_ACTION_IDENTIFIER` and keys for various state slices (e.g., admin-user and enduser state).
 - **State Assembly:**  
-  State is composed from individual slices defined in reducer files and aggregated in [state.ts](packages/platform/identity/src/lib/+state/state.ts). All parts are re-exported via the index for easy consumption.
+  State is composed from individual slices defined in reducer files and aggregated in [state.ts]({{ site.repo_root_url }}/packages/platform/identity/src/lib/+state/state.ts). All parts are re-exported via the index for easy consumption.
 
 ### Actions
 
@@ -156,7 +156,7 @@ Identity actions are divided primarily into admin-user and enduser groups.
 - **Purpose:**  
   Selectors extract and derive pieces of the identity state for consumption by components.  
 - **Examples:**  
-  - Selectors under [selectors/](packages/platform/identity/src/lib/+state/selectors/) allow access to the current logged-in admin user, selected enduser, or applied filters.
+  - Selectors under [selectors/]({{ site.repo_root_url }}/packages/platform/identity/src/lib/+state/selectors/) allow access to the current logged-in admin user, selected enduser, or applied filters.
 - **Implementation:**  
   Selectors use NgRx’s `createSelector` to generate memoized state slices.
 
@@ -217,7 +217,7 @@ Facades provide a higher-level interface for interacting with identity state wit
 
 Models in the identity package define the shape of identity-related data:
 - **Identity Model:**  
-  Defined in [model/model.ts](packages/platform/identity/src/lib/model/model.ts) and re-exported via [model/index.ts](packages/platform/identity/src/lib/model/index.ts).
+  Defined in [model/model.ts]({{ site.repo_root_url }}/packages/platform/identity/src/lib/model/model.ts) and re-exported via [model/index.ts]({{ site.repo_root_url }}/packages/platform/identity/src/lib/model/index.ts).
 - **User Profiles, Credentials, and Session Models:**  
   Structures that represent admin users and endusers, including their credentials and session states.
 - **Filters & Requests:**  
@@ -230,7 +230,7 @@ Models in the identity package define the shape of identity-related data:
 - **API Routes:**  
   Located within the `api-routes/` folder, these files centralize endpoint definitions for identity. This may include routes for admin user operations, enduser data fetches, and other identity tasks.
 - **Configurations:**  
-  The file [identity.api-config.ts](packages/platform/identity/src/lib/config/identity.api-config.ts) defines the configuration interface and instantiates injection tokens (e.g. `IDENTITY_API_CONFIG`). These tokens are used in module configuration to determine API endpoints for live or mock modes.
+  The file [identity.api-config.ts]({{ site.repo_root_url }}/packages/platform/identity/src/lib/config/identity.api-config.ts) defines the configuration interface and instantiates injection tokens (e.g. `IDENTITY_API_CONFIG`). These tokens are used in module configuration to determine API endpoints for live or mock modes.
 
 ---
 

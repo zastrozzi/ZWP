@@ -35,7 +35,7 @@ The **CDP Routing Library** is designed to provide a flexible and maintainable r
 
 ## Directory Structure
 
-A high-level overview of the CDP Routing library layout (located in `/packages/cdp/routing`):
+A high-level overview of the CDP Routing library layout (located in [`/packages/cdp/routing`]({{ site.repo_root_url }}/packages/cdp/routing)):
 
 ```
 .eslintrc.json

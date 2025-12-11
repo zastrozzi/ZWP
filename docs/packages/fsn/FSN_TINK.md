@@ -44,7 +44,7 @@ The **FSN‑Tink Library** provides robust functionality for financial instituti
 
 ## Directory Structure
 
-A high-level overview of the FSN‑Tink library layout (located in `/packages/fsn/tink`):
+A high-level overview of the FSN‑Tink library layout (located in `/packages/fsn/tink`({{ site.repo_root_url }}/packages/fsn/tink)):
 
 ```
 .eslintrc.json
@@ -100,7 +100,7 @@ The FSN‑Tink library leverages NgRx to manage state across multiple feature do
 
 ### Identifiers & State Assembly
 - **Identifiers:**  
-  Defined in [identifiers.ts](packages/fsn/tink/src/lib/+state/identifiers.ts), identifiers include:
+  Defined in [identifiers.ts]({{ site.repo_root_url }}/packages/fsn/tink/src/lib/+state/identifiers.ts), identifiers include:
   - `FSN_TINK_ACTION_IDENTIFIER`
   - `ACCOUNT_STATE_FEATURE_KEY`
   - `CREDENTIAL_STATE_FEATURE_KEY`
@@ -112,7 +112,7 @@ The FSN‑Tink library leverages NgRx to manage state across multiple feature do
   - `USER_STATE_FEATURE_KEY`
   - `WEBHOOK_ENDPOINT_STATE_FEATURE_KEY`
 - **State Assembly:**  
-  The store state is assembled in [state.ts](packages/fsn/tink/src/lib/+state/state.ts) by combining reducers for each domain, and is configured via the `State.environmentProviders` for proper injection.
+  The store state is assembled in [state.ts]({{ site.repo_root_url }}/packages/fsn/tink/src/lib/+state/state.ts) by combining reducers for each domain, and is configured via the `State.environmentProviders` for proper injection.
 
 ### Actions
 Actions are defined per domain (account, credential, merchant, provider, transaction, user, webhook endpoint) and are used to orchestrate API calls and state changes. They are organized into files under the `actions/` folder.

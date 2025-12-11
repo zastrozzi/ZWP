@@ -46,7 +46,7 @@ The library uses a robust NgRx state management setup to ensure that state is pr
 
 ## Directory Structure
 
-A high-level overview of the CDP‑Users library layout (located in `/packages/cdp/users`):
+A high-level overview of the CDP‑Users library layout (located in [`/packages/cdp/users`]({{ site.repo_root_url }}/packages/cdp/users)):
 
 ```
 .eslintrc.json
@@ -106,7 +106,7 @@ The library leverages NgRx to handle both admin-user and enduser states. Each do
 
 ### Identifiers & State Assembly
 - **Identifiers:**  
-  Defined in [identifiers.ts](packages/cdp/users/src/lib/+state/identifiers.ts), key identifiers include:
+  Defined in [identifiers.ts]({{ site.repo_root_url }}/packages/cdp/users/src/lib/+state/identifiers.ts), key identifiers include:
   - `CDP_USERS_ACTION_IDENTIFIER`
   - `ADMIN_USER_STATE_FEATURE_KEY`
   - `ADMIN_USER_DEVICE_STATE_FEATURE_KEY`
@@ -116,7 +116,7 @@ The library leverages NgRx to handle both admin-user and enduser states. Each do
   - `ENDUSER_ACTIVITY_STATE_FEATURE_KEY`
   - *(and others for addresses, credentials, phones, etc.)*
 - **State Assembly:**  
-  The state is assembled in [state.ts](packages/cdp/users/src/lib/+state/state.ts) by combining reducers for each feature area.
+  The state is assembled in [state.ts]({{ site.repo_root_url }}/packages/cdp/users/src/lib/+state/state.ts) by combining reducers for each feature area.
 
 ### Actions
 

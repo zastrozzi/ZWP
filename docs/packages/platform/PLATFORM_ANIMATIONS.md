@@ -39,7 +39,7 @@ A high-level overview of the project structure:
 
 - **Root Files:**  
   - Configuration files such as `.eslintrc.json`, `jest.config.ts`, `ng-package.json`, `package.json`, `project.json`, and TypeScript configuration files.
-  - [README.md](packages/platform/animations/README.md) — Brief summary of the library.
+  - [README.md]({{ site.repo_root_url }}/packages/platform/animations/README.md) — Brief summary of the library.
 
 - **src/**  
   - **index.ts:** Re-exports the module’s features.
@@ -47,18 +47,18 @@ A high-level overview of the project structure:
     - **zwp.animations.module.ts:** Main Angular module that bundles the animations components and directives.
     - **animations/**  
       - Contains subfolders for animation definitions:
-        - **actions/** (e.g. [bounce.ts](packages/platform/animations/src/lib/animations/actions/bounce.ts), [flip.ts](packages/platform/animations/src/lib/animations/actions/flip.ts), [tada.ts](packages/platform/animations/src/lib/animations/actions/tada.ts))
-        - **entrances/** (e.g. [bounce-in.ts](packages/platform/animations/src/lib/animations/entrances/bounce-in.ts), [fade-in.ts](packages/platform/animations/src/lib/animations/entrances/fade-in.ts))
-        - **exits/** (e.g. [fade-out.ts](packages/platform/animations/src/lib/animations/exits/fade-out.ts), [zoom-out.ts](packages/platform/animations/src/lib/animations/exits/zoom-out.ts))
+        - **actions/** (e.g. [bounce.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/actions/bounce.ts), [flip.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/actions/flip.ts), [tada.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/actions/tada.ts))
+        - **entrances/** (e.g. [bounce-in.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/entrances/bounce-in.ts), [fade-in.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/entrances/fade-in.ts))
+        - **exits/** (e.g. [fade-out.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/exits/fade-out.ts), [zoom-out.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/exits/zoom-out.ts))
     - **components/**  
-      - [animation.component.ts](packages/platform/animations/src/lib/components/animation.component.ts) — Wraps content to apply animations.
+      - [animation.component.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/components/animation.component.ts) — Wraps content to apply animations.
     - **directives/**  
-      - [animation.container.directive.ts](packages/platform/animations/src/lib/directives/animation.container.directive.ts) — Sets up elements as animation containers.
-      - [animation.item.directive.ts](packages/platform/animations/src/lib/directives/animation.item.directive.ts) — Manages individual animated items.
+      - [animation.container.directive.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/directives/animation.container.directive.ts) — Sets up elements as animation containers.
+      - [animation.item.directive.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/directives/animation.item.directive.ts) — Manages individual animated items.
     - **model/**  
-      - Contains type definitions and configuration interfaces (e.g. [zwp.animations-module.config.ts](packages/platform/animations/src/lib/model/zwp.animations-module.config.ts)) and animation speeds ([zwp.animation.speed.ts](packages/platform/animations/src/lib/model/zwp.animation.speed.ts)).
+      - Contains type definitions and configuration interfaces (e.g. [zwp.animations-module.config.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/model/zwp.animations-module.config.ts)) and animation speeds ([zwp.animation.speed.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/model/zwp.animation.speed.ts)).
     - **services/**  
-      - [zwp.animation.service.ts](packages/platform/animations/src/lib/services/zwp.animation.service.ts) — Provides methods for triggering animations, handling view changes, and integrating scroll/intersection events.
+      - [zwp.animation.service.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/services/zwp.animation.service.ts) — Provides methods for triggering animations, handling view changes, and integrating scroll/intersection events.
     - **utils/**  
       - Helper functions and factories such as `zwp.animation.trigger-mode.factory`.
 
@@ -71,21 +71,21 @@ A high-level overview of the project structure:
   Bundles all animation-related components, directives, and (re)usable animation definitions.
 - **Setup:**  
   Import this module into your Angular application. It includes a static `init()` method to configure the trigger mode (e.g. using Intersection Observer or scrolling-based triggers).  
-  See [zwp.animations.module.ts](packages/platform/animations/src/lib/zwp.animations.module.ts) for details.
+  See [zwp.animations.module.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/zwp.animations.module.ts) for details.
 
 ---
 
 ## Directives
 
 ### ZWPAnimationContainerDirective
-- **File:** [animation.container.directive.ts](packages/platform/animations/src/lib/directives/animation.container.directive.ts)
+- **File:** [animation.container.directive.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/directives/animation.container.directive.ts)
 - **Purpose:**  
   Marks an element as an animation container. This directive sets up the view rectangle and passes configuration options (such as offsets) to the animation service.
 - **Usage Notes:**  
   It monitors changes (using `ngOnChanges`) and cleans up on destroy by deregistering options with the animation service.
 
 ### ZWPAnimationItemDirective
-- **File:** [animation.item.directive.ts](packages/platform/animations/src/lib/directives/animation.item.directive.ts)
+- **File:** [animation.item.directive.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/directives/animation.item.directive.ts)
 - **Purpose:**  
   Controls individual animated items.  
   - Listens to input changes (e.g. animation progress).
@@ -98,7 +98,7 @@ A high-level overview of the project structure:
 ## Components
 
 ### ZWPAnimationComponent
-- **File:** [animation.component.ts](packages/platform/animations/src/lib/components/animation.component.ts)
+- **File:** [animation.component.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/components/animation.component.ts)
 - **Purpose:**  
   A wrapper component that applies animations to its content.  
   - Accepts inputs controlling timing, delay, pause, replay, and animation type.
@@ -118,34 +118,34 @@ The animations library is composed of pre-defined animation definitions. These a
 - **What It Is:**  
   Animations triggered by user or programmatic actions (e.g. clicks).
 - **Examples:**
-  - **Bounce:** [bounce.ts](packages/platform/animations/src/lib/animations/actions/bounce.ts) defines keyframes that create a bouncing effect.
-  - **Flip:** [flip.ts](packages/platform/animations/src/lib/animations/actions/flip.ts) includes multiple variations such as `flipXVisible`, `flipYFromHidden`, etc.
-  - **Tada:** [tada.ts](packages/platform/animations/src/lib/animations/actions/tada.ts) applies a lively scale and rotation effect.
+  - **Bounce:** [bounce.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/actions/bounce.ts) defines keyframes that create a bouncing effect.
+  - **Flip:** [flip.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/actions/flip.ts) includes multiple variations such as `flipXVisible`, `flipYFromHidden`, etc.
+  - **Tada:** [tada.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/actions/tada.ts) applies a lively scale and rotation effect.
 
 ### Entrance Animations
 - **What It Is:**  
   Animations used to animate elements as they enter the view.
 - **Examples:**
-  - **Fade In:** [fade-in.ts](packages/platform/animations/src/lib/animations/entrances/fade-in.ts) smoothly transitions elements from transparent to visible.
-  - **Bounce In:** [bounce-in.ts](packages/platform/animations/src/lib/animations/entrances/bounce-in.ts) gives a bouncing entrance effect.
+  - **Fade In:** [fade-in.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/entrances/fade-in.ts) smoothly transitions elements from transparent to visible.
+  - **Bounce In:** [bounce-in.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/entrances/bounce-in.ts) gives a bouncing entrance effect.
   - **Roll In / Flip In:** Other entrance variations like `rollIn` and `flipInX`/`flipInY` provide dynamic reveals.
 
 ### Exit Animations
 - **What It Is:**  
   Animations for gracefully removing elements from view.
 - **Examples:**
-  - **Fade Out:** [fade-out.ts](packages/platform/animations/src/lib/animations/exits/fade-out.ts) transitions elements to invisibility.
-  - **Zoom Out:** [zoom-out.ts](packages/platform/animations/src/lib/animations/exits/zoom-out.ts) scales elements down while fading out.
-  - **Bounce Out:** [bounce-out.ts](packages/platform/animations/src/lib/animations/exits/bounce-out.ts) creates a dramatic exit with a bounce effect.
+  - **Fade Out:** [fade-out.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/exits/fade-out.ts) transitions elements to invisibility.
+  - **Zoom Out:** [zoom-out.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/exits/zoom-out.ts) scales elements down while fading out.
+  - **Bounce Out:** [bounce-out.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/exits/bounce-out.ts) creates a dramatic exit with a bounce effect.
 
-All animation definitions are consolidated and re-exported via [animations/index.ts](packages/platform/animations/src/lib/animations/index.ts).
+All animation definitions are consolidated and re-exported via [animations/index.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/animations/index.ts).
 
 ---
 
 ## Services
 
 ### ZWPAnimationService
-- **File:** [zwp.animation.service.ts](packages/platform/animations/src/lib/services/zwp.animation.service.ts)
+- **File:** [zwp.animation.service.ts]({{ site.repo_root_url }}/packages/platform/animations/src/lib/services/zwp.animation.service.ts)
 - **Purpose:**  
   Centralizes animation control across the module.
 - **Key Responsibilities:**
@@ -162,9 +162,9 @@ All animation definitions are consolidated and re-exported via [animations/index
 - **Linting and Formatting:**  
   Managed using `.eslintrc.json` and Prettier files.
 - **Unit Testing:**  
-  Jest is configured via `jest.config.ts` and `tsconfig.spec.json`. A dedicated [test-setup.ts](packages/platform/animations/src/test-setup.ts) is used to initialize test environments.
+  Jest is configured via `jest.config.ts` and `tsconfig.spec.json`. A dedicated [test-setup.ts]({{ site.repo_root_url }}/packages/platform/animations/src/test-setup.ts) is used to initialize test environments.
 - **Nx Targets:**  
-  The [project.json](packages/platform/animations/project.json) file defines build, test, and lint targets:
+  The [project.json]({{ site.repo_root_url }}/packages/platform/animations/project.json) file defines build, test, and lint targets:
   - Build: `nx build platform.animations`
   - Test: `nx test platform.animations`
   - Lint: `nx lint platform.animations`

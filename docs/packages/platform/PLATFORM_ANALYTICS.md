@@ -27,8 +27,8 @@ This document details the **platform.analytics** library. The module is built us
 
 The **platform.analytics** package is designed to centralize analytics functionality such as tracking events, page views, and custom metrics using Google Analytics. It is divided into primary and secondary entry points:
 
-- The main [analytics package](packages/platform/analytics/README.md) offers core functionality.
-- The Google Analytics secondary entry point ([google](packages/platform/analytics/google/README.md)) provides directives, services, and models specifically for integrating with Google Analytics.
+- The main [analytics package]({{ site.repo_root_url }}/packages/platform/analytics/README.md) offers core functionality.
+- The Google Analytics secondary entry point ([google]({{ site.repo_root_url }}/packages/platform/analytics/google/README.md)) provides directives, services, and models specifically for integrating with Google Analytics.
 
 Key features include:
 - **Directives:** Enhance DOM elements to report events automatically.
@@ -58,10 +58,10 @@ The analytics package is organized as follows:
         - `google-analytics.event-category.directive.ts`  
           Allows definition of event categories.
       - **initialisers/**  
-        Contains initialiser functions which attach analytics functionality to Angular’s bootstrapping process (e.g. router-based page view tracking in [`google.analytics.router.initialiser.ts`](packages/platform/analytics/google/src/lib/initialisers/google.analytics.router.initialiser.ts)).
+        Contains initialiser functions which attach analytics functionality to Angular’s bootstrapping process (e.g. router-based page view tracking in [`google.analytics.router.initialiser.ts`]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/initialisers/google.analytics.router.initialiser.ts)).
       - **model/**  
-        - Defines interfaces and tokens (e.g. tracking settings, routing settings, tokens for GTag, data layer, etc.). See [tokens index](packages/platform/analytics/google/src/lib/model/tokens/index.ts) for export details.
-        - Enums for event names (see [`common.google-analytics.4.action.event-name.ts`](packages/platform/analytics/google/src/lib/model/enums/common.google-analytics.4.action.event-name.ts)).
+        - Defines interfaces and tokens (e.g. tracking settings, routing settings, tokens for GTag, data layer, etc.). See [tokens index]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/model/tokens/index.ts) for export details.
+        - Enums for event names (see [`common.google-analytics.4.action.event-name.ts`]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/model/enums/common.google-analytics.4.action.event-name.ts)).
       - **modules/**  
         - `zwp.google-analytics.module.ts`  
           Exposes and configures Google Analytics functionality.
@@ -81,24 +81,24 @@ The analytics package is organized as follows:
 - **Purpose:**  
   Provides the core Google Analytics components including directives and initialisers.
 - **Configuration:**  
-  Use the static `forRoot()` method to pass in settings ([ZWPGoogleAnalyticsSettings](packages/platform/analytics/google/src/lib/model/interfaces/google-analytics.settings.ts)) and register the initialiser ([ZWP_GOOGLE_ANALYTICS_INITIALISER](packages/platform/analytics/google/src/lib/initialisers/google-analytics.initialiser.ts)).
+  Use the static `forRoot()` method to pass in settings ([ZWPGoogleAnalyticsSettings]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/model/interfaces/google-analytics.settings.ts)) and register the initialiser ([ZWP_GOOGLE_ANALYTICS_INITIALISER]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/initialisers/google-analytics.initialiser.ts)).
 - **Exports:**  
-  Re-exports directives found in [GOOGLE_ANALYTICS_EXPORTABLE_DIRECTIVES](packages/platform/analytics/google/src/lib/directives/index.ts).
+  Re-exports directives found in [GOOGLE_ANALYTICS_EXPORTABLE_DIRECTIVES]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/directives/index.ts).
 
 ### ZWPGoogleAnalyticsRouterModule
 - **Purpose:**  
   Connects the Angular Router with analytics events. It listens for navigation events to trigger page view tracking.
 - **Configuration:**  
-  Use the static `forRoot()` method with optional routing settings ([ZWPGoogleAnalyticsRoutingSettings](packages/platform/analytics/google/src/lib/model/interfaces/google-analytics.routing-settings.ts)).
+  Use the static `forRoot()` method with optional routing settings ([ZWPGoogleAnalyticsRoutingSettings]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/model/interfaces/google-analytics.routing-settings.ts)).
 - **Initialiser:**  
-  Registers the router initialiser that subscribes to router events ([google.analytics.router.initialiser.ts](packages/platform/analytics/google/src/lib/initialisers/google.analytics.router.initialiser.ts)).
+  Registers the router initialiser that subscribes to router events ([google.analytics.router.initialiser.ts]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/initialisers/google.analytics.router.initialiser.ts)).
 
 ---
 
 ## Directives
 
 ### ZWPGoogleAnalyticsEventDirective
-- **File:** [google-analytics.event.directive.ts](packages/platform/analytics/google/src/lib/directives/google-analytics.event.directive.ts)
+- **File:** [google-analytics.event.directive.ts]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/directives/google-analytics.event.directive.ts)
 - **Purpose:**  
   Attach to any DOM element to capture user interactions such as clicks.
 - **Inputs:**  
@@ -106,24 +106,24 @@ The analytics package is organized as follows:
   - `zwpGoogleAnalyticsLabel` and `zwpGoogleAnalyticsValue` for additional metadata.
   - `zwpGoogleAnalyticsNativeEvent` allows customization of the native event (defaults to 'click').
 - **Implementation:**  
-  Adds event listeners on the host element and triggers tracking via the [ZWPGoogleAnalyticsService](packages/platform/analytics/google/src/lib/services/google-analytics.service.ts).  
+  Adds event listeners on the host element and triggers tracking via the [ZWPGoogleAnalyticsService]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/services/google-analytics.service.ts).  
   See the code excerpts that perform event binding and teardown during `ngOnDestroy`.
 
 ### ZWPGoogleAnalyticsEventCategoryDirective
-- **File:** [google-analytics.event-category.directive.ts](packages/platform/analytics/google/src/lib/directives/google-analytics.event-category.directive.ts)
+- **File:** [google-analytics.event-category.directive.ts]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/directives/google-analytics.event-category.directive.ts)
 - **Purpose:**  
   Used alongside the event directive to define the event category.
 - **Inputs:**  
   - `zwpGoogleAnalyticsEventCategory` to set a string category for analytics events.
 
-Both directives are aggregated and exported in the [directives index](packages/platform/analytics/google/src/lib/directives/index.ts).
+Both directives are aggregated and exported in the [directives index]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/directives/index.ts).
 
 ---
 
 ## Services
 
 ### ZWPGoogleAnalyticsService
-- **File:** [google-analytics.service.ts](packages/platform/analytics/google/src/lib/services/google-analytics.service.ts)
+- **File:** [google-analytics.service.ts]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/services/google-analytics.service.ts)
 - **Purpose:**  
   Acts as the main interface to interact with Google Analytics.
 - **Key Methods:**  
@@ -132,7 +132,7 @@ Both directives are aggregated and exported in the [directives index](packages/p
   - `exception(description: string, fatal?: boolean)`: Reports exceptions.
   - `appView(...)`: For app-specific views with additional context like app version.
 - **Design:**  
-  Uses helper functions like `constructOptionsDict` to build parameter objects. It relies on a GTag builder function ([ZWP_GOOGLE_ANALYTICS_GTAG_BUILDER](packages/platform/analytics/google/src/lib/model/tokens/google-analytics.gtag.token)) for constructing and sending commands.
+  Uses helper functions like `constructOptionsDict` to build parameter objects. It relies on a GTag builder function ([ZWP_GOOGLE_ANALYTICS_GTAG_BUILDER]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/model/tokens/google-analytics.gtag.token)) for constructing and sending commands.
 - **Error Handling:**  
   Wraps tracking calls in try-catch blocks and logs errors if in development or if tracing is enabled.
 
@@ -142,19 +142,19 @@ Both directives are aggregated and exported in the [directives index](packages/p
 
 ### Interfaces and Settings
 - **Google Analytics Settings:**  
-  Defined in [google-analytics.settings.ts](packages/platform/analytics/google/src/lib/model/interfaces/google-analytics.settings.ts). Contains properties such as:
+  Defined in [google-analytics.settings.ts]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/model/interfaces/google-analytics.settings.ts). Contains properties such as:
   - `trackingCode`: The Google Analytics tracking code.
   - `initCommands`: Commands to initialize tracking.
   - `initDelay`, `uri`, `enableTracing`, and `nonce`.
 
 - **Routing Settings:**  
-  Defined in [google-analytics.routing-settings.ts](packages/platform/analytics/google/src/lib/model/interfaces/google-analytics.routing-settings.ts). Provides `include` and `exclude` rules for capturing router events.
+  Defined in [google-analytics.routing-settings.ts]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/model/interfaces/google-analytics.routing-settings.ts). Provides `include` and `exclude` rules for capturing router events.
 
 ### Enums and Tokens
 - **Event Enums:**  
-  The package exports enums for event names (e.g. [`ZWPCommonGoogleAnalytics4ActionEventName`](packages/platform/analytics/google/src/lib/model/enums/common.google-analytics.4.action.event-name.ts) and others from the auto, ecommerce, and games categories). These ensure consistent naming across the application.
+  The package exports enums for event names (e.g. [`ZWPCommonGoogleAnalytics4ActionEventName`]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/model/enums/common.google-analytics.4.action.event-name.ts) and others from the auto, ecommerce, and games categories). These ensure consistent naming across the application.
 - **Tokens:**  
-  Exported through [tokens index](packages/platform/analytics/google/src/lib/model/tokens/index.ts), these include tokens for the GTag builder, settings, routing settings, and data layer. They facilitate dependency injection of analytics configurations.
+  Exported through [tokens index]({{ site.repo_root_url }}/packages/platform/analytics/google/src/lib/model/tokens/index.ts), these include tokens for the GTag builder, settings, routing settings, and data layer. They facilitate dependency injection of analytics configurations.
 
 ---
 
@@ -163,9 +163,9 @@ Both directives are aggregated and exported in the [directives index](packages/p
 - **Linting and Formatting:**  
   Managed using `.eslintrc.json` and Prettier configurations.
 - **Unit Testing:**  
-  Configured via `jest.config.ts` and `tsconfig.spec.json`. The [test-setup.ts](packages/platform/analytics/test-setup.ts) file initializes necessary mocks and environment configurations.
+  Configured via `jest.config.ts` and `tsconfig.spec.json`. The [test-setup.ts]({{ site.repo_root_url }}/packages/platform/analytics/test-setup.ts) file initializes necessary mocks and environment configurations.
 - **Nx Integration:**  
-  The [project.json](packages/platform/analytics/project.json) defines targets for building, testing, and linting. Use the following commands:
+  The [project.json]({{ site.repo_root_url }}/packages/platform/analytics/project.json) defines targets for building, testing, and linting. Use the following commands:
   - Build: `nx build platform.analytics`
   - Test: `nx test platform.analytics`
   - Lint: `nx lint platform.analytics`
