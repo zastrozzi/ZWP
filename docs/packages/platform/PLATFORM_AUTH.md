@@ -5,7 +5,7 @@ sidebar_label: Auth
 ---
 # Core Platform - Auth
 
-### [View on Github]({{ site.repo_root_url }}/packages/platform/auth)
+[**View on Github**]({{ site.repo_root_url }}/packages/platform/auth)
 
 This document details the **platform.auth** library. The package manages authentication state using NgRx. It provides actions, reducers, selectors, and effects to manage tokens, device identifiers, and authenticated user data. It also offers facades and services for interacting with authentication-related API endpoints and for integrating with other modules in your application.
 

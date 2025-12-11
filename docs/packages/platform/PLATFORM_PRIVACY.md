@@ -5,7 +5,7 @@ sidebar_label: Privacy
 ---
 # Core Platform - Privacy
 
-### [View on Github]({{ site.repo_root_url }}/packages/platform/privacy)
+[**View on Github**]({{ site.repo_root_url }}/packages/platform/privacy)
 
 This document details the **platform.privacy** library. This package provides tools to help manage user privacy and consent within your Angular application. It leverages NgRx for state management (with actions, effects, reducers, selectors, and facades), defines API routes and configuration tokens, and offers reusable UI components and services for handling cookie consent, IP location tracking, and related privacy tasks.
 

@@ -5,7 +5,7 @@ sidebar_label: User Management
 ---
 # Customer Data Platform - User Management
 
-### [View on Github]({{ site.repo_root_url }}/packages/cdp/users)
+[**View on Github**]({{ site.repo_root_url }}/packages/cdp/users)
 
 This document details the **Zastrozzi CDP Users Library**. This library provides functionality for managing both administrator and enduser accounts within the Zastrozzi CDP suite. It leverages NgRx for state management (via actions, effects, reducers, selectors, and facades), exposes API routes and configuration tokens, provides shared accessors, and includes a variety of reusable UI components and services. The library covers domains such as admin‑users and endusers, along with their associated state and API operations.
 

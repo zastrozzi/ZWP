@@ -5,7 +5,7 @@ sidebar_label: Identity Management
 ---
 # Core Platform - Identity Management
 
-### [View on Github]({{ site.repo_root_url }}/packages/platform/identity)
+[**View on Github**]({{ site.repo_root_url }}/packages/platform/identity)
 
 This document details the **platform.identity** library. This package handles user identity management for your Angular application. It provides tools for managing authentication, user profiles, and associated data. The package leverages NgRx for state management (with actions, effects, reducers, selectors, and facades), defines API routes and service implementations (both live and mock), and delivers reusable UI components for identity interactions.
 

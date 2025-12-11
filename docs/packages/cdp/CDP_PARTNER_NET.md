@@ -5,7 +5,7 @@ sidebar_label: Partner Network
 ---
 # Customer Data Platform - Partner Network
 
-### [View on Github]({{ site.repo_root_url }}/packages/cdp/partner-net)
+[**View on Github**]({{ site.repo_root_url }}/packages/cdp/partner-net)
 
 This document details the **cdp.partner‑net** library. This library is part of the Zastrozzi CDP suite and provides functionality for managing partner data, subscriptions, types, assets, and subgroup assignments. It leverages NgRx for state management (with actions, effects, reducers, selectors, and facades), exposes API routes and configuration tokens, and offers a set of reusable UI components and abstracted API service implementations (both live and mock). Detailed facades give you a high‑level API to interact with partner data, while API services (using Angular’s HttpClient) target live REST endpoints.
 
