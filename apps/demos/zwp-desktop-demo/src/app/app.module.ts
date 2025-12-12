@@ -40,7 +40,7 @@ import { appRoutes } from './routes/app.routes'
             enablePersistence: true,
             enableApplicationState: true,
             enableHistoryState: true,
-            enableKeyboardState: false,
+            enableKeyboardState: true,
             enablePersistenceProfileState: true,
             enableRouterState: true,
             enableThemingState: true,

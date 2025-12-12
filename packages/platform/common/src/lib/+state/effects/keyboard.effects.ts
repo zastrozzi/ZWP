@@ -1,4 +1,4 @@
-import { ALT, CONTROL, META, SHIFT } from '@angular/cdk/keycodes'
+import { ALT, CONTROL, META, SHIFT, MAC_WK_CMD_LEFT, MAC_WK_CMD_RIGHT } from '@angular/cdk/keycodes'
 import { Injectable } from "@angular/core"
 import { EventManager } from "@angular/platform-browser"
 import { Actions, createEffect, ofType } from "@ngrx/effects"
@@ -19,12 +19,22 @@ export class ZWPKeyboardEffects {
     // ))
 
     handleKeyup$ = createEffect(() => fromEvent<KeyboardEvent>(document, 'keyup').pipe(
+        filter(e => !e.repeat),
         map(e => KeyboardActions.recordKeyup({ keyCode: e.keyCode }))
     ))
 
     handleKeydown$ = createEffect(() => fromEvent<KeyboardEvent>(document, 'keydown').pipe(
+        filter(e => !e.repeat),
         map(e => KeyboardActions.recordKeydown({ keyCode: e.keyCode }))
     ))
+
+    // handleKeyupString$ = createEffect(() => fromEvent<KeyboardEvent>(document, 'keyup').pipe(
+    //     map(e => KeyboardActions.recordKeyupString({ keyCode: e.code }))
+    // ))
+
+    // handleKeydownString$ = createEffect(() => fromEvent<KeyboardEvent>(document, 'keydown').pipe(
+    //     map(e => KeyboardActions.recordKeydownString({ keyCode: e.code }))
+    // ))
 
     handleAltKeyDown$ = createEffect(() => this.actions$.pipe(
         ofType(KeyboardActions.recordKeydown),
@@ -40,7 +50,7 @@ export class ZWPKeyboardEffects {
 
     handleMetaKeyDown$ = createEffect(() => this.actions$.pipe(
         ofType(KeyboardActions.recordKeydown),
-        filter(e => e.keyCode === META),
+        filter(e => e.keyCode === META || e.keyCode === MAC_WK_CMD_LEFT || e.keyCode === MAC_WK_CMD_RIGHT),
         map(() => KeyboardActions.setMetaKeyActive({ active: true }))
     ))
 
@@ -64,7 +74,7 @@ export class ZWPKeyboardEffects {
 
     handleMetaKeyUp$ = createEffect(() => this.actions$.pipe(
         ofType(KeyboardActions.recordKeyup),
-        filter(e => e.keyCode === META),
+        filter(e => e.keyCode === META || e.keyCode === MAC_WK_CMD_LEFT || e.keyCode === MAC_WK_CMD_RIGHT),
         map(() => KeyboardActions.setMetaKeyActive({ active: false }))
     ))
 

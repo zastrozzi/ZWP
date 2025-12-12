@@ -9,13 +9,46 @@ export const appRoutes: Routes = [
         children: [
             {
                 path: '',
+                redirectTo: 'home',
+                pathMatch: 'full',
+                data: {
+                    featureNavShown: false,
+                },
+            },
+            {
+                path: 'home',
                 component: COMPONENTS.HomePageComponent,
                 data: {
                     featureNavShown: true,
                     featureNavTitle: 'Home',
                     featureNavIcon: 'home',
-                }
-            }
-        ]
-    }
+                },
+            },
+            {
+                path: 'platform',
+                data: {
+                    featureNavShown: true,
+                    featureNavTitle: 'Platform',
+                    featureNavIcon: 'architecture',
+                },
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'keyboard',
+                        pathMatch: 'full',
+                        data: { leftNavPanelShown: false },
+                    },
+                    {
+                        path: 'keyboard',
+                        component: COMPONENTS.KeyboardPageComponent,
+                        data: {
+                            navTitle: 'Keyboard',
+                            navIcon: 'keyboard',
+                            leftNavPanelShown: true
+                        },
+                    },
+                ],
+            },
+        ],
+    },
 ]

@@ -71,7 +71,8 @@ export const _provideNgrxModuleRootProviders = (config: ZWPNgrxModuleRootConfig)
                 logOnly: false,
                 autoPause: true,
                 actionsBlocklist: [
-                    ...actionTypes(KeyboardActions), ...config.actionsBlocklist
+                    ...actionTypes(KeyboardActions), 
+                    ...config.actionsBlocklist
                 ]
             })
         )
