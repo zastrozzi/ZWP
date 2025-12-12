@@ -10,6 +10,7 @@ const keyboardState = createFeatureSelector<KeyboardFeatureState>(
     )
 )
 
+const trackingActive = createSelector(keyboardState, s => s.trackingActive)
 const activeKeyCodes = createSelector(keyboardState, s => s.activeKeyCodes)
 const keyCodeIsActive = (keyCode: number) => createSelector(activeKeyCodes, (keyCodes) => keyCodes.includes(keyCode))
 const altKeyActive = createSelector(keyboardState, s => s.altKeyActive)
@@ -19,6 +20,7 @@ const shiftKeyActive = createSelector(keyboardState, s => s.shiftKeyActive)
 
 
 export const KeyboardSelectors = {
+    trackingActive,
     altKeyActive,
     ctrlKeyActive,
     metaKeyActive,

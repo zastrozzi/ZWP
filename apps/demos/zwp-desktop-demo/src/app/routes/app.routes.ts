@@ -28,7 +28,7 @@ export const appRoutes: Routes = [
                 path: 'platform',
                 data: {
                     featureNavShown: true,
-                    featureNavTitle: 'Platform',
+                    featureNavTitle: 'Platform Features',
                     featureNavIcon: 'architecture',
                 },
                 children: [
@@ -40,9 +40,9 @@ export const appRoutes: Routes = [
                     },
                     {
                         path: 'keyboard',
-                        component: COMPONENTS.KeyboardPageComponent,
+                        component: COMPONENTS.KEYBOARD_COMPONENTS.KeyboardPageComponent,
                         data: {
-                            navTitle: 'Keyboard',
+                            navTitle: 'Keyboard Shortcuts',
                             navIcon: 'keyboard',
                             leftNavPanelShown: true
                         },
