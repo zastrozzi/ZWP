@@ -31,6 +31,7 @@
             "@zwp/platform.dynamic-query": ["packages/platform/dynamic-query/src/index.ts"],
             "@zwp/platform.files": ["packages/platform/files/src/index.ts"],
             "@zwp/platform.google-cloud": ["packages/platform/google-cloud/src/index.ts"],
+            "@zwp/platform.identity": ["packages/platform/identity/src/index.ts"],
             "@zwp/platform.layout": ["packages/platform/layout/src/index.ts"],
             "@zwp/platform.privacy": ["packages/platform/privacy/src/index.ts"],
             "@zwp/platform.animations": ["packages/platform/animations/src/index.ts"],

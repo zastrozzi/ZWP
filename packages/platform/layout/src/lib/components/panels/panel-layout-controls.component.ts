@@ -51,14 +51,14 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
         </div>
 
         <mat-menu #leftPanelControlsMenu="matMenu" >
-            <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="8px" [style.backgroundColor]="'tertiary-system-background' | zwpColorTheme" [style.marginTop]="'-8px'" [style.marginBottom]="'-8px'" zwpPadding="10px">
+            <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="8px" [style.backgroundColor]="panelControlMenuBackgroundColorTheme | zwpColorTheme" [style.marginTop]="'-8px'" [style.marginBottom]="'-8px'" zwpPadding="10px">
                     <zwp-md-button 
                         *ngIf="(leftPanelOpen$ | async) === false" 
                         (btnClick)="openLeftPanel()" 
                         icon="border_left" 
                         label="Open Left Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
                     <zwp-md-button 
                         *ngIf="(leftPanelOpen$ | async) === true" 
@@ -66,7 +66,7 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
                         icon="border_left" 
                         label="Close Left Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
                     <zwp-md-button 
                         *ngIf="(leftPanelOpen$ | async) === true && (leftPanelExpanded$ | async) === false" 
@@ -74,7 +74,7 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
                         icon="open_in_full" 
                         label="Expand Left Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
                     <zwp-md-button 
                         *ngIf="(leftPanelOpen$ | async) === true && (leftPanelExpanded$ | async) === true" 
@@ -82,7 +82,7 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
                         icon="close_fullscreen" 
                         label="Minimise Left Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
                     <zwp-md-button 
                         *ngIf="(leftPanelDisplayMode$ | async) === inlineAndOver" 
@@ -90,7 +90,7 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
                         icon="push_pin" 
                         label="Pin Left Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
                     <zwp-md-button 
                         *ngIf="(leftPanelDisplayMode$ | async) === inline" 
@@ -98,20 +98,20 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
                         icon="push_pin" 
                         label="Unpin Left Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
             </div>
         </mat-menu>
 
         <mat-menu #bottomPanelControlsMenu="matMenu" >
-            <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="8px" [style.backgroundColor]="'tertiary-system-background' | zwpColorTheme" [style.marginTop]="'-8px'" [style.marginBottom]="'-8px'" zwpPadding="10px">
+            <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="8px" [style.backgroundColor]="panelControlMenuBackgroundColorTheme | zwpColorTheme" [style.marginTop]="'-8px'" [style.marginBottom]="'-8px'" zwpPadding="10px">
                     <zwp-md-button 
                         *ngIf="(bottomPanelOpen$ | async) === false" 
                         (btnClick)="openBottomPanel()" 
                         icon="border_bottom" 
                         label="Open Bottom Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
                     <zwp-md-button 
                         *ngIf="(bottomPanelOpen$ | async) === true" 
@@ -119,7 +119,7 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
                         icon="border_bottom" 
                         label="Close Bottom Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
                     <zwp-md-button 
                         *ngIf="(bottomPanelOpen$ | async) === true && (bottomPanelExpanded$ | async) === false" 
@@ -127,7 +127,7 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
                         icon="open_in_full" 
                         label="Expand Bottom Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
                     <zwp-md-button 
                         *ngIf="(bottomPanelOpen$ | async) === true && (bottomPanelExpanded$ | async) === true" 
@@ -135,20 +135,20 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
                         icon="close_fullscreen" 
                         label="Minimise Bottom Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
             </div>
         </mat-menu>
 
         <mat-menu #rightPanelControlsMenu="matMenu" >
-            <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="8px" [style.backgroundColor]="'tertiary-system-background' | zwpColorTheme" [style.marginTop]="'-8px'" [style.marginBottom]="'-8px'" zwpPadding="10px">
+            <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="8px" [style.backgroundColor]="panelControlMenuBackgroundColorTheme | zwpColorTheme" [style.marginTop]="'-8px'" [style.marginBottom]="'-8px'" zwpPadding="10px">
                     <zwp-md-button 
                         *ngIf="(rightPanelOpen$ | async) === false" 
                         (btnClick)="openRightPanel()" 
                         icon="border_right" 
                         label="Open Right Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
                     <zwp-md-button 
                         *ngIf="(rightPanelOpen$ | async) === true" 
@@ -156,7 +156,7 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
                         icon="border_right" 
                         label="Close Right Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
                     <zwp-md-button 
                         *ngIf="(rightPanelOpen$ | async) === true && (rightPanelExpanded$ | async) === false" 
@@ -164,7 +164,7 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
                         icon="open_in_full" 
                         label="Expand Right Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
                     <zwp-md-button 
                         *ngIf="(rightPanelOpen$ | async) === true && (rightPanelExpanded$ | async) === true" 
@@ -172,7 +172,7 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
                         icon="close_fullscreen" 
                         label="Minimise Right Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
                     <zwp-md-button 
                         *ngIf="(rightPanelDisplayMode$ | async) === inlineAndOver" 
@@ -180,7 +180,7 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
                         icon="push_pin" 
                         label="Pin Right Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
                     <zwp-md-button 
                         *ngIf="(rightPanelDisplayMode$ | async) === inline" 
@@ -188,7 +188,7 @@ import { PanelDisplayMode, PanelPosition } from "../../model";
                         icon="push_pin" 
                         label="Unpin Right Panel" 
                         [backgroundColor]="'clear' | zwpColorTheme" 
-                        [labelColor]="'primary' | zwpColorTheme"
+                        [labelColor]="panelControlMenuButtonLabelColorTheme | zwpColorTheme"
                     ></zwp-md-button>
             </div>
         </mat-menu>
@@ -202,6 +202,8 @@ export class PanelLayoutControlsComponent {
     @Input() buttonBackgroundColorTheme = "clear"
     @Input() buttonSelectedColorTheme = "primary"
     @Input() buttonUnselectedColorTheme = "tertiary-label"
+    @Input() panelControlMenuButtonLabelColorTheme = "primary"
+    @Input() panelControlMenuBackgroundColorTheme = "tertiary-system-background"
 
     constructor(private panelLayoutFacade: ZWPPanelLayoutFacade) {}
 

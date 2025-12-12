@@ -1,0 +1,93 @@
+@use '@angular/material' as mat;
+@import './fonts/lato/lato.scss';
+@import './fonts/material_icons/material_icons.scss';
+@include mat.core();
+
+$default-typography-config: mat.define-typography-config($font-family: 'Lato',
+    $headline-1: mat.define-typography-level(45px, 45px, 400),
+    $headline-2: mat.define-typography-level(34px, 34px, 400),
+    $headline-3: mat.define-typography-level(28px, 28px, 400),
+    $headline-4: mat.define-typography-level(20px, 20px, 400),
+    $headline-5: mat.define-typography-level(15px, 15px, 400),
+    $headline-6: mat.define-typography-level(12px, 12px, 400),
+    $body-2: mat.define-typography-level(14px, 14px, 400),
+    $body-1: mat.define-typography-level(14px, 14px, 400),
+    $button: mat.define-typography-level(14px, 14px, 400),
+    $caption: mat.define-typography-level(12px, 12px, 400));
+
+.mdc-menu-surface {
+  background-color: #fffffffa !important;
+}
+
+$default-primary: mat.define-palette(mat.$grey-palette, 500);
+$default-accent: mat.define-palette(mat.$grey-palette, 200, 100, 400);
+$default-warn: mat.define-palette(mat.$red-palette);
+
+$default-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $default-primary,
+      accent: $default-accent,
+      warn: $default-warn,
+    ),
+    typography: $default-typography-config
+  )
+);
+
+@include mat.all-component-themes($default-theme);
+
+.zwp-custom-scroll-content::-webkit-scrollbar {
+  display: none;
+}
+
+.zwp-custom-scrollbar-track {
+  position: absolute;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 102;
+}
+
+.zwp-custom-scrollbar-track.vertical {
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+}
+
+.zwp-custom-scrollbar-track.horizontal {
+  bottom: 0;
+  left: 0;
+  height: 8px;
+  width: 100%;
+}
+
+.zwp-custom-scrollbar-thumb.vertical {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  position: absolute;
+  cursor: pointer;
+  width: 100%;
+}
+
+.zwp-custom-scrollbar-thumb.horizontal {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  position: absolute;
+  cursor: pointer;
+  height: 100%;
+}
+
+.zwp-custom-scrollbar-track.show {
+  opacity: 1;
+}
+
+.zwp-hidden-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0px;
+}
+
+.zwp-hidden-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
