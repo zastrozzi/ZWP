@@ -4,6 +4,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
+    inject,
     NgZone,
     OnDestroy,
     QueryList,
@@ -22,7 +23,7 @@ import { Model } from '../../model'
     template: `
         <div
             zwpSelectionContainer
-            (zwpSelectionChange)="handleSelectionContainerChange($event)"
+            (zwpSelectionChange)="handleSelectionContainerChange($event, fileExplorerGridData.selectedItemIds)"
             #explorerGrid
             *ngIf="{
                 groupingViewMode: groupingViewMode$ | async,
@@ -33,10 +34,8 @@ import { Model } from '../../model'
                 gridColumns: fileGridColumns$ | async,
                 gridWidth: (explorerGridWidth$ | async) ?? 0
             } as fileExplorerGridData"
-            (click)="fileExplorerGridData.selectedItemIds.length > 0 ? deselectAllFileExplorerItems() : null"
             fxLayout="column"
             fxFlex="grow"
-            fxFlexFill
             cdkDropListGroup
         >
             <div *ngIf="fileExplorerGridData.groupingViewMode" fxLayout="row" zwpPadding="10">
@@ -51,11 +50,11 @@ import { Model } from '../../model'
                     [cdkDropListSortingDisabled]="true"
                 >
                     <ng-container *ngIf="fileExplorerGridData.groupingViewMode === groupingViewModeEnum.combined">
-                        <mat-grid-tile
-                            [rowspan]="6"
-                            zwpSelectionContainerItem
+                        <div zwpSelectionContainerItem
                             [zwpSelectionContainerItemId]="child.id"
-                            *ngFor="let child of fileExplorerGridData.allChildren"
+                            *ngFor="let child of fileExplorerGridData.allChildren">
+                        <mat-grid-tile
+                            [rowspan]="6" [colspan]="1"
                             cdkDrag
                             [cdkDragData]="child"
                             (cdkDragStarted)="handleDragStart($event)"
@@ -64,13 +63,13 @@ import { Model } from '../../model'
                             <zwp-file-explorer-drag-preview *cdkDragPreview/>
                             <zwp-file-explorer-grid-item
                                 (contextmenu)="openContextMenu($event, child)"
-                                fxFlexFill
                                 [fileDataItem]="child"
                                 [isSelected]="fileExplorerGridData.selectedItemIds.includes(child.id)"
                                 (clicked)="handleFileExplorerItemSelection($event)"
                                 (doubleClicked)="handleFileExplorerItemDoubleClick($event)"
                             />
                         </mat-grid-tile>
+                        </div>
                     </ng-container>
                     <ng-container *ngIf="fileExplorerGridData.groupingViewMode === groupingViewModeEnum.itemType">
                         <mat-grid-tile
@@ -81,7 +80,7 @@ import { Model } from '../../model'
                             >Folders</span>
                         </mat-grid-tile>
                         <mat-grid-tile
-                            [rowspan]="6"
+                            [rowspan]="6" [colspan]="1"
                             zwpSelectionContainerItem
                             [zwpSelectionContainerItemId]="child.id"
                             *ngFor="let child of fileExplorerGridData.allDirectories"
@@ -135,18 +134,16 @@ import { Model } from '../../model'
     `,
 })
 export class FileExplorerGridComponent implements AfterViewInit, OnDestroy {
-    @ViewChild('explorerGrid', { static: false }) explorerGrid: ElementRef | undefined
+    @ViewChild('explorerGrid', { static: false }) explorerGrid!: ElementRef
     @ViewChildren(CdkDropList) dropsQuery: QueryList<CdkDropList> | undefined
 
     private readonly subscriptions: Subscription = new Subscription()
     drops: CdkDropList[] | undefined
 
-    constructor(
-        private fileExplorerFacade: ZWPFileExplorerFacade,
-        private zone: NgZone,
-        private colorThemePipe: ZWPColorThemePipe,
-        private menuFacade: ZWPMenuLayoutFacade
-    ) {}
+    private fileExplorerFacade = inject(ZWPFileExplorerFacade)
+    private zone = inject(NgZone)
+    private colorThemePipe = inject(ZWPColorThemePipe)
+    private menuFacade = inject(ZWPMenuLayoutFacade)
 
     groupingViewModeEnum = Model.FileExplorerGroupingViewMode
 
@@ -172,7 +169,7 @@ export class FileExplorerGridComponent implements AfterViewInit, OnDestroy {
             })
         })
 
-        this.explorerGridWidthObserver.observe(this.explorerGrid?.nativeElement)
+        this.explorerGridWidthObserver.observe(this.explorerGrid.nativeElement)
 
         const dropsQueryChangesSub = this.dropsQuery?.changes.subscribe(() => {
             this.drops = this.dropsQuery?.toArray()
@@ -194,10 +191,12 @@ export class FileExplorerGridComponent implements AfterViewInit, OnDestroy {
         this.fileExplorerFacade.deleteFileExplorerItem(id)
     }
 
-    handleSelectionContainerChange(ids: string[]) {
+    handleSelectionContainerChange(ids: string[], currentlySelectedIds: string[]) {
         this.zone.run(() => {
             if (ids.length > 0) {
                 this.fileExplorerFacade.selectFileExplorerItems(ids)
+            } else if (currentlySelectedIds.length > 0) {
+                this.fileExplorerFacade.deselectAllFileExplorerItems()
             }
         })
     }
@@ -214,9 +213,10 @@ export class FileExplorerGridComponent implements AfterViewInit, OnDestroy {
         // event.stopPropagation()
         this.fileExplorerFacade.handleFileExplorerItemSelection(id)
     }
-    deselectAllFileExplorerItems() {
-        // this.fileExplorerFacade.deselectAllFileExplorerItems()
-    }
+    // deselectAllFileExplorerItems(event: MouseEvent | TouchEvent) {
+    //     event.preventDefault()
+    //     this.fileExplorerFacade.deselectAllFileExplorerItems()
+    // }
 
     handleDragStart(event: CdkDragStart) {
         if (

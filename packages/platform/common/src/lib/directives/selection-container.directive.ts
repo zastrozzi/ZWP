@@ -1,4 +1,4 @@
-import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList } from "@angular/core";
 import { BehaviorSubject, combineLatest, distinctUntilChanged, distinctUntilKeyChanged, filter, map, Subscription, withLatestFrom } from "rxjs";
 import { v4 } from "uuid";
 import { GeometryPoint, GeometryRect, PointerEventCoordinate, PointerEventInputType } from "../model";
@@ -21,7 +21,7 @@ export class SelectionContainerItemDirective {
 @Directive({
     selector: '[zwpSelectionContainer]'
 })
-export class SelectionContainerDirective implements OnInit, OnDestroy, AfterContentInit {
+export class SelectionContainerDirective implements OnInit, OnDestroy {
     private subscriptions: Subscription = new Subscription()
     private pointerIsDown$ = new BehaviorSubject<boolean>(false)
     private selectionContainerItemElementRects$ = new BehaviorSubject<{id: string, rect: GeometryRect}[]>([])
@@ -34,7 +34,7 @@ export class SelectionContainerDirective implements OnInit, OnDestroy, AfterCont
         distinctUntilChanged((x, y) => x.length === y.length)
     )
 
-    @ContentChildren(SelectionContainerItemDirective, {descendants: true}) selectionContainerItems: QueryList<SelectionContainerItemDirective> | undefined
+    @ContentChildren(SelectionContainerItemDirective, {descendants: true}) selectionContainerItems!: QueryList<SelectionContainerItemDirective>
 
     @Output() zwpSelectionChange: EventEmitter<string[]> = new EventEmitter<string[]>()
 
@@ -58,6 +58,7 @@ export class SelectionContainerDirective implements OnInit, OnDestroy, AfterCont
                 this.pointerIsDown$.next(true)
                 this.initialDownPosition = coord.location
                 this.selectionService.createSelectionBox(selectionContainerRect, coord.location)
+                this.selectionContainerItemElementRects$.next(this.selectionContainerItemElementRects)
             })
 
         const pointerUpSub = this.pointerEventService.pointerUpEvents({inputType: PointerEventInputType.MOUSE})
@@ -68,6 +69,7 @@ export class SelectionContainerDirective implements OnInit, OnDestroy, AfterCont
             )
             .subscribe(() => {
                 // console.log('in handle up')
+                // console.log(this.selectionContainerItemElementRects, 'itemRects')
                 this.pointerIsDown$.next(false)
                 this.initialDownPosition = null
                 this.selectionService.removeSelectionBox()
@@ -91,19 +93,12 @@ export class SelectionContainerDirective implements OnInit, OnDestroy, AfterCont
         const intersectionsSub = this.intersectingSelectionContainerItemRects$.subscribe(intersectingItems => {
             this.zwpSelectionChange.emit(intersectingItems.map(item => item.id))
         })
-
+        
 
         this.subscriptions.add(intersectionsSub)
         this.subscriptions.add(pointerDownSub)
         this.subscriptions.add(pointerUpSub)
         this.subscriptions.add(pointerMoveSub)
-    }
-    ngAfterContentInit(): void {
-        const selectionContainerItemRectsSub = this.selectionContainerItems?.changes.subscribe(() => {
-            this.selectionContainerItemElementRects$.next(this.selectionContainerItemElementRects)
-        })
-
-        this.subscriptions.add(selectionContainerItemRectsSub)
     }
 
     ngOnDestroy(): void {
