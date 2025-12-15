@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core'
 import { Nullable } from '@zwp/platform.common'
-import { ZWPMenuLayoutFacade } from '@zwp/platform.layout'
 import { ZWPFileExplorerFacade } from '../../+state/facades/file-explorer.facade'
 import { Model } from '../../model'
 

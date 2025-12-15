@@ -1,5 +1,6 @@
 import { CornerStyleDirective } from './corner-style.directive'
 import { DisableRightClickDirective } from './disable-right-click.directive'
+import { DisableSelectionDirective } from './disable-selection.directive'
 import { DoubleTapDirective } from './double-tap.directive'
 import { LongPressDirective } from './long-press.directive'
 import { ScrollHostDirective } from './scroll-host.directive'
@@ -33,6 +34,7 @@ import { ViewModeDirective } from './view-mode.directive'
 
 
 export * from './disable-right-click.directive'
+export * from './disable-selection.directive'
 export * from './slider-color.directive'
 export * from './text-style.directive'
 export * from './corner-style.directive'
@@ -68,6 +70,7 @@ export * from './view-mode.directive'
 
 export const COMMON_EXPORTABLE_DIRECTIVES = [
     DisableRightClickDirective, 
+    DisableSelectionDirective,
     SliderColorDirective, 
     TextStyleDirective, 
     CornerStyleDirective,

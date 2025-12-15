@@ -34,6 +34,7 @@ import { Model } from '../../model'
             <span
                 fxFlex="noshrink"
                 zwpTextStyle="body1"
+                zwpDisableSelection
                 [style.textAlign]="'center'"
                 [style.textOverflow]="'ellipsis'"
                 [style.whiteSpace]="'nowrap'"

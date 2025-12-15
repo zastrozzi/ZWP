@@ -50,11 +50,11 @@ import { Model } from '../../model'
                     [cdkDropListSortingDisabled]="true"
                 >
                     <ng-container *ngIf="fileExplorerGridData.groupingViewMode === groupingViewModeEnum.combined">
-                        <div zwpSelectionContainerItem
-                            [zwpSelectionContainerItemId]="child.id"
-                            *ngFor="let child of fileExplorerGridData.allChildren">
                         <mat-grid-tile
                             [rowspan]="6" [colspan]="1"
+                            zwpSelectionContainerItem
+                            [zwpSelectionContainerItemId]="child.id"
+                            *ngFor="let child of fileExplorerGridData.allChildren"
                             cdkDrag
                             [cdkDragData]="child"
                             (cdkDragStarted)="handleDragStart($event)"
@@ -62,6 +62,7 @@ import { Model } from '../../model'
                         >
                             <zwp-file-explorer-drag-preview *cdkDragPreview/>
                             <zwp-file-explorer-grid-item
+                                fxFlexFill
                                 (contextmenu)="openContextMenu($event, child)"
                                 [fileDataItem]="child"
                                 [isSelected]="fileExplorerGridData.selectedItemIds.includes(child.id)"
@@ -69,18 +70,17 @@ import { Model } from '../../model'
                                 (doubleClicked)="handleFileExplorerItemDoubleClick($event)"
                             />
                         </mat-grid-tile>
-                        </div>
                     </ng-container>
                     <ng-container *ngIf="fileExplorerGridData.groupingViewMode === groupingViewModeEnum.itemType">
                         <mat-grid-tile
                             [colspan]="fileExplorerGridData.gridColumns" [rowspan]="2"
                             zwpBackgroundColor="quaternary-system-fill" zwpCorners="20"
                         >
-                            <span fxFlexOffset="15px" [zwpTextStyle]="'body3'" zwpColor="label" fxFlex="noshrink"
+                            <span zwpDisableSelection fxFlexOffset="15px" [zwpTextStyle]="'body3'" zwpColor="label" fxFlex="noshrink"
                             >Folders</span>
                         </mat-grid-tile>
                         <mat-grid-tile
-                            [rowspan]="6" [colspan]="1"
+                            [rowspan]="6"
                             zwpSelectionContainerItem
                             [zwpSelectionContainerItemId]="child.id"
                             *ngFor="let child of fileExplorerGridData.allDirectories"
@@ -104,7 +104,7 @@ import { Model } from '../../model'
                             [colspan]="fileExplorerGridData.gridColumns" [rowspan]="2"
                             zwpBackgroundColor="quaternary-system-fill" zwpCorners="20"
                         >
-                            <span fxFlexOffset="15px" [zwpTextStyle]="'body3'" zwpColor="label" fxFlex="noshrink"
+                            <span zwpDisableSelection fxFlexOffset="15px" [zwpTextStyle]="'body3'" zwpColor="label" fxFlex="noshrink"
                             >Files</span>
                         </mat-grid-tile>
                         <mat-grid-tile
