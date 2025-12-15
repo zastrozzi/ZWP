@@ -1,16 +1,18 @@
 import { inject, Injectable } from '@angular/core'
-import { isNil, ZWPDebuggableInjectable, ZWPKeyboardFacade, ZWPRouterFacade } from '@zwp/platform.common'
+import { createNamespacedFeatureKey, DiffingUtils, isNil, PersistenceActions, ZWPDebuggableInjectable, ZWPKeyboardFacade, ZWPRouterFacade } from '@zwp/platform.common'
 import { ZWPMenuLayoutFacade } from '@zwp/platform.layout'
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects'
-import { routerNavigatedAction } from '@ngrx/router-store'
-import { map, tap, withLatestFrom } from 'rxjs'
+import { ROUTER_NAVIGATED, routerNavigatedAction } from '@ngrx/router-store'
+import { filter, map, tap, withLatestFrom } from 'rxjs'
 import { FileExplorerItemContextMenuComponent } from '../../components'
 import { FileDataActions, FileExplorerActions } from '../actions'
 import { Facades } from '../facades'
+import { Identifiers } from '../identifiers'
+import { Action } from '@ngrx/store'
 
 @Injectable()
 @ZWPDebuggableInjectable({ serviceName: 'ZWPFileExplorerEffects', options: { skipMethodDebugger: true } })
-export class ZWPFileExplorerEffects {
+export class ZWPFileExplorerEffects implements OnInitEffects {
     private actions$ = inject(Actions)
     private routerFacade = inject(ZWPRouterFacade)
     private fileExplorerFacade = inject(Facades.ZWPFileExplorerFacade)
@@ -18,25 +20,24 @@ export class ZWPFileExplorerEffects {
     private menuLayoutFacade = inject(ZWPMenuLayoutFacade)
 
     constructor() {
+        console.log('Constructing File Explorer Effects')
         this.menuLayoutFacade.registerMenuComponentType(FileExplorerItemContextMenuComponent)
     }
 
-    selectCurrentDirectoryFromRouter$ = createEffect(
-        () =>
-            this.actions$.pipe(
-                ofType(routerNavigatedAction),
-                withLatestFrom(this.routerFacade.url$, this.routerFacade.routeParams$),
-                tap((tuple) => {
-                    if (tuple[1].startsWith('/file-browser')) {
-                        if (!isNil(tuple[2]['directoryId'])) {
-                            this.fileExplorerFacade.selectCurrentDirectory(tuple[2]['directoryId'])
-                        } else {
-                            this.fileExplorerFacade.selectCurrentDirectory(null)
-                        }
-                    }
-                })
+    selectCurrentDirectoryFromRouter$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ROUTER_NAVIGATED),
+            withLatestFrom(this.routerFacade.routeData$, this.routerFacade.routeParams$),
+            filter((tuple) =>
+                DiffingUtils.hasPropertiesGuard(tuple[1], 'fileBrowserRouting', 'fileBrowserRootDirectory')
             ),
-        { dispatch: false }
+            filter((tuple) => tuple[1]['fileBrowserRouting'] === true),
+            map((tuple) =>
+                tuple[1]['fileBrowserRootDirectory'] === false && !isNil(tuple[2]['directoryId'])
+                    ? FileExplorerActions.selectCurrentDirectory({ id: tuple[2]['directoryId'] })
+                    : FileExplorerActions.selectCurrentDirectory({ id: null })
+            )
+        )
     )
 
     deselectAllFileExplorerItemsOnCurrentDirectoryChange$ = createEffect(() =>
@@ -168,4 +169,15 @@ export class ZWPFileExplorerEffects {
             })
         )
     )
+
+    ngrxOnInitEffects(): Action {
+        console.log('Trying File Explorer Rehydration')
+        return PersistenceActions.rehydrateStateRequest({
+            featureKey: createNamespacedFeatureKey(
+                Identifiers.PLATFORM_FILES_ACTION_IDENTIFIER,
+                Identifiers.FILE_EXPLORER_STATE_FEATURE_KEY
+            ),
+            persistenceProfileId: null
+        })
+    }
 }

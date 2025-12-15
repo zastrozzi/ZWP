@@ -6,51 +6,45 @@ import { Model } from '../../model'
     selector: 'zwp-file-explorer-grouping-view-mode-controls',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <div fxLayout="column">
-            <div *ngIf="title !== ''" fxLayout="row">
-                <span [zwpTextStyle]="'caption1'" [style.color]="'secondary-label' | zwpColorTheme">{{
-                    title | uppercase
-                }}</span>
-            </div>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="5px">
+        <div 
+            *ngIf="{ 
+                groupingViewMode: groupingViewMode$ | async,
+                buttonBackgroundColor: buttonBackgroundColorTheme | zwpColorTheme,
+                buttonIconColor: buttonColor(
+                    buttonSelectedColorTheme | zwpColorTheme, 
+                    buttonUnselectedColorTheme | zwpColorTheme
+                )
+            } as groupingControls"
+            fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
             <zwp-md-icon-button
                 (btnClick)="selectGroupingViewModeCombined()"
                 textStyle="headline"
                 icon="list_alt"
-                [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme"
+                [backgroundColor]="groupingControls.buttonBackgroundColor"
                 [iconPadding]="5"
-                [iconColor]="
-                    (groupingViewMode$ | async) === combined
-                        ? (buttonSelectedColorTheme | zwpColorTheme)
-                        : (buttonUnselectedColorTheme | zwpColorTheme)
-                "
+                [iconColor]="groupingControls.buttonIconColor(groupingControls.groupingViewMode === viewModeEnum.combined)"
                 matTooltip="Files & Folders Combined"
             ></zwp-md-icon-button>
-            <zwp-divider [vertical]="true" zwpPadding="5 0 5 0"></zwp-divider>
+            <zwp-divider [vertical]="true" zwpPadding="5 0" fxFlexAlign="stretch"></zwp-divider>
             <zwp-md-icon-button
                 (btnClick)="selectGroupingViewModeItemType()"
                 textStyle="headline"
                 icon="all_inbox"
-                [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme"
+                [backgroundColor]="groupingControls.buttonBackgroundColor"
                 [iconPadding]="5"
-                [iconColor]="
-                    (groupingViewMode$ | async) === itemType
-                        ? (buttonSelectedColorTheme | zwpColorTheme)
-                        : (buttonUnselectedColorTheme | zwpColorTheme)
-                "
-                matTooltip="Files & Folders Separated"
+                [iconColor]="groupingControls.buttonIconColor(groupingControls.groupingViewMode === viewModeEnum.itemType)"
+                matTooltip="Group by Files & Folders"
             ></zwp-md-icon-button>
-            <!-- <zwp-divider [vertical]="true" zwpPadding="5 0 5 0"></zwp-divider>
-            <zwp-md-icon-button 
-                (btnClick)="selectGroupingViewModeExtensionSeparated()" 
+            <zwp-divider [vertical]="true" zwpPadding="5 0" fxFlexAlign="stretch"></zwp-divider>
+            <zwp-md-icon-button
+                (btnClick)="selectGroupingViewModeFileType()"
                 textStyle="headline"
-                icon="all_inbox" 
-                [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme" 
+                icon="description"
+                [backgroundColor]="groupingControls.buttonBackgroundColor"
                 [iconPadding]="5"
-                [iconColor]="(groupingViewMode$ | async) === extensionSeparated ?(buttonSelectedColorTheme | zwpColorTheme) : (buttonUnselectedColorTheme | zwpColorTheme)"
-                matTooltip="Files & Folders Separated by Type"
-            ></zwp-md-icon-button> -->
+                [iconColor]="groupingControls.buttonIconColor(groupingControls.groupingViewMode === viewModeEnum.fileType)"
+                matTooltip="Group by File Type"
+            ></zwp-md-icon-button>
         </div>
     `,
 })
@@ -59,23 +53,20 @@ export class FileExplorerGroupingViewModeControlsComponent {
     @Input() buttonSelectedColorTheme = 'primary'
     @Input() buttonUnselectedColorTheme = 'tertiary-label'
 
-    @Input() title = ''
-
     private fileExplorerFacade = inject(Facades.ZWPFileExplorerFacade)
 
-    combined = Model.FileExplorerGroupingViewMode.combined
-    fileType = Model.FileExplorerGroupingViewMode.fileType
-    itemType = Model.FileExplorerGroupingViewMode.itemType
-
+    viewModeEnum = Model.FileExplorerGroupingViewMode
     groupingViewMode$ = this.fileExplorerFacade.groupingViewMode$
 
+    buttonColor = (ifTrue: string, ifFalse: string) => (condition: boolean) => condition ? ifTrue : ifFalse
+
     selectGroupingViewModeCombined() {
-        this.fileExplorerFacade.selectGroupingViewMode(this.combined)
+        this.fileExplorerFacade.selectGroupingViewMode(this.viewModeEnum.combined)
     }
     selectGroupingViewModeItemType() {
-        this.fileExplorerFacade.selectGroupingViewMode(this.itemType)
+        this.fileExplorerFacade.selectGroupingViewMode(this.viewModeEnum.itemType)
     }
     selectGroupingViewModeFileType() {
-        this.fileExplorerFacade.selectGroupingViewMode(this.fileType)
+        this.fileExplorerFacade.selectGroupingViewMode(this.viewModeEnum.fileType)
     }
 }

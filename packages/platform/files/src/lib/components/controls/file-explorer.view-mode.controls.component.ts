@@ -6,47 +6,46 @@ import { Model } from '../../model'
     selector: 'zwp-file-explorer-view-mode-controls',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="5px">
+        <div 
+            *ngIf="
+            {
+                viewMode: viewMode$ | async,
+                buttonIconColor: buttonColor(
+                    buttonSelectedColorTheme | zwpColorTheme, 
+                    buttonUnselectedColorTheme | zwpColorTheme
+                )
+            } as viewModeControlsData
+            "
+            fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="5px"
+        >
             <zwp-md-icon-button
-                (btnClick)="selectViewModeList()"
-                textStyle="headline"
-                icon="view_agenda"
-                [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme"
-                [iconPadding]="5"
-                [iconColor]="
-                    (viewMode$ | async) === list
-                        ? (buttonSelectedColorTheme | zwpColorTheme)
-                        : (buttonUnselectedColorTheme | zwpColorTheme)
-                "
-                matTooltip="List View"
-            ></zwp-md-icon-button>
-            <zwp-divider [vertical]="true" zwpPadding="5 0 5 0"></zwp-divider>
-            <zwp-md-icon-button
-                (btnClick)="selectViewModeCompact()"
-                textStyle="headline"
-                icon="view_headline"
-                [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme"
-                [iconPadding]="5"
-                [iconColor]="
-                    (viewMode$ | async) === compact
-                        ? (buttonSelectedColorTheme | zwpColorTheme)
-                        : (buttonUnselectedColorTheme | zwpColorTheme)
-                "
-                matTooltip="Compact List View"
-            ></zwp-md-icon-button>
-            <zwp-divider [vertical]="true" zwpPadding="5 0 5 0"></zwp-divider>
-            <zwp-md-icon-button
-                (btnClick)="selectViewModeGrid()"
+                (btnClick)="selectViewMode(viewModeEnum.grid)"
                 textStyle="headline"
                 icon="grid_view"
                 [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme"
                 [iconPadding]="5"
-                [iconColor]="
-                    (viewMode$ | async) === grid
-                        ? (buttonSelectedColorTheme | zwpColorTheme)
-                        : (buttonUnselectedColorTheme | zwpColorTheme)
-                "
+                [iconColor]="viewModeControlsData.buttonIconColor(viewModeControlsData.viewMode === viewModeEnum.grid)"
                 matTooltip="Grid View"
+            ></zwp-md-icon-button>
+            <zwp-divider [vertical]="true" zwpPadding="5 0 5 0"></zwp-divider>
+            <zwp-md-icon-button
+                (btnClick)="selectViewMode(viewModeEnum.list)"
+                textStyle="headline"
+                icon="view_agenda"
+                [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme"
+                [iconPadding]="5"
+                [iconColor]="viewModeControlsData.buttonIconColor(viewModeControlsData.viewMode === viewModeEnum.list)"
+                matTooltip="List View"
+            ></zwp-md-icon-button>
+            <zwp-divider [vertical]="true" zwpPadding="5 0 5 0"></zwp-divider>
+            <zwp-md-icon-button
+                (btnClick)="selectViewMode(viewModeEnum.compact)"
+                textStyle="headline"
+                icon="view_headline"
+                [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme"
+                [iconPadding]="5"
+                [iconColor]="viewModeControlsData.buttonIconColor(viewModeControlsData.viewMode === viewModeEnum.compact)"
+                matTooltip="Compact List View"
             ></zwp-md-icon-button>
         </div>
     `,
@@ -58,19 +57,12 @@ export class FileExplorerViewModeControlsComponent {
 
     private fileExplorerFacade = inject(Facades.ZWPFileExplorerFacade)
 
-    list = Model.FileExplorerViewMode.list
-    compact = Model.FileExplorerViewMode.compact
-    grid = Model.FileExplorerViewMode.grid
-
+    viewModeEnum = Model.FileExplorerViewMode
     viewMode$ = this.fileExplorerFacade.viewMode$
 
-    selectViewModeList() {
-        this.fileExplorerFacade.selectViewMode(this.list)
-    }
-    selectViewModeCompact() {
-        this.fileExplorerFacade.selectViewMode(this.compact)
-    }
-    selectViewModeGrid() {
-        this.fileExplorerFacade.selectViewMode(this.grid)
+    buttonColor = (ifTrue: string, ifFalse: string) => (condition: boolean) => condition ? ifTrue : ifFalse
+
+    selectViewMode(mode: Model.FileExplorerViewMode) {
+        this.fileExplorerFacade.selectViewMode(mode)
     }
 }

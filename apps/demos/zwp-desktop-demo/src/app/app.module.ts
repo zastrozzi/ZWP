@@ -17,6 +17,7 @@ import { COMPONENTS } from './components'
 import { RouterModule } from '@angular/router'
 import { ZWPLayoutModule, PanelLayoutActions } from '@zwp/platform.layout'
 import { ZWPFlowsModule } from '@zwp/platform.flows'
+import { ZWPFilesModule } from '@zwp/platform.files'
 import { ZWPGoogleAnalyticsModule, ZWPGoogleAnalyticsRouterModule } from '@zwp/platform.analytics/google'
 import { ZWPAuthModule, PlatformAuth } from '@zwp/platform.auth'
 import { PlatformIdentity, PlatformIdentityModule } from '@zwp/platform.identity'
@@ -111,7 +112,10 @@ import { appRoutes } from './routes/app.routes'
             localBaseUrl: 'https://localhost:8080/identity/1.0',
             apiState: ModuleAPIState.MOCK
         }),
-        ZWPFlowsModule.mock()
+        ZWPFlowsModule.mock(),
+        ZWPFilesModule.forRoot({
+            persist: true
+        })
     ],
     providers: [
         { provide: COMMON_ENVIRONMENT, useValue: environment },

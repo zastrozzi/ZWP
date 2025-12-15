@@ -24,251 +24,113 @@ import { Model } from '../../model'
             zwpSelectionContainer
             (zwpSelectionChange)="handleSelectionContainerChange($event)"
             #explorerGrid
-            *ngIf="selectedExplorerItemIds$ | async as selectedItemIds"
-            (click)="selectedItemIds.length > 0 ? deselectAllFileExplorerItems() : null"
+            *ngIf="{
+                groupingViewMode: groupingViewMode$ | async,
+                selectedItemIds: (selectedExplorerItemIds$ | async) ?? [],
+                allChildren: explorerAllChildren$ | async,
+                allDirectories: (explorerAllDirectories$ | async) ?? [],
+                allFiles: (explorerAllFiles$ | async) ?? [],
+                gridColumns: fileGridColumns$ | async,
+                gridWidth: (explorerGridWidth$ | async) ?? 0
+            } as fileExplorerGridData"
+            (click)="fileExplorerGridData.selectedItemIds.length > 0 ? deselectAllFileExplorerItems() : null"
             fxLayout="column"
             fxFlex="grow"
             fxFlexFill
             cdkDropListGroup
         >
-            <ng-container *ngIf="groupingViewMode$ | async as groupingViewMode">
-                <div *ngIf="groupingViewMode === groupingViewModeCombined" fxLayout="row" zwpPadding="10">
-                    <mat-grid-list
-                        *ngIf="explorerAllChildren$ | async as allChildren"
-                        [cols]="fileGridColumns$ | async"
-                        rowHeight="120px"
-                        gutterSize="10px"
-                        [style.width]="((explorerGridWidth$ | async) ?? 0) - 20 + 'px'"
-                        cdkDropList
-                        (cdkDropListDropped)="handleDragDropped($event)"
-                        [cdkDropListEnterPredicate]="returnFalse"
-                        [cdkDropListSortingDisabled]="true"
-                    >
+            <div *ngIf="fileExplorerGridData.groupingViewMode" fxLayout="row" zwpPadding="10">
+                <mat-grid-list
+                    [cols]="fileExplorerGridData.gridColumns"
+                    rowHeight="10px"
+                    gutterSize="10px"
+                    [style.width]="fileExplorerGridData.gridWidth - 20 + 'px'"
+                    cdkDropList
+                    (cdkDropListDropped)="handleDragDropped($event)"
+                    [cdkDropListEnterPredicate]="returnFalse"
+                    [cdkDropListSortingDisabled]="true"
+                >
+                    <ng-container *ngIf="fileExplorerGridData.groupingViewMode === groupingViewModeEnum.combined">
                         <mat-grid-tile
+                            [rowspan]="6"
                             zwpSelectionContainerItem
                             [zwpSelectionContainerItemId]="child.id"
-                            *ngFor="let child of allChildren"
+                            *ngFor="let child of fileExplorerGridData.allChildren"
                             cdkDrag
                             [cdkDragData]="child"
                             (cdkDragStarted)="handleDragStart($event)"
                             [cdkDragStartDelay]="{ touch: 150, mouse: 0 }"
                         >
-                            <zwp-file-explorer-drag-preview *cdkDragPreview></zwp-file-explorer-drag-preview>
-                            <div
+                            <zwp-file-explorer-drag-preview *cdkDragPreview/>
+                            <zwp-file-explorer-grid-item
                                 (contextmenu)="openContextMenu($event, child)"
-                                (dblclick)="child.isDir ? navigateDirectory(child.id) : null"
-                                (click)="handleFileExplorerItemSelection($event, child.id)"
-                                fxLayout="column"
-                                fxLayoutAlign="center center"
                                 fxFlexFill
-                                fxLayoutGap="5px"
-                                [style.backgroundColor]="
-                                    selectedItemIds.includes(child.id)
-                                        ? ('primary' | zwpColorTheme : { opacity: 0.3 })
-                                        : ('quaternary-system-fill' | zwpColorTheme)
-                                "
-                                zwpCorners="8"
-                                zwpPadding="10"
-                            >
-                                <div fxFlex="grow"></div>
-                                <mat-icon
-                                    fxFlex="noshrink"
-                                    [zwpTextStyle]="'title1'"
-                                    [inline]="true"
-                                    [style.height]="'unset'"
-                                    [style.width]="'unset'"
-                                    [style.color]="'primary' | zwpColorTheme"
-                                >
-                                    {{ child.isDir ? 'folder' : 'description' }}
-                                </mat-icon>
-                                <div fxFlex="grow"></div>
-                                <span
-                                    [style.textAlign]="'center'"
-                                    [style.textOverflow]="'ellipsis'"
-                                    [style.whiteSpace]="'nowrap'"
-                                    [zwpTextStyle]="'body1'"
-                                    [style.color]="'label' | zwpColorTheme"
-                                >
-                                    {{ child.name }}
-                                </span>
-                            </div>
+                                [fileDataItem]="child"
+                                [isSelected]="fileExplorerGridData.selectedItemIds.includes(child.id)"
+                                (clicked)="handleFileExplorerItemSelection($event)"
+                                (doubleClicked)="handleFileExplorerItemDoubleClick($event)"
+                            />
                         </mat-grid-tile>
-                    </mat-grid-list>
-                </div>
-                <div *ngIf="groupingViewMode === groupingViewModeItemType" fxLayout="row">
-                    <div *ngIf="explorerAllDirectories$ | async as allDirectories" fxLayout="column" fxFlex="grow">
-                        <div #spacerGrid></div>
-                        <div
-                            *ngIf="allDirectories.length !== 0"
-                            fxLayout="row"
-                            zwpSticky
-                            [spacer]="spacerGrid"
-                            [scrollContainer]="'.file-explorer-container-scrollable'"
-                            zwpPadding="10 0 10 0"
-                            [style.backgroundColor]="'system-background' | zwpColorTheme"
-                            [style.zIndex]="'1'"
+                    </ng-container>
+                    <ng-container *ngIf="fileExplorerGridData.groupingViewMode === groupingViewModeEnum.itemType">
+                        <mat-grid-tile
+                            [colspan]="fileExplorerGridData.gridColumns" [rowspan]="2"
+                            zwpBackgroundColor="quaternary-system-fill" zwpCorners="20"
                         >
-                            <span
-                                fxFlexOffset="10px"
-                                [zwpTextStyle]="'body1'"
-                                [style.color]="'label' | zwpColorTheme"
-                                zwpCorners="5"
-                                >{{ allDirectories.length === 0 ? 'No Folders' : 'Folders' }}</span
-                            >
-                        </div>
-                        <div
-                            *ngIf="allDirectories.length !== 0"
-                            fxLayout="row"
-                            fxFlex="grow"
-                            zwpPadding="10"
-                            cdkDropList
-                            (cdkDropListDropped)="handleDragDropped($event)"
-                            [cdkDropListEnterPredicate]="returnFalse"
-                            [cdkDropListSortingDisabled]="true"
+                            <span fxFlexOffset="15px" [zwpTextStyle]="'body3'" zwpColor="label" fxFlex="noshrink"
+                            >Folders</span>
+                        </mat-grid-tile>
+                        <mat-grid-tile
+                            [rowspan]="6"
+                            zwpSelectionContainerItem
+                            [zwpSelectionContainerItemId]="child.id"
+                            *ngFor="let child of fileExplorerGridData.allDirectories"
+                            cdkDrag
+                            [cdkDragData]="child"
+                            (cdkDragStarted)="handleDragStart($event)"
+                            [cdkDragStartDelay]="{ touch: 150, mouse: 0 }"
                         >
-                            <mat-grid-list
-                                [cols]="folderGridColumns$ | async"
-                                rowHeight="50px"
-                                fxFlex="grow"
-                                gutterSize="10px"
-                                [style.width]="((explorerGridWidth$ | async) ?? 0) - 20 + 'px'"
-                            >
-                                <mat-grid-tile
-                                    zwpSelectionContainerItem
-                                    [zwpSelectionContainerItemId]="directory.id"
-                                    *ngFor="let directory of allDirectories"
-                                    cdkDrag
-                                    [cdkDragData]="directory"
-                                    (cdkDragStarted)="handleDragStart($event)"
-                                    [cdkDragStartDelay]="{ touch: 150, mouse: 0 }"
-                                >
-                                    <zwp-file-explorer-drag-preview *cdkDragPreview></zwp-file-explorer-drag-preview>
-                                    <div
-                                        (contextmenu)="openContextMenu($event, directory)"
-                                        (dblclick)="navigateDirectory(directory.id)"
-                                        (click)="handleFileExplorerItemSelection($event, directory.id)"
-                                        fxLayout="row"
-                                        fxLayoutAlign="start center"
-                                        fxFlexFill
-                                        fxLayoutGap="15px"
-                                        [style.backgroundColor]="
-                                            selectedItemIds.includes(directory.id)
-                                                ? ('primary' | zwpColorTheme : { opacity: 0.3 })
-                                                : ('quaternary-system-fill' | zwpColorTheme)
-                                        "
-                                        zwpCorners="8"
-                                        zwpPadding="0 15 0 20"
-                                    >
-                                        <mat-icon
-                                            [zwpTextStyle]="'headline'"
-                                            [inline]="true"
-                                            [style.height]="'auto'"
-                                            [style.width]="'unset'"
-                                            [style.color]="'primary' | zwpColorTheme"
-                                            >folder</mat-icon
-                                        >
-                                        <span
-                                            [zwpTextStyle]="'body1'"
-                                            [style.color]="'label' | zwpColorTheme"
-                                            fxFlex="grow"
-                                            >{{ directory.name }}</span
-                                        >
-                                    </div>
-                                </mat-grid-tile>
-                            </mat-grid-list>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="groupingViewMode === groupingViewModeItemType" fxLayout="row">
-                    <div *ngIf="explorerAllFiles$ | async as allFiles" fxLayout="column" fxFlex="grow">
-                        <div #spacerGrid></div>
-                        <div
-                            *ngIf="allFiles.length !== 0"
-                            fxLayout="row"
-                            fxLayout="row"
-                            zwpSticky
-                            [spacer]="spacerGrid"
-                            [scrollContainer]="'.file-explorer-container-scrollable'"
-                            zwpPadding="10 0 10 0"
-                            [style.backgroundColor]="'system-background' | zwpColorTheme"
-                            [style.zIndex]="'1'"
+                            <zwp-file-explorer-drag-preview *cdkDragPreview/>
+                            <zwp-file-explorer-grid-item
+                                (contextmenu)="openContextMenu($event, child)"
+                                fxFlexFill
+                                [fileDataItem]="child"
+                                [isSelected]="fileExplorerGridData.selectedItemIds.includes(child.id)"
+                                (clicked)="handleFileExplorerItemSelection($event)"
+                                (doubleClicked)="handleFileExplorerItemDoubleClick($event)"
+                            />
+                        </mat-grid-tile>
+
+                        <mat-grid-tile
+                            [colspan]="fileExplorerGridData.gridColumns" [rowspan]="2"
+                            zwpBackgroundColor="quaternary-system-fill" zwpCorners="20"
                         >
-                            <span
-                                fxFlexOffset="10px"
-                                [zwpTextStyle]="'body1'"
-                                [style.color]="'label' | zwpColorTheme"
-                                zwpCorners="5"
-                                >{{ allFiles.length === 0 ? 'No Files' : 'Files' }}</span
-                            >
-                        </div>
-                        <div
-                            *ngIf="allFiles.length !== 0"
-                            fxLayout="row"
-                            fxFlex="grow"
-                            zwpPadding="10"
-                            cdkDropList
-                            [cdkDropListEnterPredicate]="returnFalse"
-                            [cdkDropListSortingDisabled]="true"
-                            (cdkDropListDropped)="handleDragDropped($event)"
+                            <span fxFlexOffset="15px" [zwpTextStyle]="'body3'" zwpColor="label" fxFlex="noshrink"
+                            >Files</span>
+                        </mat-grid-tile>
+                        <mat-grid-tile
+                            [rowspan]="6"
+                            zwpSelectionContainerItem
+                            [zwpSelectionContainerItemId]="child.id"
+                            *ngFor="let child of fileExplorerGridData.allFiles"
+                            cdkDrag
+                            [cdkDragData]="child"
+                            (cdkDragStarted)="handleDragStart($event)"
+                            [cdkDragStartDelay]="{ touch: 150, mouse: 0 }"
                         >
-                            <mat-grid-list
-                                [cols]="fileGridColumns$ | async"
-                                rowHeight="120px"
-                                fxFlex="grow"
-                                gutterSize="10px"
-                                [style.width]="((explorerGridWidth$ | async) ?? 0) - 20 + 'px'"
-                            >
-                                <mat-grid-tile
-                                    zwpSelectionContainerItem
-                                    [zwpSelectionContainerItemId]="file.id"
-                                    *ngFor="let file of allFiles"
-                                    cdkDrag
-                                    [cdkDragData]="file"
-                                    (cdkDragStarted)="handleDragStart($event)"
-                                    [cdkDragStartDelay]="{ touch: 150, mouse: 0 }"
-                                >
-                                    <zwp-file-explorer-drag-preview *cdkDragPreview></zwp-file-explorer-drag-preview>
-                                    <div
-                                        (contextmenu)="openContextMenu($event, file)"
-                                        (click)="handleFileExplorerItemSelection($event, file.id)"
-                                        fxLayout="column"
-                                        fxLayoutAlign="center center"
-                                        fxFlexFill
-                                        fxLayoutGap="5px"
-                                        [style.backgroundColor]="
-                                            selectedItemIds.includes(file.id)
-                                                ? ('primary' | zwpColorTheme : { opacity: 0.3 })
-                                                : ('quaternary-system-fill' | zwpColorTheme)
-                                        "
-                                        zwpCorners="8"
-                                        zwpPadding="10"
-                                    >
-                                        <div fxFlex="grow"></div>
-                                        <mat-icon
-                                            fxFlex="noshrink"
-                                            [zwpTextStyle]="'title1'"
-                                            [inline]="true"
-                                            [style.height]="'unset'"
-                                            [style.width]="'unset'"
-                                            [style.color]="'primary' | zwpColorTheme"
-                                            >description</mat-icon
-                                        >
-                                        <div fxFlex="grow"></div>
-                                        <span
-                                            [style.textAlign]="'center'"
-                                            [style.textOverflow]="'ellipsis'"
-                                            [style.whiteSpace]="'nowrap'"
-                                            [zwpTextStyle]="'body1'"
-                                            [style.color]="'label' | zwpColorTheme"
-                                            >{{ file.name }}</span
-                                        >
-                                    </div>
-                                </mat-grid-tile>
-                            </mat-grid-list>
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
+                            <zwp-file-explorer-drag-preview *cdkDragPreview/>
+                            <zwp-file-explorer-grid-item
+                                (contextmenu)="openContextMenu($event, child)"
+                                fxFlexFill
+                                [fileDataItem]="child"
+                                [isSelected]="fileExplorerGridData.selectedItemIds.includes(child.id)"
+                                (clicked)="handleFileExplorerItemSelection($event)"
+                                (doubleClicked)="handleFileExplorerItemDoubleClick($event)"
+                            />
+                        </mat-grid-tile>
+                    </ng-container>
+                </mat-grid-list>
+            </div>
         </div>
     `,
 })
@@ -286,8 +148,10 @@ export class FileExplorerGridComponent implements AfterViewInit, OnDestroy {
         private menuFacade: ZWPMenuLayoutFacade
     ) {}
 
-    groupingViewModeCombined = Model.FileExplorerGroupingViewMode.combined
-    groupingViewModeItemType = Model.FileExplorerGroupingViewMode.itemType
+    groupingViewModeEnum = Model.FileExplorerGroupingViewMode
+
+    fileGridTileWidth = 115
+    fileGridTileHeight = 110
 
     groupingViewMode$ = this.fileExplorerFacade.groupingViewMode$
 
@@ -299,7 +163,7 @@ export class FileExplorerGridComponent implements AfterViewInit, OnDestroy {
     explorerGridWidthObserver: ResizeObserver | undefined
     explorerGridWidth$ = new BehaviorSubject<number>(0)
     folderGridColumns$ = this.explorerGridWidth$.pipe(map((w) => Math.floor((w - 20) / 250)))
-    fileGridColumns$ = this.explorerGridWidth$.pipe(map((w) => Math.floor((w - 20) / 120)))
+    fileGridColumns$ = this.explorerGridWidth$.pipe(map((w) => Math.floor((w - 20) / this.fileGridTileWidth)))
 
     ngAfterViewInit(): void {
         this.explorerGridWidthObserver = new ResizeObserver((entries) => {
@@ -332,15 +196,22 @@ export class FileExplorerGridComponent implements AfterViewInit, OnDestroy {
 
     handleSelectionContainerChange(ids: string[]) {
         this.zone.run(() => {
-            this.fileExplorerFacade.selectFileExplorerItems(ids)
+            if (ids.length > 0) {
+                this.fileExplorerFacade.selectFileExplorerItems(ids)
+            }
         })
     }
 
     navigateDirectory(id: Nullable<string>) {
         this.fileExplorerFacade.navigateDirectory(id)
     }
-    handleFileExplorerItemSelection(event: MouseEvent | TouchEvent, id: string) {
-        event.stopPropagation()
+
+    handleFileExplorerItemDoubleClick(id: string) {
+        this.navigateDirectory(id)
+    }
+
+    handleFileExplorerItemSelection(id: string) {
+        // event.stopPropagation()
         this.fileExplorerFacade.handleFileExplorerItemSelection(id)
     }
     deselectAllFileExplorerItems() {

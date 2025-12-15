@@ -41,6 +41,8 @@ const currentDirectory = createSelector(currentDirectoryId, FileDataSelectors.fi
     isNull(id) ? null : dict[id] ?? null
 )
 
+const currentDirectoryName = createSelector(currentDirectory, (dir) => (isNull(dir) ? null : dir.name))
+
 // const currentDirectoryWithChildCount = createSelector(
 //     currentDirectory,
 //     FileDataSelectors.childIdsByParent,
@@ -48,6 +50,10 @@ const currentDirectory = createSelector(currentDirectoryId, FileDataSelectors.fi
 // )
 
 const hasCurrentDirectory = createSelector(currentDirectory, (directory) => directory !== null)
+
+const currentDirectoryParentDirectoryId = createSelector(currentDirectory, (directory) =>
+    isNull(directory) ? null : isUndefined(directory.parentFileDataItemId) ? null : directory.parentFileDataItemId
+)
 
 const currentDirectoryWithChildren = createSelector(
     currentDirectory,
@@ -124,6 +130,8 @@ export const FileExplorerSelectors = {
     hasSelectedItems,
     hasCurrentDirectory,
     currentDirectory,
+    currentDirectoryName,
+    currentDirectoryParentDirectoryId,
     selectedItems,
     // currentDirectoryChildren,
     // currentDirectorySelector,

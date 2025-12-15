@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core'
+import { ModuleWithProviders, NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ZWPLayoutModule } from '@zwp/platform.layout'
-import { ZWPCommonModule, _provideHistoryFeature, createNamespacedFeatureKey } from '@zwp/platform.common'
+import { ZWPCommonModule, ZWP_NGRX_MODULE_ROOT_CONFIG, _provideHistoryFeature, createNamespacedFeatureKey } from '@zwp/platform.common'
 import { State } from './+state'
 import { ZWPDummyDataModule } from '@zwp/platform.dummy-data'
 import { FILES_EXPORTABLE_COMPONENTS, FILES_INTERNAL_COMPONENTS } from './components'
+import { ZWP_FILES_MODULE_ROOT_CONFIG, ZWPFilesModuleRootConfig } from './config'
 
 @NgModule({
     imports: [
@@ -22,8 +23,6 @@ import { FILES_EXPORTABLE_COMPONENTS, FILES_INTERNAL_COMPONENTS } from './compon
         ...FILES_EXPORTABLE_COMPONENTS
     ],
     providers: [
-        ...State.Facades.ALL,
-
         // _provideHistoryFeature(
         //     createNamespacedFeatureKey(
         //         State.Identifiers.PLATFORM_FILES_ACTION_IDENTIFIER,
@@ -39,7 +38,23 @@ import { FILES_EXPORTABLE_COMPONENTS, FILES_INTERNAL_COMPONENTS } from './compon
         // ),
     ],
     exports: [
-        // ...FILES_EXPORTABLE_COMPONENTS
+        ...FILES_INTERNAL_COMPONENTS,
+        ...FILES_EXPORTABLE_COMPONENTS
     ]
 })
-export class ZWPFilesModule {}
+export class ZWPFilesModule {
+    public static forRoot(config: ZWPFilesModuleRootConfig): ModuleWithProviders<ZWPFilesModule> {
+        return {
+            ngModule: ZWPFilesModule,
+            providers: [
+                {
+                    provide: ZWP_FILES_MODULE_ROOT_CONFIG,
+                    deps: [ZWP_NGRX_MODULE_ROOT_CONFIG],
+                    useValue: config
+                },
+                ...State.createEnvironmentProviders(config),
+                ...State.Facades.ALL
+            ]
+        }
+    }
+}

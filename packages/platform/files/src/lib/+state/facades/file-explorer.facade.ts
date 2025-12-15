@@ -9,19 +9,32 @@ import { FileDataActions } from '../actions'
 import { FileExplorerActions } from '../actions/file-explorer.actions'
 import { Selectors } from '../selectors'
 import { CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop'
+import { ActivatedRoute } from '@angular/router'
+
+// export const getLastActivatedRouteInChain = (activatedRoute: ActivatedRoute): ActivatedRoute => {
+//   let lastRoute = activatedRoute;
+//   while (lastRoute.firstChild) {
+//     lastRoute = lastRoute.firstChild;
+//   }
+//   return lastRoute;
+// };
 
 @Injectable()
 @ZWPDebuggableInjectable({ serviceName: 'ZWPFileExplorerFacade', options: { skipMethodDebugger: true } })
-export class ZWPFileExplorerFacade {
+export class ZWPFileExplorerFacade  {
     private store = inject(Store)
     private dummyDataService = inject(ZWPDummyDataService)
     private routerFacade = inject(ZWPRouterFacade)
+    // private activatedRoute = inject(ActivatedRoute)
 
     allFileDataItems$ = this.store.pipe(select(Selectors.FileDataSelectors.allFileDataItems))
     selectedFileDataItem$ = this.store.pipe(select(Selectors.FileExplorerSelectors.selectedItems))
     selectedItemIds$ = this.store.pipe(select(Selectors.FileExplorerSelectors.selectedItemIds))
     hasCurrentDirectory$ = this.store.pipe(select(Selectors.FileExplorerSelectors.hasCurrentDirectory))
     currentDirectory$ = this.store.pipe(select(Selectors.FileExplorerSelectors.currentDirectory))
+    currentDirectoryName$ = this.store.pipe(select(Selectors.FileExplorerSelectors.currentDirectoryName))
+    currentDirectoryId$ = this.store.pipe(select(Selectors.FileExplorerSelectors.currentDirectoryId))
+    currentDirectoryParentDirectoryId$ = this.store.pipe(select(Selectors.FileExplorerSelectors.currentDirectoryParentDirectoryId))
     // currentDirectoryChildren$ = this.store.pipe(select(FileExplorerSelectors.currentDirectoryChildren))
     // rootDirectories$ = this.store.pipe(select(FileExplorerSelectors.rootDirectoriesWithChildren))
     // descendantEntityIdsByParent$ = this.store.pipe(select(FileDataSelectors.descendantEntityIdsByParent))
@@ -37,6 +50,8 @@ export class ZWPFileExplorerFacade {
     explorerItemDragPreview$ = this.store.pipe(select(Selectors.FileExplorerSelectors.dragPreview))
 
     fileExplorerPreviewTouch$ = new BehaviorSubject<boolean>(false)
+
+    fileDataItemsByParentId$ = (parentId: string) => this.store.pipe(select(Selectors.FileDataSelectors.fileDataItemsByParentId(parentId)))
 
     explorerItemIsSelected$ = (id: string) =>
         this.store.pipe(select(Selectors.FileExplorerSelectors.explorerItemIsSelected(id)))
@@ -75,10 +90,11 @@ export class ZWPFileExplorerFacade {
     }
 
     navigateDirectory(id: Nullable<string>) {
+        // const lastChildRoute = getLastActivatedRouteInChain(this.activatedRoute)
         if (isNull(id)) {
-            this.routerFacade.navigate(['/file-browser', 'root'])
+            this.routerFacade.navigate(['platform', 'file-browser', 'root'])
         } else {
-            this.routerFacade.navigate(['/file-browser', id])
+            this.routerFacade.navigate(['platform', 'file-browser', id])
         }
     }
 

@@ -1,4 +1,4 @@
-import { arrayDistinctRemove, arrayDistinctUpsert, Nullable } from '@zwp/platform.common'
+import { arrayDistinctRemove, arrayDistinctUpsert, Nullable, PersistentState } from '@zwp/platform.common'
 import { createReducer, on } from '@ngrx/store'
 import { Model } from '../../model'
 import { FileExplorerActions } from '../actions'
@@ -14,11 +14,22 @@ export interface FileExplorerFeatureState {
     dragPreviewLabel: string
 }
 
+export const persistentFileExplorer: PersistentState<FileExplorerFeatureState> = {
+    selectedItemIds: false,
+    currentDirectoryId: false,
+    viewMode: true,
+    groupingViewMode: true,
+    dragPreviewIsMulti: false,
+    dragPreviewItemCount: false,
+    dragPreviewIcon: false,
+    dragPreviewLabel: false
+}
+
 const initialFileExplorerFeatureState: FileExplorerFeatureState = {
     selectedItemIds: [],
     currentDirectoryId: null,
     viewMode: Model.FileExplorerViewMode.grid,
-    groupingViewMode: Model.FileExplorerGroupingViewMode.itemType,
+    groupingViewMode: Model.FileExplorerGroupingViewMode.combined,
     dragPreviewIsMulti: false,
     dragPreviewItemCount: 0,
     dragPreviewIcon: 'folder',

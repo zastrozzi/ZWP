@@ -47,6 +47,34 @@ export const appRoutes: Routes = [
                             leftNavPanelShown: true
                         },
                     },
+                    {
+                        path: 'file-browser',
+                        component: COMPONENTS.FileBrowserPageComponent,
+                        data: {
+                            navTitle: 'File Browser',
+                            navIcon: 'snippet_folder',
+                            leftNavPanelShown: true
+                        },
+                        children: [
+                            { 
+                                path: 'root', 
+                                component: COMPONENTS.FileBrowserPageComponent,
+                                data: {
+                                    fileBrowserRouting: true,
+                                    fileBrowserRootDirectory: true
+                                }
+                            },
+                            { 
+                                path: ':directoryId', 
+                                component: COMPONENTS.FileBrowserPageComponent,
+                                data: {
+                                    fileBrowserRouting: true,
+                                    fileBrowserRootDirectory: false
+                                }
+                            },
+                            { path: '', redirectTo: 'root', pathMatch: 'prefix' }
+                        ]
+                    },
                 ],
             },
         ],

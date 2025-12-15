@@ -2,10 +2,16 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity'
 import { createReducer, on } from '@ngrx/store'
 import { Model } from '../../model'
 import { FileDataActions } from '../actions'
+import { PersistentState } from '@zwp/platform.common'
 
 export interface FileDataFeatureState {
     items: EntityState<Model.FileDataItem>
 }
+
+export const persistentFileData: PersistentState<FileDataFeatureState> = {
+    items: true
+}
+
 
 export const fileDataItemEntityAdapter: EntityAdapter<Model.FileDataItem> = createEntityAdapter<Model.FileDataItem>()
 
