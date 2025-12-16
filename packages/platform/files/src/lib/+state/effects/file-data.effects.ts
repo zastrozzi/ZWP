@@ -26,6 +26,13 @@ export class ZWPFileDataEffects implements OnInitEffects {
         concatMap((childIds) => childIds.map(id => FileDataActions.remove({ id })))
     ))
 
+    deleteMany$ = createEffect(() => this.actions$.pipe(
+        ofType(FileDataActions.removeMany),
+        map(action => action.ids),
+        filter(ids => ids.length > 0),
+        concatMap((ids) => ids.map(id => FileDataActions.remove({ id })))
+    ))
+
     ngrxOnInitEffects(): Action {
         return PersistenceActions.rehydrateStateRequest({
             featureKey: createNamespacedFeatureKey(

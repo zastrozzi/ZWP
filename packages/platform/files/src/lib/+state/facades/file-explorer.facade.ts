@@ -30,6 +30,7 @@ export class ZWPFileExplorerFacade  {
     allFileDataItems$ = this.store.pipe(select(Selectors.FileDataSelectors.allFileDataItems))
     selectedFileDataItem$ = this.store.pipe(select(Selectors.FileExplorerSelectors.selectedItems))
     selectedItemIds$ = this.store.pipe(select(Selectors.FileExplorerSelectors.selectedItemIds))
+    selectedItemCount$ = this.store.pipe(select(Selectors.FileExplorerSelectors.selectedItemCount))
     hasCurrentDirectory$ = this.store.pipe(select(Selectors.FileExplorerSelectors.hasCurrentDirectory))
     currentDirectory$ = this.store.pipe(select(Selectors.FileExplorerSelectors.currentDirectory))
     currentDirectoryName$ = this.store.pipe(select(Selectors.FileExplorerSelectors.currentDirectoryName))
@@ -107,6 +108,10 @@ export class ZWPFileExplorerFacade  {
 
     deleteFileExplorerItem(id: string) {
         this.store.dispatch(FileDataActions.remove({ id }))
+    }
+
+    deleteFileExplorerItems(ids: string[]) {
+        this.store.dispatch(FileDataActions.removeMany({ ids }))
     }
 
     createRandomFileDataInDirectory(directoryId: string, isDir: boolean) {

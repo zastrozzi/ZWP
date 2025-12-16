@@ -8,14 +8,16 @@ import { isNull, Nullable } from '@zwp/platform.common'
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <div
-            *ngIf="
-            { 
+            *ngIf="{
                 currentDirectoryId: currentDirectoryId$ | async,
                 parentDirectoryId: currentDirectoryParentDirectoryId$ | async,
                 navigationButtonLabel: (currentDirectoryName$ | async) ?? 'Back',
-                hasCurrentDirectory: (hasCurrentDirectory$ | async) ?? false
-            } as fileExplorerNavControlsData" 
-            fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="5px"
+                hasCurrentDirectory: (hasCurrentDirectory$ | async) ?? false,
+                selectedItemIds: (selectedItemIds$ | async) ?? []
+            } as fileExplorerNavControlsData"
+            fxLayout="row"
+            fxLayoutAlign="center stretch"
+            fxLayoutGap="5px"
         >
             <zwp-md-button
                 (btnClick)="navigateDirectory(fileExplorerNavControlsData.parentDirectoryId)"
@@ -29,57 +31,66 @@ import { isNull, Nullable } from '@zwp/platform.common'
                 [disabled]="!fileExplorerNavControlsData.hasCurrentDirectory"
             ></zwp-md-button>
             <zwp-md-button
-                (btnClick)="createRandomFile(fileExplorerNavControlsData.currentDirectoryId)"
                 materialType="flat"
-                layoutGap="7px"
-                label="New File"
+                label="New..."
+                icon="add_box"
                 textStyle="button1"
-                icon="description"
+                layoutGap="7px"
                 [labelColor]="'primary' | zwpColorTheme"
-                fxFlexAlign="center"
+                [matMenuTriggerFor]="newFileExplorerItemNavMenu"
+                #newFileExplorerItemNavMenuTrigger="matMenuTrigger"
             ></zwp-md-button>
             <zwp-md-button
-                fxFlexAlign="center"
-                (btnClick)="createRandomDirectory(fileExplorerNavControlsData.currentDirectoryId)"
+                *ngIf="fileExplorerNavControlsData.selectedItemIds.length > 0"
                 materialType="flat"
-                layoutGap="7px"
-                label="New Folder"
+                [label]="
+                    'Delete ' +
+                    fileExplorerNavControlsData.selectedItemIds.length +
+                    (fileExplorerNavControlsData.selectedItemIds.length === 1 ? ' item' : ' items')
+                "
+                icon="delete"
                 textStyle="button1"
-                icon="folder"
-                [labelColor]="'primary' | zwpColorTheme"
+                layoutGap="7px"
+                [labelColor]="'destructive' | zwpColorTheme"
+                (btnClick)="deleteItems(fileExplorerNavControlsData.selectedItemIds)"
             ></zwp-md-button>
             <mat-menu #newFileExplorerItemNavMenu="matMenu">
-            <div
-                fxLayout="column"
-                fxLayoutAlign="center stretch"
-                fxLayoutGap="8px"
-                zwpBackgroundColor="tertiary-system-background"
-                [style.marginTop]="'-8px'"
-                [style.marginBottom]="'-8px'"
-                zwpPadding="10px"
-            >
-                <zwp-md-button
-                    (btnClick)="createRandomFile(fileExplorerNavControlsData.currentDirectoryId)"
-                    materialType="flat"
-                    layoutGap="7px"
-                    label="New File"
-                    textStyle="button1"
-                    icon="description"
-                    [labelColor]="'primary' | zwpColorTheme"
-                    fxFlexAlign="center"
-                ></zwp-md-button>
-                <zwp-md-button
-                    fxFlexAlign="center"
-                    (btnClick)="createRandomDirectory(fileExplorerNavControlsData.currentDirectoryId)"
-                    materialType="flat"
-                    layoutGap="7px"
-                    label="New Folder"
-                    textStyle="button1"
-                    icon="folder"
-                    [labelColor]="'primary' | zwpColorTheme"
-                ></zwp-md-button>
-            </div>
-        </mat-menu>
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="center stretch"
+                    fxLayoutGap="3px"
+                    zwpBackgroundColor="tertiary-system-background"
+                    [style.marginTop]="'-8px'"
+                    [style.marginBottom]="'-8px'"
+                    zwpPadding="5px"
+                >
+                    <zwp-md-button
+                        (btnClick)="createRandomFile(fileExplorerNavControlsData.currentDirectoryId)"
+                        materialType="flat"
+                        layoutGap="7px"
+                        label="New File"
+                        textStyle="button1"
+                        icon="description"
+                        [labelColor]="'primary' | zwpColorTheme"
+                        [backgroundColor]="'clear' | zwpColorTheme"
+                        fxFlexAlign="stretch"
+                        [padding]="'10 25 10 15'"
+                    ></zwp-md-button>
+                    <zwp-divider></zwp-divider>
+                    <zwp-md-button
+                        fxFlexAlign="stretch"
+                        (btnClick)="createRandomDirectory(fileExplorerNavControlsData.currentDirectoryId)"
+                        materialType="flat"
+                        layoutGap="7px"
+                        label="New Folder"
+                        textStyle="button1"
+                        icon="folder"
+                        [labelColor]="'primary' | zwpColorTheme"
+                        [backgroundColor]="'clear' | zwpColorTheme"
+                        [padding]="'10 25 10 15'"
+                    ></zwp-md-button>
+                </div>
+            </mat-menu>
         </div>
     `,
 })
@@ -94,18 +105,23 @@ export class FileExplorerNavigationControlsComponent {
     currentDirectoryParentDirectoryId$ = this.fileExplorerFacade.currentDirectoryParentDirectoryId$
     currentDirectoryName$ = this.fileExplorerFacade.currentDirectoryName$
     hasCurrentDirectory$ = this.fileExplorerFacade.hasCurrentDirectory$
+    selectedItemIds$ = this.fileExplorerFacade.selectedItemIds$
 
     navigateDirectory(id: Nullable<string>) {
         this.fileExplorerFacade.navigateDirectory(id)
     }
     createRandomDirectory(parentId: Nullable<string>) {
         isNull(parentId)
-        ? this.fileExplorerFacade.createRandomFileData(true)
-        : this.fileExplorerFacade.createRandomFileDataInDirectory(parentId, true)
+            ? this.fileExplorerFacade.createRandomFileData(true)
+            : this.fileExplorerFacade.createRandomFileDataInDirectory(parentId, true)
     }
     createRandomFile(parentId: Nullable<string>) {
         isNull(parentId)
-        ? this.fileExplorerFacade.createRandomFileData(false)
-        : this.fileExplorerFacade.createRandomFileDataInDirectory(parentId, false)
+            ? this.fileExplorerFacade.createRandomFileData(false)
+            : this.fileExplorerFacade.createRandomFileDataInDirectory(parentId, false)
+    }
+
+    deleteItems(ids: string[]) {
+        this.fileExplorerFacade.deleteFileExplorerItems(ids)
     }
 }

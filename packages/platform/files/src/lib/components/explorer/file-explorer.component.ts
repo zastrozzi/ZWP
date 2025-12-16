@@ -12,7 +12,8 @@ import { Model } from '../../model'
             *ngIf="
             { 
                 viewMode: viewMode$ | async, 
-                childrenCount: explorerAllChildrenCount$ | async 
+                childrenCount: explorerAllChildrenCount$ | async,
+                selectedItemCount: selectedItemCount$ | async
             } as fileExplorerData"
             fxLayout="column"
             [style.backgroundColor]="'system-background' | zwpColorTheme"
@@ -33,8 +34,9 @@ import { Model } from '../../model'
                     [zwpTextStyle]="'body1'"
                     [style.color]="'secondary-label' | zwpColorTheme"
                     fxFlex="noshrink" fxFlexAlign="center"
+                    zwpPadding="0 5"
                 >
-                    {{ fileExplorerData.childrenCount + (fileExplorerData.childrenCount === 1 ? ' item' : ' items') }}
+                    {{ 'Total: ' + fileExplorerData.childrenCount + (fileExplorerData.childrenCount === 1 ? ' item' : ' items') }}
                 </span>
                 <zwp-file-explorer-grouping-view-mode-controls 
                     fxFlexAlign="center"
@@ -86,21 +88,6 @@ export class FileExplorerComponent {
     currentDirectoryName$ = this.fileExplorerFacade.currentDirectoryName$
     explorerAllChildren$ = this.fileExplorerFacade.explorerAllChildren$
     explorerAllChildrenCount$ = this.fileExplorerFacade.explorerAllChildrenCount$
+    selectedItemCount$ = this.fileExplorerFacade.selectedItemCount$
     hasCurrentDirectory$ = this.fileExplorerFacade.hasCurrentDirectory$
-    
-    navigateDirectory(id: Nullable<string>) {
-        this.fileExplorerFacade.navigateDirectory(id)
-    }
-    createRandomDirectory() {
-        this.fileExplorerFacade.createRandomFileData(true)
-    }
-    createRandomFile() {
-        this.fileExplorerFacade.createRandomFileData(false)
-    }
-    createRandomDirectoryInDirectory(id: string) {
-        this.fileExplorerFacade.createRandomFileDataInDirectory(id, true)
-    }
-    createRandomFileInDirectory(id: string) {
-        this.fileExplorerFacade.createRandomFileDataInDirectory(id, false)
-    }
 }

@@ -104,7 +104,7 @@ import { Model } from '../../model'
                             fxLayoutAlign="start center"
                             zwpMargin="10 10 5 10"
                         >
-                            <span zwpDisableSelection [zwpTextStyle]="'body3'" zwpColor="label" fxFlexOffset="15px"
+                            <span zwpDisableSelection [zwpTextStyle]="'body1'" zwpColor="label" fxFlexOffset="15px"
                                 >Folders</span
                             >
                         </div>
@@ -164,7 +164,7 @@ import { Model } from '../../model'
                             fxLayoutAlign="start center"
                             zwpMargin="5 10"
                         >
-                            <span zwpDisableSelection [zwpTextStyle]="'body3'" zwpColor="label" fxFlexOffset="15px"
+                            <span zwpDisableSelection [zwpTextStyle]="'body1'" zwpColor="label" fxFlexOffset="15px"
                                 >Files</span
                             >
                         </div>
