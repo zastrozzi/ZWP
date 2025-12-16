@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core'
 import { Facades } from '../../+state/facades'
 import { Model } from '../../model'
-import { isNull, Nullable } from '@zwp/platform.common'
+import { isNull, Nullable, ZWPRouterFacade } from '@zwp/platform.common'
+import { ZWPWindowLayoutFacade } from '@zwp/platform.layout'
 
 @Component({
     selector: 'zwp-file-explorer-navigation-controls',
@@ -79,10 +80,23 @@ import { isNull, Nullable } from '@zwp/platform.common'
                     <zwp-divider></zwp-divider>
                     <zwp-md-button
                         fxFlexAlign="stretch"
-                        (btnClick)="createRandomDirectory(fileExplorerNavControlsData.currentDirectoryId)"
+                        (btnClick)="onNewFolderClicked()"
                         materialType="flat"
                         layoutGap="7px"
                         label="New Folder"
+                        textStyle="button1"
+                        icon="folder"
+                        [labelColor]="'primary' | zwpColorTheme"
+                        [backgroundColor]="'clear' | zwpColorTheme"
+                        [padding]="'10 25 10 15'"
+                    ></zwp-md-button>
+                    <zwp-divider></zwp-divider>
+                    <zwp-md-button
+                        fxFlexAlign="stretch"
+                        (btnClick)="createRandomDirectory(fileExplorerNavControlsData.currentDirectoryId)"
+                        materialType="flat"
+                        layoutGap="7px"
+                        label="New Random Folder"
                         textStyle="button1"
                         icon="folder"
                         [labelColor]="'primary' | zwpColorTheme"
@@ -123,5 +137,9 @@ export class FileExplorerNavigationControlsComponent {
 
     deleteItems(ids: string[]) {
         this.fileExplorerFacade.deleteFileExplorerItems(ids)
+    }
+
+    onNewFolderClicked() {
+        this.fileExplorerFacade.presentNewFolderWindow()
     }
 }

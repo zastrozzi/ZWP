@@ -27,7 +27,8 @@ import { Model } from '../../model'
                 selectedItemIds: (selectedExplorerItemIds$ | async) ?? [],
                 allChildren: explorerAllChildren$ | async,
                 allDirectories: (explorerAllDirectories$ | async) ?? [],
-                allFiles: (explorerAllFiles$ | async) ?? []
+                allFiles: (explorerAllFiles$ | async) ?? [],
+                allFilesByFileType: (explorerAllFilesByFileType$ | async) ?? []
             } as fileExplorerListData"
             fxLayout="column"
             fxFlex="grow"
@@ -217,6 +218,138 @@ import { Model } from '../../model'
                             <div fxFlex="grow"></div>
                         </div>
                     </ng-container>
+                    <ng-container *ngIf="fileExplorerListData.groupingViewMode === groupingViewModeEnum.fileType">
+                        <div
+                            fxLayout="row"
+                            fxFlex="30px"
+                            zwpBackgroundColor="quaternary-system-fill"
+                            zwpCorners="20"
+                            fxLayoutAlign="start center"
+                            zwpMargin="10 10 5 10"
+                        >
+                            <span zwpDisableSelection [zwpTextStyle]="'body1'" zwpColor="label" fxFlexOffset="15px"
+                                >Folders</span
+                            >
+                        </div>
+                        <div
+                            *ngFor="let child of fileExplorerListData.allDirectories; let last = last"
+                            (contextmenu)="openContextMenu($event, child)"
+                            (click)="handleFileExplorerItemSelection(child.id)"
+                            (dblclick)="child.isDir ? navigateDirectory(child.id) : null"
+                            fxLayout="row"
+                            zwpPadding="10"
+                            fxLayoutAlign="start center"
+                            fxLayoutGap="15px"
+                            [style.borderBottom]="last ? '' : 'solid 1px'"
+                            [style.borderBottomColor]="'separator' | zwpColorTheme"
+                            [style.backgroundColor]="
+                                fileExplorerListData.selectedItemIds.includes(child.id)
+                                    ? ('primary' | zwpColorTheme : { opacity: 0.3 })
+                                    : ('clear' | zwpColorTheme)
+                            "
+                            cdkDrag
+                            [cdkDragData]="child"
+                            (cdkDragStarted)="handleDragStart($event)"
+                            [cdkDragStartDelay]="{ touch: 150, mouse: 0 }"
+                        >
+                            <zwp-file-explorer-drag-preview *cdkDragPreview></zwp-file-explorer-drag-preview>
+                            <mat-icon
+                                zwpDisableSelection
+                                cdkDragHandle
+                                fxFlex="noshrink"
+                                fxFlexOffset="5px"
+                                [zwpTextStyle]="'body1'"
+                                [inline]="true"
+                                [style.height]="'auto'"
+                                [style.width]="'unset'"
+                                [style.color]="'primary' | zwpColorTheme"
+                                >{{ child.isDir ? 'folder' : 'description' }}</mat-icon
+                            >
+                            <span
+                                cdkDragHandle
+                                zwpDisableSelection
+                                zwpSelectionContainerItem
+                                [zwpSelectionContainerItemId]="child.id"
+                                [style.textAlign]="'left'"
+                                [style.textOverflow]="'ellipsis'"
+                                [style.whiteSpace]="'nowrap'"
+                                [zwpTextStyle]="'body2'"
+                                [style.color]="'label' | zwpColorTheme"
+                                >{{ child.name }}</span
+                            >
+                            <div fxFlex="grow"></div>
+                        </div>
+                        <ng-container *ngFor="let filesByType of fileExplorerListData.allFilesByFileType">
+                            <div
+                                fxLayout="row"
+                                fxFlex="30px"
+                                zwpBackgroundColor="quaternary-system-fill"
+                                zwpCorners="20"
+                                fxLayoutAlign="start center"
+                                zwpMargin="5 10"
+                            >
+                                <span
+                                    zwpDisableSelection
+                                    [zwpTextStyle]="'body1'"
+                                    zwpColor="label"
+                                    fxFlexOffset="15px"
+                                    >{{ filesByType.enumKey | zwpTransformEnum : fileTypeLabelEnumPipe }}</span
+                                >
+                            </div>
+                            <div
+                                *ngFor="let child of filesByType.values; let last = last"
+                                (contextmenu)="openContextMenu($event, child)"
+                                (click)="handleFileExplorerItemSelection(child.id)"
+                                (dblclick)="child.isDir ? navigateDirectory(child.id) : null"
+                                fxLayout="row"
+                                zwpPadding="10"
+                                fxLayoutAlign="start center"
+                                fxLayoutGap="15px"
+                                [style.borderBottom]="last ? '' : 'solid 1px'"
+                                [style.borderBottomColor]="'separator' | zwpColorTheme"
+                                [style.backgroundColor]="
+                                    fileExplorerListData.selectedItemIds.includes(child.id)
+                                        ? ('primary' | zwpColorTheme : { opacity: 0.3 })
+                                        : ('clear' | zwpColorTheme)
+                                "
+                                cdkDrag
+                                [cdkDragData]="child"
+                                (cdkDragStarted)="handleDragStart($event)"
+                                [cdkDragStartDelay]="{ touch: 150, mouse: 0 }"
+                            >
+                                <zwp-file-explorer-drag-preview *cdkDragPreview></zwp-file-explorer-drag-preview>
+                                <mat-icon
+                                    zwpDisableSelection
+                                    cdkDragHandle
+                                    fxFlex="noshrink"
+                                    fxFlexOffset="5px"
+                                    [zwpTextStyle]="'body1'"
+                                    [inline]="true"
+                                    [style.height]="'auto'"
+                                    [style.width]="'unset'"
+                                    [style.color]="'primary' | zwpColorTheme"
+                                    >{{
+                                        child.isDir
+                                            ? 'folder'
+                                            : (child.fileType | zwpTransformEnum : fileTypeIconEnumPipe)
+                                    }}</mat-icon
+                                >
+                                <span
+                                    cdkDragHandle
+                                    zwpDisableSelection
+                                    zwpSelectionContainerItem
+                                    [zwpSelectionContainerItemId]="child.id"
+                                    [style.textAlign]="'left'"
+                                    [style.textOverflow]="'ellipsis'"
+                                    [style.whiteSpace]="'nowrap'"
+                                    [zwpTextStyle]="'body2'"
+                                    [style.color]="'label' | zwpColorTheme"
+                                    >{{ child.name }}</span
+                                >
+                                <div fxFlex="grow"></div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
                 </div>
             </div>
         </div>
@@ -235,12 +368,16 @@ export class FileExplorerCompactListComponent implements AfterViewInit, OnDestro
 
     groupingViewModeEnum = Model.FileExplorerGroupingViewMode
 
+    fileTypeIconEnumPipe = Model.fileExplorerFileTypeIconPipeSignature
+    fileTypeLabelEnumPipe = Model.fileExplorerFileTypeLabelPipeSignature
+
     groupingViewMode$ = this.fileExplorerFacade.groupingViewMode$
 
     explorerAllChildren$ = this.fileExplorerFacade.explorerAllChildren$
     explorerAllFiles$ = this.fileExplorerFacade.explorerAllFiles$
     explorerAllDirectories$ = this.fileExplorerFacade.explorerAllDirectories$
     selectedExplorerItemIds$ = this.fileExplorerFacade.selectedItemIds$
+    explorerAllFilesByFileType$ = this.fileExplorerFacade.explorerAllFilesByFileType$
 
     ngAfterViewInit(): void {
         const dropsQueryChangesSub = this.dropsQuery?.changes.subscribe(() => {

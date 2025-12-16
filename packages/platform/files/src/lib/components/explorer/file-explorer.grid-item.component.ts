@@ -23,12 +23,13 @@ import { Model } from '../../model'
             <mat-icon
                 fxFlex="noshrink"
                 [zwpTextStyle]="'title1'"
+                zwpDisableSelection
                 [inline]="true"
                 [style.height]="'auto'"
                 [style.width]="'auto'"
                 [style.color]="'primary' | zwpColorTheme"
             >
-                {{ fileDataItem.isDir ? 'folder' : 'description' }}
+                {{ fileDataItem.isDir ? 'folder' : (fileDataItem.fileType | zwpTransformEnum: fileTypeIconEnumPipe) }}
             </mat-icon>
             <div fxFlex="grow"></div>
             <span
@@ -52,6 +53,8 @@ export class FileExplorerGridItemComponent {
     @Input() isSelected = false
     @Output() doubleClicked = new EventEmitter<string>()
     @Output() clicked = new EventEmitter<string>()
+
+    fileTypeIconEnumPipe = Model.fileExplorerFileTypeIconPipeSignature
 
     handleDoubleClick(event: MouseEvent | TouchEvent, item: Model.FileDataItem) {
         event.stopPropagation()

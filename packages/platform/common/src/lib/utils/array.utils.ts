@@ -8,3 +8,13 @@ export const arrayHasDuplicates = <T>(array: T[]) => array.length !== new Set(ar
 export const arrayHasNulls = <T>(array: T[]) => array.some(x => isNull(x))
 export const arrayHasUndefineds = <T>(array: T[]) => array.some(x => isUndefined(x))
 export const arrayHasNils = <T>(array: T[]) => array.some(x => isNil(x))
+
+export const randomFromArray = <T>(array: T[]): T | null => {
+    if (array.length === 0) { return null }
+    return array[Math.floor(Math.random() * array.length)]
+}
+
+export const randomFromNonEmptyArray = <T>(array: T[]): T => {
+    // if (array.length === 0) { return null }
+    return array[Math.floor(Math.random() * array.length)]
+}

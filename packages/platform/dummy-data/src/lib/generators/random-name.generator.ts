@@ -1,7 +1,7 @@
 import { FAMILY_NAME_COLLECTION } from "../model/names/family-name.collection"
 import { FEMALE_NAME_COLLECTION } from "../model/names/female.given-name.collection"
 import { MALE_NAME_COLLECTION } from "../model/names/male.given-name.collection"
-import { randomFromArray } from "../utils"
+import { randomFromArray } from "@zwp/platform.common"
 
 export const randomNameGenerator = (options?: { sex?: 'male' | 'female' | 'any', givenName?: boolean, familyName?: boolean}): string => {
     let randomGivenName: string | null = null

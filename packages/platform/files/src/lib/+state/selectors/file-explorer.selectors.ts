@@ -1,9 +1,26 @@
-import { createNamespacedFeatureKey, isNil, isNull, isUndefined } from '@zwp/platform.common'
+import { arrayToEnumDictionaryMulti, createNamespacedFeatureKey, isNil, isNull, isUndefined, ZWPEnumDictionaryPartial } from '@zwp/platform.common'
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { Model } from '../../model'
 import { Identifiers } from '../identifiers'
 import { Reducers } from '../reducers'
 import { FileDataSelectors } from './file-data.selectors'
+
+import { map } from 'rxjs/operators'
+import { Observable } from 'rxjs'
+
+type EnumGroup<E extends object, T> = { enumKey: Extract<keyof E, string>, values: T[] }
+
+const enumDictToArray = <E extends object, T>(
+  dict: ZWPEnumDictionaryPartial<E, T[]>,
+  e: E,
+  includeEmpty = false
+): EnumGroup<E, T>[] => {
+  const keys = Object.keys(e).filter(k => Number.isNaN(Number(k))) as Extract<keyof E, string>[]
+  return keys
+    .map(k => ({ enumKey: k, values: dict[k] ?? [] }))
+    .filter(g => includeEmpty ? true : g.values.length > 0)
+}
+
 
 const fileExplorerState = createFeatureSelector<Reducers.FileExplorerFeatureState>(
     createNamespacedFeatureKey(
@@ -109,6 +126,8 @@ const explorerAllChildren = createSelector(
 )
 
 const explorerAllFiles = createSelector(explorerAllChildren, (all) => all.filter((e) => e.isDir === false))
+const explorerAllFilesByFileTypeDictionary = createSelector(explorerAllFiles, (all) => arrayToEnumDictionaryMulti<typeof Model.FileExplorerFileType, Model.FileDataItem, 'fileType'>(all, 'fileType', Model.FileExplorerFileType))
+const explorerAllFilesByFileType = createSelector(explorerAllFilesByFileTypeDictionary, (dict) => enumDictToArray(dict, Model.FileExplorerFileType, false))
 
 const explorerAllDirectories = createSelector(explorerAllChildren, (all) => all.filter((e) => e.isDir === true))
 
@@ -148,7 +167,7 @@ export const FileExplorerSelectors = {
     explorerAllChildrenCount,
     explorerAllFilesCount,
     explorerAllDirectoriesCount,
-
+    explorerAllFilesByFileType,
     explorerItemIsSelected,
     // selectedItemsAlt
 }

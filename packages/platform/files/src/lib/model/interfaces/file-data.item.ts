@@ -1,9 +1,11 @@
-import { Nullable } from '@zwp/platform.common'
+import { Nullable, ZWPEnumDictionary, ZWPEnumDictionaryPartial } from '@zwp/platform.common'
+import { FileExplorerFileType } from '../enums'
 
 export interface FileDataItem {
     id: string
     name: string
     ext?: string
+    fileType?: FileExplorerFileType
 
     isDir: boolean
     isHidden?: boolean

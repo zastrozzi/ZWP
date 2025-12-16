@@ -61,6 +61,14 @@ export class ZWPFileExplorerEffects implements OnInitEffects {
         )
     )
 
+    deselectFileExplorerItemOnDelete$ = createEffect(() => 
+        this.actions$.pipe(
+            ofType(FileDataActions.remove),
+            map((action) => action.id),
+            map((id) => FileExplorerActions.removeFileExplorerItemFromSelection({ id }))
+        )
+    )
+
     handleFileExplorerItemSelection$ = createEffect(() =>
         this.actions$.pipe(
             ofType(FileExplorerActions.handleFileExplorerItemSelection),

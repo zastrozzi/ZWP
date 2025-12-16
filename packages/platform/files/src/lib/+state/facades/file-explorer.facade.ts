@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core'
-import { isNil, isNull, ZWPDebuggableInjectable, ZWPRouterFacade, Nullable } from '@zwp/platform.common'
+import { isNil, isNull, ZWPDebuggableInjectable, ZWPRouterFacade, Nullable, randomEnumCase } from '@zwp/platform.common'
 import { ZWPDummyDataService } from '@zwp/platform.dummy-data'
 import { select, Store } from '@ngrx/store'
 import { BehaviorSubject } from 'rxjs'
@@ -10,6 +10,7 @@ import { FileExplorerActions } from '../actions/file-explorer.actions'
 import { Selectors } from '../selectors'
 import { CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop'
 import { ActivatedRoute } from '@angular/router'
+import { ZWPWindowLayoutFacade } from '@zwp/platform.layout'
 
 // export const getLastActivatedRouteInChain = (activatedRoute: ActivatedRoute): ActivatedRoute => {
 //   let lastRoute = activatedRoute;
@@ -25,6 +26,7 @@ export class ZWPFileExplorerFacade  {
     private store = inject(Store)
     private dummyDataService = inject(ZWPDummyDataService)
     private routerFacade = inject(ZWPRouterFacade)
+    private windowLayoutFacade = inject(ZWPWindowLayoutFacade)
     // private activatedRoute = inject(ActivatedRoute)
 
     allFileDataItems$ = this.store.pipe(select(Selectors.FileDataSelectors.allFileDataItems))
@@ -43,6 +45,7 @@ export class ZWPFileExplorerFacade  {
     groupingViewMode$ = this.store.pipe(select(Selectors.FileExplorerSelectors.groupingViewMode))
     explorerAllChildren$ = this.store.pipe(select(Selectors.FileExplorerSelectors.explorerAllChildren))
     explorerAllFiles$ = this.store.pipe(select(Selectors.FileExplorerSelectors.explorerAllFiles))
+    explorerAllFilesByFileType$ = this.store.pipe(select(Selectors.FileExplorerSelectors.explorerAllFilesByFileType))
     explorerAllDirectories$ = this.store.pipe(select(Selectors.FileExplorerSelectors.explorerAllDirectories))
     explorerAllChildrenCount$ = this.store.pipe(select(Selectors.FileExplorerSelectors.explorerAllChildrenCount))
     explorerAllFilesCount$ = this.store.pipe(select(Selectors.FileExplorerSelectors.explorerAllFilesCount))
@@ -153,9 +156,20 @@ export class ZWPFileExplorerFacade  {
             id: v4(),
 
             name: this.dummyDataService.randomName(),
+            fileType: isDir ? undefined : randomEnumCase(Model.FileExplorerFileType),
             isDir: isDir,
         }
         this.store.dispatch(FileDataActions.create({ item: randomFileDataItem }))
+    }
+
+    createNewDirectory(parentDirectoryId: Nullable<string>, name: string) {
+        const newDirectoryItem: Model.FileDataItem = {
+            id: v4(),
+            name: name,
+            isDir: true,
+            parentFileDataItemId: isNull(parentDirectoryId) ? undefined : parentDirectoryId
+        }
+        this.store.dispatch(FileDataActions.create({ item: newDirectoryItem }))
     }
 
     handleDragDropped(event: CdkDragDrop<any>, drops: CdkDropList[]) {
@@ -196,5 +210,21 @@ export class ZWPFileExplorerFacade  {
             this.fileExplorerPreviewTouch$.next(false)
         }
         this.store.dispatch(FileExplorerActions.handleFileExplorerItemDragStart({ id, isDir, name }))
+    }
+
+    async presentNewFolderWindow() {
+        this.windowLayoutFacade.addWindow({
+            label: 'New Folder',
+            icon: 'folder',
+            componentName: 'FileExplorerNewFolderWindowComponent',
+            position: { top: 'calc(50vh - 100px)', left: 'calc(50vw - 100px)', width: '400px', height: '200px' },
+            data: {
+                currentDirectoryId: await this.getCurrentDirectoryIdFromRoute()
+            },
+        })
+    }
+
+    async getCurrentDirectoryIdFromRoute(): Promise<Nullable<string>> {
+        return await this.routerFacade.getNestedRouteParam('directoryId')
     }
 }
