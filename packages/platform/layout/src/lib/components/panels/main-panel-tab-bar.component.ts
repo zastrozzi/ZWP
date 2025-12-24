@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core'
+import { Component, ChangeDetectionStrategy, OnInit, inject, Input } from '@angular/core'
 import { ActivatedRoute, Route } from '@angular/router'
 import {
     isNull,
@@ -15,13 +15,12 @@ import { MainPanelTabEntityWithState } from '../../model'
     template: `
         <div fxLayout="row" fxLayoutAlign="start center" zwpPadding="0 0 0 5">
             <zwp-md-button
-                
                 [textStyle]="'button1'"
                 label="New Tab"
                 materialType="flat"
                 icon="add"
                 [backgroundColor]="'quaternary-system-fill' | zwpColorTheme"
-                [labelColor]="'primary' | zwpColorTheme"
+                [labelColor]="buttonUnselectedLabelColorTheme | zwpColorTheme"
                 (btnClick)="addMainPanelTab()"
             />
             <zwp-divider [vertical]="true" fxFlexAlign="stretch" fxFlexOffset="5px"></zwp-divider>
@@ -52,7 +51,7 @@ import { MainPanelTabEntityWithState } from '../../model'
                                     : ('quaternary-system-fill' | zwpColorTheme)
                             "
                             [labelColor]="
-                                tab.isActive ? ('system-white' | zwpColorTheme) : ('primary' | zwpColorTheme)
+                                tab.isActive ? ('system-white' | zwpColorTheme) : (buttonUnselectedLabelColorTheme | zwpColorTheme)
                             "
                             (btnClick)="tab.isActive ? closeMainPanelTab(tab.id) : selectMainPanelTab(tab)"
                         >
@@ -66,6 +65,8 @@ import { MainPanelTabEntityWithState } from '../../model'
 export class MainPanelTabBarComponent {
     private mainPanelFacade = inject(ZWPMainPanelFacade)
     private routerFacade = inject(ZWPRouterFacade)
+
+    @Input() buttonUnselectedLabelColorTheme = 'primary'
 
     allMainPanelTabsWithState$ = this.mainPanelFacade.allMainPanelTabsWithState$
     selectedMainPanelTab$ = this.mainPanelFacade.selectedMainPanelTab$

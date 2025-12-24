@@ -1,0 +1,120 @@
+{
+    "name": "demos.zwp-desktop-demo",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "sourceRoot": "apps/demos/zwp-desktop-demo/src",
+    "prefix": "demos.zwp-desktop-demo",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/angular:webpack-browser",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/apps/demos/zwp-desktop-demo",
+                "index": "apps/demos/zwp-desktop-demo/src/index.html",
+                "main": "apps/demos/zwp-desktop-demo/src/main.ts",
+                "polyfills": ["apps/demos/zwp-desktop-demo/src/zone-flags.js", "zone.js"],
+                "tsConfig": "apps/demos/zwp-desktop-demo/tsconfig.app.json",
+                "inlineStyleLanguage": "scss",
+                "styles": [
+                    "apps/demos/zwp-desktop-demo/src/styles.scss",
+                    {
+                        "input": "apps/demos/zwp-desktop-demo/src/assets/preload-styles.scss",
+                        "inject": false,
+                        "bundleName": "preload-styles"
+                    }
+                ],
+                "scripts": []
+            },
+            "configurations": {
+                "production": {
+                    "aot": true,
+                    "optimization": true,
+                    "buildOptimizer": true,
+                    "index": "apps/demos/zwp-desktop-demo/src/index.prod.html",
+                    "assets": [
+                        "apps/demos/zwp-desktop-demo/src/assets",
+                        "apps/demos/zwp-desktop-demo/src/netlify.toml",
+                        "apps/demos/zwp-desktop-demo/src/manifests/manifest.prod.webmanifest",
+                        "apps/demos/zwp-desktop-demo/src/robots.txt",
+                        "apps/demos/zwp-desktop-demo/src/sitemap.xml"
+                    ],
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "5mb",
+                            "maximumError": "20mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "20kb",
+                            "maximumError": "40kb"
+                        }
+                    ],
+                    "fileReplacements": [
+                        {
+                            "replace": "apps/demos/zwp-desktop-demo/src/environments/environment.ts",
+                            "with": "apps/demos/zwp-desktop-demo/src/environments/environment.prod.ts"
+                        }
+                    ],
+                    "outputHashing": "all"
+                },
+                "development": {
+                    "buildOptimizer": false,
+                    "optimization": false,
+                    "vendorChunk": true,
+                    "extractLicenses": false,
+                    "sourceMap": true,
+                    "namedChunks": true,
+                    "assets": [
+                        "apps/demos/zwp-desktop-demo/src/assets",
+                        "apps/demos/zwp-desktop-demo/src/manifests/manifest.dev.webmanifest"
+                    ]
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "serve": {
+            "executor": "@angular-devkit/build-angular:dev-server",
+            "configurations": {
+                "production": {
+                    "browserTarget": "demos.zwp-desktop-demo:build:production"
+                },
+                "development": {
+                    "browserTarget": "demos.zwp-desktop-demo:build:development"
+                }
+            },
+            "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+            "executor": "@angular-devkit/build-angular:extract-i18n",
+            "options": {
+                "browserTarget": "demos.zwp-desktop-demo:build"
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": [
+                    "apps/demos/zwp-desktop-demo/**/*.ts",
+                    "apps/demos/zwp-desktop-demo/**/*.html"
+                ]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/demos/zwp-desktop-demo/jest.config.ts",
+                "passWithNoTests": true
+            },
+            "configurations": {
+                "ci": {
+                    "ci": true,
+                    "codeCoverage": true
+                }
+            }
+        }
+    },
+    "tags": []
+}

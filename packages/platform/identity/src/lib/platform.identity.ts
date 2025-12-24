@@ -1,3 +1,5 @@
 export * from './+state'
+export * from './model'
+export * from './accessors'
 // export * from './routes'
-// export * from './components'
+export * from './services'

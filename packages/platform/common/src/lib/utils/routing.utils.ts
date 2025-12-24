@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot } from '@angular/router'
-import { SerialisedRoute, SerialisedRouteData } from '../model'
+import { Nullable, SerialisedRoute, SerialisedRouteData } from '../model'
 
 export const resolveChildRouteSnapshots = (snapshot: ActivatedRouteSnapshot): ActivatedRouteSnapshot[] => {
     const childSnapshots: ActivatedRouteSnapshot[] = []
@@ -49,3 +49,29 @@ export const getLeafRouteNavTitle = (route: SerialisedRoute): string => {
     }
     return navTitleElements.join(' | ')
 }
+
+// export const getRouteDataFlag = (route: SerialisedRoute, flag: string): Nullable<boolean> => {
+//     let currentRoute = route
+//     let routeDataFlag: Nullable<boolean> = null
+//     while (currentRoute) {
+//         const data = currentRoute.data as SerialisedRouteData | undefined
+//         if (data && Object.prototype.hasOwnProperty.call(data, flag)) {
+//             const val = (data as any)[flag]
+//             if (typeof val === 'boolean') {
+//                 routeDataFlag = val
+//             } else if (val === 'true' || val === 'false') {
+//                 routeDataFlag = val === 'true'
+//             } else if (val != null) {
+//                 routeDataFlag = Boolean(val)
+//             } else {
+//                 routeDataFlag = null
+//             }
+//             return routeDataFlag
+//         }
+
+//         if (!currentRoute.firstChild) break
+//         currentRoute = currentRoute.firstChild
+//     }
+
+//     return null
+// }

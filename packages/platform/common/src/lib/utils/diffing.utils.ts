@@ -1,7 +1,17 @@
 import { arrayDistinctRemove } from './array.utils'
 
 // eslint-disable-next-line no-prototype-builtins
-const hasProperty = <X extends object, Y extends PropertyKey>(obj: X, prop: Y): obj is X & Record<Y, unknown> => obj.hasOwnProperty(prop)
+const hasProperty = <X extends object, Y extends PropertyKey>(obj: X, prop: Y): obj is X & Record<Y, unknown> =>
+    Object.prototype.hasOwnProperty.call(obj, prop)
+
+const hasProperties = <X extends object>(obj: X, ...props: PropertyKey[]): boolean =>
+    props.every((p) => Object.prototype.hasOwnProperty.call(obj, p))
+
+// Type-guard overload: when used, narrows `obj` to include the listed keys
+function hasPropertiesGuard<X extends object, K extends PropertyKey>(obj: X, ...props: K[]): obj is X & Record<K, unknown>
+function hasPropertiesGuard(obj: object, ...props: PropertyKey[]): boolean {
+    return props.every((p) => Object.prototype.hasOwnProperty.call(obj, p))
+}
 const isDate = (d: any) => d instanceof Date
 const isBoolean = (d: any) => typeof d == 'boolean'
 const isTrue = (d: any) => isBoolean(d) && (d as boolean) === true
@@ -223,6 +233,8 @@ function subtractDeep(target: any, ...sources: any): any {
 
 export const DiffingUtils = {
     hasProperty,
+    hasProperties,
+    hasPropertiesGuard,
     isArray,
     isBoolean,
     isTrue,
