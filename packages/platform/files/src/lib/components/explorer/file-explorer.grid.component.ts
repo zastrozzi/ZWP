@@ -223,7 +223,7 @@ export class FileExplorerGridComponent implements AfterViewInit, OnDestroy {
 
     explorerGridWidthObserver: ResizeObserver | undefined
     explorerGridWidth$ = new BehaviorSubject<number>(0)
-    folderGridColumns$ = this.explorerGridWidth$.pipe(map((w) => Math.floor((w - 20) / 250)))
+    // folderGridColumns$ = this.explorerGridWidth$.pipe(map((w) => Math.floor((w - 20) / 250)))
     fileGridColumns$ = this.explorerGridWidth$.pipe(map((w) => Math.floor((w - 20) / this.fileGridTileWidth)))
 
     ngAfterViewInit(): void {
