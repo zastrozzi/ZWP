@@ -215,7 +215,7 @@ export class CreateLocationWindowComponent extends BaseWindowComponent implement
     }
 
     ngOnDestroy() {
-        console.log('CreateLocationWindowComponent destroyed')
+        // console.log('CreateLocationWindowComponent destroyed')
         this.subscriptions.unsubscribe()
     }
 }

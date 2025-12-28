@@ -98,6 +98,6 @@ export class StructuredQueryListComponent implements OnInit, OnDestroy {
     }
 
     onNewStructuredQueryClicked() {
-        console.log('New Structured Query Clicked')
+        // console.log('New Structured Query Clicked')
     }
 }

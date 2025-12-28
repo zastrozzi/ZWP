@@ -117,7 +117,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
     }
 
     onRowClicked(row: Model.InvoiceResponse) {
-        console.log(row, 'row clicked')
+        // console.log(row, 'row clicked')
     }
 
     onSortChanged(sort: Sort) {

@@ -197,7 +197,7 @@ export class LoyaltyCardPaginatedListComponent implements OnInit, OnDestroy {
 
     async ngOnInit() {
         if (this.loyaltyCardListContextIsBrandDetail) {
-            console.log('Loyalty Card List Context is Brand Detail')
+            // console.log('Loyalty Card List Context is Brand Detail')
             this.loyaltyCards$ = this.loyaltyCardFacade.loyaltyCardsForSelectedBrand$
         }
         if (this.loyaltyCardListContextIsMerchantDetail) {
@@ -274,7 +274,7 @@ export class LoyaltyCardPaginatedListComponent implements OnInit, OnDestroy {
         )
 
     onRowClicked(row: Model.LoyaltyCardResponse) {
-        console.log(row, 'row clicked')
+        // console.log(row, 'row clicked')
     }
 
     onSortChanged(sort: Sort) {

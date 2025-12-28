@@ -115,7 +115,7 @@ export class OccupationListComponent implements OnInit {
 
     onRowClicked(row: Model.EIM32712OccupationResponse) {
         // this.routerFacade.navigate([`/admin/users/${row.id}`])
-        console.log(row)
+        // console.log(row)
     }
 
     onSortChanged(sort: Sort) {

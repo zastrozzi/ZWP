@@ -38,7 +38,7 @@ interface AudienceResponse {
     </div>
     `
 })
-export class AudienceListComponent implements OnInit {
+export class AudienceListComponent {
 
     sortDirection: SortDirection = 'asc'
     sortKey: keyof AudienceResponse = 'name'
@@ -61,16 +61,12 @@ export class AudienceListComponent implements OnInit {
         { displayName: 'Status', name: 'status', type: ZWPFilterChipInputType.STRING, enumDefinition: null }
     ]
 
-    ngOnInit() {
-        console.log("AudienceListComponent")
-    }
-
     onRowClicked(row: unknown) {
-        console.log('row clicked', row)
+        // console.log('row clicked', row)
     }
 
     onSortChanged(sort: Sort) {
-        console.log('sort changed', sort)
+        // console.log('sort changed', sort)
         // this.sortKey = sort.active as keyof Model.EnduserResponse
         // this.sortDirection = sort.direction
         // this.enduserFacade.listEndusers({ 
@@ -100,7 +96,7 @@ export class AudienceListComponent implements OnInit {
     }
 
     onPaginationChanged(pagination: PageEvent) {
-        console.log('pagination changed', pagination)
+        // console.log('pagination changed', pagination)
         // this.enduserFacade.listEndusers({
         //     limit: pagination.pageSize,
         //     offset: pagination.pageIndex * pagination.pageSize
@@ -108,6 +104,6 @@ export class AudienceListComponent implements OnInit {
     }
 
     newUser() {
-        console.log('new user')
+        // console.log('new user')
     }
 }

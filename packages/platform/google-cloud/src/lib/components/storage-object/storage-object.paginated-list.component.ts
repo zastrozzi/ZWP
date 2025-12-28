@@ -290,7 +290,7 @@ export class StorageObjectPaginatedListComponent implements OnInit, OnDestroy {
     }
 
     onRowClicked(row: Model.Responses.StorageObjectResponse) {
-        console.log('row clicked')
+        // console.log('row clicked')
     }
 
     onCellCopyClicked(data: {

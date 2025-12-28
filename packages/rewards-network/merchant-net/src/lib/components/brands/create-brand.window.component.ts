@@ -81,7 +81,7 @@ export class CreateBrandWindowComponent extends BaseWindowComponent implements O
     }
 
     ngOnDestroy() {
-        console.log('CreateBrandWindowComponent destroyed')
+        // console.log('CreateBrandWindowComponent destroyed')
         this.subscriptions.unsubscribe()
     }
 }

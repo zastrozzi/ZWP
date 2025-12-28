@@ -91,7 +91,7 @@ export class BrandDetailRouteComponent implements OnInit, OnDestroy {
     }
 
     printRouteChildren() {
-        console.log(this.route.routeConfig?.children)
+        // console.log(this.route.routeConfig?.children)
     }
 
     deleteBrand(brand: Model.BrandResponse) {

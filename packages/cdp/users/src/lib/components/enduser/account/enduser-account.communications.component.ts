@@ -82,7 +82,7 @@ export class EnduserAccountCommunicationsComponent implements OnInit, OnDestroy 
     }
 
     onEmailRowClicked(email: Model.EnduserEmailResponse) {
-        console.log('email', email)
+        // console.log('email', email)
     }
 
     onEmailSortChanged(sort: Sort) {

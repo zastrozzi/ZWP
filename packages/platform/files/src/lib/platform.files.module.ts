@@ -4,7 +4,7 @@ import { ZWPLayoutModule } from '@zwp/platform.layout'
 import { ZWPCommonModule, ZWP_NGRX_MODULE_ROOT_CONFIG, _provideHistoryFeature, createNamespacedFeatureKey } from '@zwp/platform.common'
 import { State } from './+state'
 import { ZWPDummyDataModule } from '@zwp/platform.dummy-data'
-import { FILES_EXPORTABLE_COMPONENTS, FILES_INTERNAL_COMPONENTS } from './components'
+import { EXPORTABLE_COMPONENTS, INTERNAL_COMPONENTS } from './components'
 import { ZWP_FILES_MODULE_ROOT_CONFIG, ZWPFilesModuleRootConfig } from './config'
 
 @NgModule({
@@ -19,8 +19,8 @@ import { ZWP_FILES_MODULE_ROOT_CONFIG, ZWPFilesModuleRootConfig } from './config
         // ZWPNgrxHistoryModule.forFeature(FILE_DATA_STATE_FEATURE_KEY, ...[FileDataActions.create, FileDataActions.createMany, FileDataActions.remove, FileDataActions.updateParent, FileDataActions.updateParents])
     ],
     declarations: [
-        ...FILES_INTERNAL_COMPONENTS,
-        ...FILES_EXPORTABLE_COMPONENTS
+        ...INTERNAL_COMPONENTS.ALL,
+        ...EXPORTABLE_COMPONENTS.ALL
     ],
     providers: [
         // _provideHistoryFeature(
@@ -38,8 +38,7 @@ import { ZWP_FILES_MODULE_ROOT_CONFIG, ZWPFilesModuleRootConfig } from './config
         // ),
     ],
     exports: [
-        ...FILES_INTERNAL_COMPONENTS,
-        ...FILES_EXPORTABLE_COMPONENTS
+        ...EXPORTABLE_COMPONENTS.ALL
     ]
 })
 export class ZWPFilesModule {

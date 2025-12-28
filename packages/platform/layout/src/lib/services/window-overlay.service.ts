@@ -189,7 +189,7 @@ export class ZWPWindowOverlayService {
         const windowOverlayRef = this.getWindowOverlayRef(id)
         
         if (windowOverlayRef === undefined) { return 0 }
-        const zIndexClass = windowOverlayRef.overlayRef?.hostElement.classList.toString().split(' ').filter(c => c.startsWith('zwp-window-overlay-zindex-')).map(c => parseInt(c.slice(27)))[0]
+        const zIndexClass = windowOverlayRef.overlayRef?.hostElement.classList.toString().split(' ').filter(c => c.startsWith('zwp-window-overlay-zindex-')).map(c => parseInt(c.slice(26)))[0]
         return zIndexClass ?? 0
     }
 
@@ -325,8 +325,8 @@ export class ZWPWindowOverlayService {
 
     private reorderWindowOverlays(topWindowOverlayRefId: string, newWindowOverlayRef: WindowOverlayRef<any>): boolean {
         const currentWindowOverlayRefs = Object.entries(this.windowOverlayReferences).filter(x => !!x[1]).filter(x => x[0] !== topWindowOverlayRefId).sort((x, y) => { 
-            const xZIndex = x[1]?.overlayRef?.hostElement.classList.toString().split(' ').filter(c => c.startsWith('zwp-window-overlay-zindex-')).map(c => parseInt(c.slice(22)))[0]
-            const yZIndex = y[1]?.overlayRef?.hostElement.classList.toString().split(' ').filter(c => c.startsWith('zwp-window-overlay-zindex-')).map(c => parseInt(c.slice(22)))[0]
+            const xZIndex = x[1]?.overlayRef?.hostElement.classList.toString().split(' ').filter(c => c.startsWith('zwp-window-overlay-zindex-')).map(c => parseInt(c.slice(21)))[0]
+            const yZIndex = y[1]?.overlayRef?.hostElement.classList.toString().split(' ').filter(c => c.startsWith('zwp-window-overlay-zindex-')).map(c => parseInt(c.slice(21)))[0]
             return (xZIndex ?? 0) - (yZIndex ?? 0)
         })
 

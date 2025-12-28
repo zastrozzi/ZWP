@@ -144,11 +144,11 @@ export class AdminAccountSecurityComponent implements OnInit, OnDestroy {
     }
 
     onCredentialRowClicked(credential: Model.AdminUserCredentialResponse) {
-        console.log('credential', credential)
+        // console.log('credential', credential)
     }
 
     onSessionRowClicked(session: Model.AdminUserSessionResponse) {
-        console.log('session', session)
+        // console.log('session', session)
     }
 
     onCredentialSortChanged(sort: Sort) {

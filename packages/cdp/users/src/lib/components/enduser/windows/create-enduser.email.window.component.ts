@@ -37,7 +37,7 @@ import { Subscription, map, take, tap } from 'rxjs'
         </zwp-window>
     `
 })
-export class CreateEnduserEmailWindowComponent extends BaseWindowComponent implements OnInit, OnDestroy {
+export class CreateEnduserEmailWindowComponent extends BaseWindowComponent implements OnDestroy {
     private enduserEmailFacade = inject(EnduserEmailFacade)
     private readonly subscriptions = new Subscription()
 
@@ -63,17 +63,17 @@ export class CreateEnduserEmailWindowComponent extends BaseWindowComponent imple
         this.remove()
     }
 
-    ngOnInit() {
+    // ngOnInit() {
         // const busySub = this.remoteStateBusy$.subscribe(busy => {
         //     if (busy) { this.createEnduserForm.disable() }
         //     else { this.createEnduserForm.enable() }
         // })
         // this.subscriptions.add(busySub)
-        console.log('CreateEnduserEmailWindowComponent initialized')
-    }
+        // console.log('CreateEnduserEmailWindowComponent initialized')
+    // }
 
     ngOnDestroy() {
-        console.log('CreateEnduserEmailWindowComponent destroyed')
+        // console.log('CreateEnduserEmailWindowComponent destroyed')
         this.subscriptions.unsubscribe()
     }
 }

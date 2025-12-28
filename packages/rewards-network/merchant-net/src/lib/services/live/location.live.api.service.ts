@@ -80,7 +80,7 @@ export class LocationLiveAPIService
         pagination: Nullable<Partial<PaginatedQueryParams<Model.LocationResponse>>>
     ): Observable<PaginatedResponse<Model.LocationResponse>> {
         let path: string
-        console.log('parent', parent)
+        // console.log('parent', parent)
         if (parent.merchantId) {
             path = APIRoutes.merchantRoutes(this.baseUrl)
                 .locationRoutesForMerchant(parent.merchantId)

@@ -91,7 +91,7 @@ export class EnduserAccountActivityComponent implements OnInit {
     }
 
     onRowClicked(row: Model.EnduserActivityWithEnduserResponse) {
-        console.log('row clicked', row)
+        // console.log('row clicked', row)
         // this.routerFacade.navigate([`/admin/users/${row.id}`])
     }
 
@@ -119,15 +119,15 @@ export class EnduserAccountActivityComponent implements OnInit {
 
     onFiltersChanged(filterEvent: FilterChipEvent) {
         const filterChange: Partial<Model.EnduserActivityWithEnduserFilters> = handleFilterChipEvent(filterEvent)
-        console.log('filter change', filterChange)
+        // console.log('filter change', filterChange)
     }
 
     testDelete(row: Model.EnduserActivityWithEnduserResponse) {
-        console.log('delete', row)
+        // console.log('delete', row)
     }
 
     testExpand(row: Model.EnduserActivityWithEnduserResponse) {
-        console.log('expand', row)
+        // console.log('expand', row)
     }
 
     async getEnduserIdFromRoute(): Promise<Nullable<string>> {

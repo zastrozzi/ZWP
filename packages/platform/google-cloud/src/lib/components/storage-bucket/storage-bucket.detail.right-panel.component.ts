@@ -43,6 +43,6 @@ export class StorageBucketDetailRightPanelComponent implements OnInit {
                     }
                 })
             )
-        console.log(this.componentData, 'got component data')
+        // console.log(this.componentData, 'got component data')
     }
 }

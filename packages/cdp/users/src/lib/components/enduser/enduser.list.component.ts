@@ -110,6 +110,6 @@ export class EnduserListComponent implements OnInit {
     }
 
     newUser() {
-        console.log('new user')
+        // console.log('new user')
     }
 }

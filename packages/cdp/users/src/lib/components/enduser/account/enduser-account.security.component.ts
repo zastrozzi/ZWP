@@ -143,11 +143,11 @@ export class EnduserAccountSecurityComponent implements OnInit, OnDestroy {
     }
 
     onCredentialRowClicked(credential: Model.EnduserCredentialResponse) {
-        console.log('credential', credential)
+        // console.log('credential', credential)
     }
 
     onSessionRowClicked(session: Model.EnduserSessionResponse) {
-        console.log('session', session)
+        // console.log('session', session)
     }
 
     onCredentialSortChanged(sort: Sort) {

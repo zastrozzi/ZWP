@@ -77,7 +77,7 @@ export class SectorDetailRouteComponent implements OnInit, OnDestroy {
     }
 
     printRouteChildren() {
-        console.log(this.route.routeConfig?.children)
+        // console.log(this.route.routeConfig?.children)
     }
 
     deleteSector(sector: Model.SectorResponse) {

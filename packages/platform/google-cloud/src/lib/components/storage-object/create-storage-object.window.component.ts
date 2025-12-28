@@ -65,7 +65,7 @@ import { isNull, isUndefined, Nullable } from '@zwp/platform.common'
         </zwp-window>
     `
 })
-export class CreateStorageObjectWindowComponent extends BaseWindowComponent implements OnInit, OnDestroy {
+export class CreateStorageObjectWindowComponent extends BaseWindowComponent implements OnDestroy {
     private windowData = inject(WINDOW_COMPONENT_DATA) as { storageBucketId: Nullable<string> }
     private formBuilder = inject(FormBuilder)
     private storageObjectFacade = inject(State.Facades.GoogleCloudStorageObjectFacade)
@@ -82,13 +82,13 @@ export class CreateStorageObjectWindowComponent extends BaseWindowComponent impl
         name: new FormControl<string>('', [Validators.required, Validators.minLength(1)])
     })
 
-    ngOnInit() {
+    // ngOnInit() {
         
-        console.log('CreateStorageObjectWindowComponent initialized')
-    }
+    //     // console.log('CreateStorageObjectWindowComponent initialized')
+    // }
 
     ngOnDestroy() {
-        console.log('CreateStorageObjectWindowComponent destroyed')
+        // console.log('CreateStorageObjectWindowComponent destroyed')
         this.subscriptions.unsubscribe()
     }
 
@@ -121,7 +121,7 @@ export class CreateStorageObjectWindowComponent extends BaseWindowComponent impl
         if (!isNull(this.file)) { this.clearFile() }
         this.file = inputFile
         this.fileExtension = this.file.type
-        console.log('drop file extension', this.fileExtension)
+        // console.log('drop file extension', this.fileExtension)
         this.storageObjectFormName?.setValue(this.file.name)
         this.storageObjectFormName?.enable()
         this.createStorageObjectForm.markAsDirty()

@@ -1,17 +1,36 @@
-import { FILES_CONTROLS_EXPORTABLE_COMPONENTS } from './controls'
-import { FILE_EXPLORER_WINDOW_COMPONENTS } from './windows'
-import { FILE_EXPLORER_INTERNAL_COMPONENTS } from './explorer'
+import * as FILE_CONTROLS_COMPONENTS from './controls'
+import * as FILE_WINDOW_COMPONENTS from './windows'
+import * as FILE_EXPLORER_COMPONENTS from './explorer'
 
 export * from './controls'
 export * from './explorer'
 export * from './windows'
 
-export const FILES_INTERNAL_COMPONENTS = [
-    // ...FILE_EXPLORER_INTERNAL_COMPONENTS
-]
+export const INTERNAL_COMPONENTS = {
+    FILE_CONTROLS_COMPONENTS,
+    FILE_WINDOW_COMPONENTS,
+    FILE_EXPLORER_COMPONENTS,
 
-export const FILES_EXPORTABLE_COMPONENTS = [
-    ...FILES_CONTROLS_EXPORTABLE_COMPONENTS,
-    ...FILE_EXPLORER_INTERNAL_COMPONENTS,
-    ...FILE_EXPLORER_WINDOW_COMPONENTS.ALL
-]
+    ALL: [
+        FILE_CONTROLS_COMPONENTS.FileExplorerGroupingViewModeControlsComponent,
+        FILE_CONTROLS_COMPONENTS.FileExplorerItemContextMenuComponent,
+        FILE_CONTROLS_COMPONENTS.FileExplorerNavigationControlsComponent,
+        FILE_CONTROLS_COMPONENTS.FileExplorerViewModeControlsComponent,
+
+        FILE_WINDOW_COMPONENTS.FileExplorerNewFileWindowComponent,
+        FILE_WINDOW_COMPONENTS.FileExplorerNewFolderWindowComponent,
+
+        FILE_EXPLORER_COMPONENTS.FileExplorerCompactListComponent,
+        
+        FILE_EXPLORER_COMPONENTS.FileExplorerDragPreviewComponent,
+        FILE_EXPLORER_COMPONENTS.FileExplorerGridComponent,
+        FILE_EXPLORER_COMPONENTS.FileExplorerGridItemComponent,
+        FILE_EXPLORER_COMPONENTS.FileExplorerListComponent
+    ]
+}
+
+export const EXPORTABLE_COMPONENTS = {
+    ALL: [
+        FILE_EXPLORER_COMPONENTS.FileExplorerComponent
+    ]
+}

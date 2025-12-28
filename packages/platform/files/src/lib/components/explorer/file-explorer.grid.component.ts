@@ -31,12 +31,14 @@ import { Model } from '../../model'
                 allChildren: explorerAllChildren$ | async,
                 allDirectories: (explorerAllDirectories$ | async) ?? [],
                 allFiles: (explorerAllFiles$ | async) ?? [],
+                allFilesByFileType: (explorerAllFilesByFileType$ | async) ?? [],
                 gridColumns: fileGridColumns$ | async,
                 gridWidth: (explorerGridWidth$ | async) ?? 0
             } as fileExplorerGridData"
             fxLayout="column"
             fxFlex="grow"
             cdkDropListGroup
+            zwpVScroll
         >
             <div *ngIf="fileExplorerGridData.groupingViewMode" fxLayout="row" zwpPadding="10">
                 <mat-grid-list
@@ -128,6 +130,65 @@ import { Model } from '../../model'
                             />
                         </mat-grid-tile>
                     </ng-container>
+                    <ng-container *ngIf="fileExplorerGridData.groupingViewMode === groupingViewModeEnum.fileType">
+                        <mat-grid-tile
+                            [colspan]="fileExplorerGridData.gridColumns" [rowspan]="2"
+                            zwpBackgroundColor="quaternary-system-fill" zwpCorners="20"
+                        >
+                            <span zwpDisableSelection fxFlexOffset="15px" [zwpTextStyle]="'body3'" zwpColor="label" fxFlex="noshrink"
+                            >Folders</span>
+                        </mat-grid-tile>
+                        <mat-grid-tile
+                            [rowspan]="6"
+                            zwpSelectionContainerItem
+                            [zwpSelectionContainerItemId]="child.id"
+                            *ngFor="let child of fileExplorerGridData.allDirectories"
+                            cdkDrag
+                            [cdkDragData]="child"
+                            (cdkDragStarted)="handleDragStart($event)"
+                            [cdkDragStartDelay]="{ touch: 150, mouse: 0 }"
+                        >
+                            <zwp-file-explorer-drag-preview *cdkDragPreview/>
+                            <zwp-file-explorer-grid-item
+                                (contextmenu)="openContextMenu($event, child)"
+                                fxFlexFill
+                                [fileDataItem]="child"
+                                [isSelected]="fileExplorerGridData.selectedItemIds.includes(child.id)"
+                                (clicked)="handleFileExplorerItemSelection($event)"
+                                (doubleClicked)="handleFileExplorerItemDoubleClick($event)"
+                            />
+                        </mat-grid-tile>
+                        <ng-container *ngFor="let filesByType of fileExplorerGridData.allFilesByFileType">
+                            <mat-grid-tile
+                                [colspan]="fileExplorerGridData.gridColumns" [rowspan]="2"
+                                zwpBackgroundColor="quaternary-system-fill" zwpCorners="20"
+                            >
+                                <span zwpDisableSelection fxFlexOffset="15px" [zwpTextStyle]="'body3'" zwpColor="label" fxFlex="noshrink"
+                                >{{ filesByType.enumKey | zwpTransformEnum : fileTypeLabelEnumPipe }}</span>
+                            </mat-grid-tile>
+                            <mat-grid-tile
+                                [rowspan]="6"
+                                zwpSelectionContainerItem
+                                [zwpSelectionContainerItemId]="child.id"
+                                *ngFor="let child of filesByType.values"
+                                cdkDrag
+                                [cdkDragData]="child"
+                                (cdkDragStarted)="handleDragStart($event)"
+                                [cdkDragStartDelay]="{ touch: 150, mouse: 0 }"
+                            >
+                                <zwp-file-explorer-drag-preview *cdkDragPreview/>
+                                <zwp-file-explorer-grid-item
+                                    (contextmenu)="openContextMenu($event, child)"
+                                    fxFlexFill
+                                    [fileDataItem]="child"
+                                    [isSelected]="fileExplorerGridData.selectedItemIds.includes(child.id)"
+                                    (clicked)="handleFileExplorerItemSelection($event)"
+                                    (doubleClicked)="handleFileExplorerItemDoubleClick($event)"
+                                />
+                            </mat-grid-tile>
+                        </ng-container>
+                        
+                    </ng-container>
                 </mat-grid-list>
             </div>
         </div>
@@ -146,6 +207,8 @@ export class FileExplorerGridComponent implements AfterViewInit, OnDestroy {
     private menuFacade = inject(ZWPMenuLayoutFacade)
 
     groupingViewModeEnum = Model.FileExplorerGroupingViewMode
+    fileTypeIconEnumPipe = Model.fileExplorerFileTypeIconPipeSignature
+    fileTypeLabelEnumPipe = Model.fileExplorerFileTypeLabelPipeSignature
 
     fileGridTileWidth = 115
     fileGridTileHeight = 110
@@ -156,6 +219,7 @@ export class FileExplorerGridComponent implements AfterViewInit, OnDestroy {
     explorerAllFiles$ = this.fileExplorerFacade.explorerAllFiles$
     explorerAllDirectories$ = this.fileExplorerFacade.explorerAllDirectories$
     selectedExplorerItemIds$ = this.fileExplorerFacade.selectedItemIds$
+    explorerAllFilesByFileType$ = this.fileExplorerFacade.explorerAllFilesByFileType$
 
     explorerGridWidthObserver: ResizeObserver | undefined
     explorerGridWidth$ = new BehaviorSubject<number>(0)

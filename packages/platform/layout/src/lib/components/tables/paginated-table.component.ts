@@ -280,13 +280,13 @@ export class PaginatedTableComponent<T extends object> {
     }
 
     handleDragStart(event: CdkDragStart) {
-        console.log('drag start', event)
+        // console.log('drag start', event)
         event.event.preventDefault()
         event.event.stopPropagation()
     }
 
     handleDragEnd(event: CdkDragEnd) {
-        console.log('drag start', event)
+        // console.log('drag start', event)
         event.event.preventDefault()
         event.event.stopPropagation()
     }

@@ -83,7 +83,7 @@ export class EnduserAccountDevicesComponent implements OnInit, OnDestroy {
     }
 
     onRowClicked(device: Model.EnduserDeviceResponse) {
-        console.log('device', device)
+        // console.log('device', device)
     }
 
     onSortChanged(sort: Sort) {

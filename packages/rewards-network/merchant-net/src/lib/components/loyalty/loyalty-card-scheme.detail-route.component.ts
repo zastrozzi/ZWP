@@ -107,7 +107,7 @@ export class LoyaltyCardSchemeDetailRouteComponent implements OnInit, OnDestroy 
     }
 
     printRouteChildren() {
-        console.log(this.route.routeConfig?.children)
+        // console.log(this.route.routeConfig?.children)
     }
 
     deleteLoyaltyCardScheme(loyaltyCardScheme: Model.LoyaltyCardSchemeResponse) {

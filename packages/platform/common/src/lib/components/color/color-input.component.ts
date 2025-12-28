@@ -147,15 +147,15 @@ export class ColorPickerInputDirective implements ControlValueAccessor, OnDestro
     }
 
     _onTouched = () => {
-        console.log('onTouched')
+        // console.log('onTouched')
     }
 
     private _cvaOnChange: (value: any) => void = () => {
-        console.log('onChange')
+        // console.log('onChange')
     }
 
     private _validatorOnChange = () => {
-        console.log('validatorOnChange')
+        // console.log('validatorOnChange')
     }
 
     constructor(

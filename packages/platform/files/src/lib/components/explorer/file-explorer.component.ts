@@ -28,7 +28,7 @@ import { Model } from '../../model'
                 [style.backgroundColor]="'system-background' | zwpColorTheme"
                 zwpHScroll
             >
-                <zwp-file-explorer-navigation-controls fxFlexAlign="center"/>
+                <zwp-file-explorer-navigation-controls buttonUnselectedColorTheme="primary-label" fxFlexAlign="center"/>
                 <div fxFlex="grow"></div>
                 <span
                     [zwpTextStyle]="'body1'"

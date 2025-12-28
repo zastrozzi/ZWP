@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core'
-import { Nullable } from '@zwp/platform.common'
+import { isNil, Nullable } from '@zwp/platform.common'
 import { BaseWindowComponent, WINDOW_COMPONENT_DATA, ZWPWindowComponent } from '@zwp/platform.layout'
 import { ZWPFileExplorerFacade } from '../../+state/facades/file-explorer.facade'
 import { Subscription } from 'rxjs'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Model } from '../../model'
 
-@ZWPWindowComponent('FileExplorerNewFolderWindowComponent')
+@ZWPWindowComponent('FileExplorerNewFileWindowComponent')
 @Component({
-    selector: 'zwp-file-explorer-new-folder-window',
+    selector: 'zwp-file-explorer-new-file-window',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <zwp-window #windowContent>
@@ -17,8 +18,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
                     fxLayoutAlign="center stretch"
                     fxLayoutGap="10px"
                     fxFlex="grow"
-                    [formGroup]="createNewFolderForm"
-                    (ngSubmit)="createNewFolder()"
+                    [formGroup]="createNewFileForm"
+                    (ngSubmit)="createNewFile()"
                 >
                     <mat-form-field
                         appearance="outline"
@@ -26,22 +27,27 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
                         zwpCorners="4"
                         zwpBackgroundColor="tertiary-system-fill"
                     >
-                        <input matInput formControlName="name" placeholder="Folder Name" cdkFocusInitial />
+                        <input matInput formControlName="name" placeholder="File Name" cdkFocusInitial />
                     </mat-form-field>
+                    <zwp-transform-enum-dropdown-input 
+                        [enumInput]="createNewFileForm.controls.fileType" 
+                        [transformSignature]="fileTypeEnumSignature" 
+                        placeholder="File Type"
+                    ></zwp-transform-enum-dropdown-input>
                     <div fxFlex="grow"></div>
                     <zwp-md-button
                         fxFlexAlign="end"
-                        [label]="'Add New Folder'"
+                        [label]="'Add New File'"
                         [icon]="'save'"
-                        [disabled]="createNewFolderForm.invalid"
-                        (btnClick)="createNewFolder()"
+                        [disabled]="createNewFileForm.invalid"
+                        (btnClick)="createNewFile()"
                     ></zwp-md-button>
                 </form>
             </div>
         </zwp-window>
     `,
 })
-export class FileExplorerNewFolderWindowComponent extends BaseWindowComponent implements OnDestroy {
+export class FileExplorerNewFileWindowComponent extends BaseWindowComponent implements OnDestroy {
     private windowData = inject(WINDOW_COMPONENT_DATA) as {
         currentDirectoryId: Nullable<string>
     }
@@ -49,25 +55,34 @@ export class FileExplorerNewFolderWindowComponent extends BaseWindowComponent im
     private fileExplorerFacade = inject(ZWPFileExplorerFacade)
     private readonly subscriptions = new Subscription()
 
-    createNewFolderForm = new FormGroup({
+    fileTypeEnumSignature = Model.fileExplorerFileTypeLabelPipeSignature
+
+    createNewFileForm = new FormGroup({
         name: new FormControl<string>('', [Validators.required, Validators.minLength(1)]),
+        fileType: new FormControl<Model.FileExplorerFileType | null>(null)
     })
 
     // ngOnInit() {
-    //     console.log('adding new folder window')
+    //     // console.log('adding new file window')
     // }
 
     ngOnDestroy(): void {
         this.subscriptions.unsubscribe()
     }
 
-    createNewFolder() {
-        if (this.createNewFolderForm.valid) {
-            this.fileExplorerFacade.createNewDirectory(
-                this.windowData.currentDirectoryId,
-                this.createNewFolderForm.value.name ?? ''
-            )
-            this.remove()
+    createNewFile() {
+        if (this.createNewFileForm.valid) {
+            const fileTypeValue = this.createNewFileForm.value.fileType
+            const nameValue = this.createNewFileForm.value.name
+            if (!isNil(fileTypeValue) && !isNil(nameValue)) {
+                this.fileExplorerFacade.createNewFile(
+                    this.windowData.currentDirectoryId,
+                    nameValue,
+                    fileTypeValue
+                )
+                this.remove()
+            }
+            
         }
     }
 }

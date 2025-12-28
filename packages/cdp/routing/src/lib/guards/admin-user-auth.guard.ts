@@ -15,13 +15,13 @@ export const AdminUserAuthGuard: CanActivateFn = (
         delay(0),
         switchMap(() => adminUserAccessTokenAccessor.getAccessToken()),
         catchError((error) => {
-            console.error('AdminUserAuthGuard error', error)
+            // console.error('AdminUserAuthGuard error', error)
             return of(null)
         }),
         map((accessToken) => {
             if (!accessToken) {
                 authFacade.clearTokens()
-                console.log('AdminUserAuthGuard redirecting to login')
+                // console.log('AdminUserAuthGuard redirecting to login')
                 return router.createUrlTree(['/login'])
             }
             return true

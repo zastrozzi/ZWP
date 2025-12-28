@@ -115,11 +115,11 @@ export class TilloTransactionSpreadPaginatedListComponent implements OnInit, OnD
     }
 
     onNavigationClicked(row: Model.TransactionSpreadResponse) {
-        console.log('onNavigationClicked', row)
+        // console.log('onNavigationClicked', row)
     }
 
     onInspectorClicked(row: Model.TransactionSpreadResponse) {
-        console.log('onInspectorClicked', row)
+        // console.log('onInspectorClicked', row)
     }
 
     onClipboardClicked(row: Model.TransactionSpreadResponse) {

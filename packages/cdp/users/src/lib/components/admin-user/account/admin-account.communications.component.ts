@@ -81,7 +81,7 @@ export class AdminAccountCommunicationsComponent implements OnInit, OnDestroy {
     }
 
     onEmailRowClicked(email: Model.AdminUserEmailResponse) {
-        console.log('email', email)
+        // console.log('email', email)
     }
 
     onEmailSortChanged(sort: Sort) {

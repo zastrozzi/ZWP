@@ -38,7 +38,7 @@ import { Model } from '../../../model'
         </zwp-window>
     `
 })
-export class CreateEnduserCredentialWindowComponent extends BaseWindowComponent implements OnInit, OnDestroy {
+export class CreateEnduserCredentialWindowComponent extends BaseWindowComponent implements OnDestroy {
     private enduserCredentialFacade = inject(EnduserCredentialFacade)
     private readonly subscriptions = new Subscription()
 
@@ -64,17 +64,17 @@ export class CreateEnduserCredentialWindowComponent extends BaseWindowComponent 
         this.remove()
     }
 
-    ngOnInit() {
+    // ngOnInit() {
         // const busySub = this.remoteStateBusy$.subscribe(busy => {
         //     if (busy) { this.createEnduserForm.disable() }
         //     else { this.createEnduserForm.enable() }
         // })
-        // this.subscriptions.add(busySub)
-        console.log('CreateEnduserCredentialWindowComponent initialized')
-    }
+    //     // this.subscriptions.add(busySub)
+    //     // console.log('CreateEnduserCredentialWindowComponent initialized')
+    // }
 
     ngOnDestroy() {
-        console.log('CreateEnduserCredentialWindowComponent destroyed')
+        // console.log('CreateEnduserCredentialWindowComponent destroyed')
         this.subscriptions.unsubscribe()
     }
 }

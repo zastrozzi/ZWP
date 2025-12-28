@@ -79,7 +79,7 @@ export class CreateStorageBucketWindowComponent extends BaseWindowComponent impl
     }
 
     ngOnDestroy() {
-        console.log('CreateStorageBucketWindowComponent destroyed')
+        // console.log('CreateStorageBucketWindowComponent destroyed')
         this.subscriptions.unsubscribe()
     }
 }

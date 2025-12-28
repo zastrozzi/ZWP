@@ -110,7 +110,7 @@ export class CategoryDetailRouteComponent implements OnInit, OnDestroy {
     }
 
     printRouteChildren() {
-        console.log(this.route.routeConfig?.children)
+        // console.log(this.route.routeConfig?.children)
     }
 
     deleteCategory(category: Model.CategoryResponse) {

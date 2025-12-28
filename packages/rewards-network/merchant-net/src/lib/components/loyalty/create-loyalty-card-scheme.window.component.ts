@@ -205,7 +205,7 @@ export class CreateLoyaltyCardSchemeWindowComponent extends BaseWindowComponent 
     }
 
     ngOnDestroy() {
-        console.log('CreateLoyaltyCardSchemeWindowComponent destroyed')
+        // console.log('CreateLoyaltyCardSchemeWindowComponent destroyed')
         this.subscriptions.unsubscribe()
     }
 }

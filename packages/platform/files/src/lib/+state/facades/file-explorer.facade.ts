@@ -162,6 +162,17 @@ export class ZWPFileExplorerFacade  {
         this.store.dispatch(FileDataActions.create({ item: randomFileDataItem }))
     }
 
+    createNewFile(parentDirectoryId: Nullable<string>, name: string, fileType: Model.FileExplorerFileType) {
+        const newFileItem: Model.FileDataItem = {
+            id: v4(),
+            name: name,
+            isDir: false,
+            parentFileDataItemId: isNull(parentDirectoryId) ? undefined : parentDirectoryId,
+            fileType: fileType
+        }
+        this.store.dispatch(FileDataActions.create({ item: newFileItem }))
+    }
+
     createNewDirectory(parentDirectoryId: Nullable<string>, name: string) {
         const newDirectoryItem: Model.FileDataItem = {
             id: v4(),
@@ -218,6 +229,18 @@ export class ZWPFileExplorerFacade  {
             icon: 'folder',
             componentName: 'FileExplorerNewFolderWindowComponent',
             position: { top: 'calc(50vh - 100px)', left: 'calc(50vw - 100px)', width: '400px', height: '200px' },
+            data: {
+                currentDirectoryId: await this.getCurrentDirectoryIdFromRoute()
+            },
+        })
+    }
+
+    async presentNewFileWindow() {
+        this.windowLayoutFacade.addWindow({
+            label: 'New File',
+            icon: 'description',
+            componentName: 'FileExplorerNewFileWindowComponent',
+            position: { top: 'calc(50vh - 130px)', left: 'calc(50vw - 100px)', width: '400px', height: '260px' },
             data: {
                 currentDirectoryId: await this.getCurrentDirectoryIdFromRoute()
             },

@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core'
 import { createNamespacedFeatureKey, DiffingUtils, isNil, PersistenceActions, ZWPDebuggableInjectable, ZWPKeyboardFacade, ZWPRouterFacade } from '@zwp/platform.common'
-import { ZWPMenuLayoutFacade } from '@zwp/platform.layout'
+import { ZWPMenuLayoutFacade, ZWPWindowLayoutFacade } from '@zwp/platform.layout'
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects'
 import { ROUTER_NAVIGATED, routerNavigatedAction } from '@ngrx/router-store'
 import { filter, map, tap, withLatestFrom } from 'rxjs'
-import { FileExplorerItemContextMenuComponent } from '../../components'
+import { FileExplorerItemContextMenuComponent, FileExplorerNewFileWindowComponent, FileExplorerNewFolderWindowComponent } from '../../components'
 import { FileDataActions, FileExplorerActions } from '../actions'
 import { Facades } from '../facades'
 import { Identifiers } from '../identifiers'
@@ -18,10 +18,14 @@ export class ZWPFileExplorerEffects implements OnInitEffects {
     private fileExplorerFacade = inject(Facades.ZWPFileExplorerFacade)
     private keyboardFacade = inject(ZWPKeyboardFacade)
     private menuLayoutFacade = inject(ZWPMenuLayoutFacade)
+    private windowLayoutFacade = inject(ZWPWindowLayoutFacade)
 
     constructor() {
-        console.log('Constructing File Explorer Effects')
         this.menuLayoutFacade.registerMenuComponentType(FileExplorerItemContextMenuComponent)
+        this.windowLayoutFacade.registerWindowTypes([
+            FileExplorerNewFileWindowComponent,
+            FileExplorerNewFolderWindowComponent
+        ])
     }
 
     selectCurrentDirectoryFromRouter$ = createEffect(() =>
@@ -179,7 +183,7 @@ export class ZWPFileExplorerEffects implements OnInitEffects {
     )
 
     ngrxOnInitEffects(): Action {
-        console.log('Trying File Explorer Rehydration')
+        // console.log('Trying File Explorer Rehydration')
         return PersistenceActions.rehydrateStateRequest({
             featureKey: createNamespacedFeatureKey(
                 Identifiers.PLATFORM_FILES_ACTION_IDENTIFIER,

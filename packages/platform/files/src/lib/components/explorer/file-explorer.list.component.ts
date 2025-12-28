@@ -32,6 +32,7 @@ import { Model } from '../../model'
             } as fileExplorerListData"
             fxLayout="column"
             fxFlex="grow"
+            zwpVScroll
         >
             <div
                 *ngIf="fileExplorerListData.groupingViewMode"

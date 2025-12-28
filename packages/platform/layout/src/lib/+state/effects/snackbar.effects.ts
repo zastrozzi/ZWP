@@ -14,7 +14,7 @@ export class ZWPSnackbarEffects {
     showSnackbar$ = createEffect(() => this.actions$.pipe(
         ofType(SnackbarActions.showSnackbar),
         tap((action) => {
-            console.log('Show Snackbar:', action.message, action.duration)
+            // console.log('Show Snackbar:', action.message, action.duration)
             this.snackbarService.showSnackbar(action.message, action.duration)
         })
     ), { dispatch: false })

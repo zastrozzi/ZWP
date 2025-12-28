@@ -94,7 +94,7 @@ export class AdminAccountDevicesComponent implements OnInit, OnDestroy {
     }
 
     onRowClicked(device: Model.AdminUserDeviceResponse) {
-        console.log('device', device)
+        // console.log('device', device)
     }
 
     onSortChanged(sort: Sort) {

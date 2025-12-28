@@ -181,7 +181,7 @@ export class CategoryPaginatedListComponent implements OnInit, OnDestroy {
     }
 
     onCategoryRowExpanded(row: Model.CategoryResponse) {
-        console.log('Row expanded:', row)
+        // console.log('Row expanded:', row)
         this.categoryFacade.listSubcategories(
             row.id,
             {

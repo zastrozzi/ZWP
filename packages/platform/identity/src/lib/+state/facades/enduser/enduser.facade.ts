@@ -28,7 +28,7 @@ export class EnduserFacade {
     }
 
     selectEnduser(enduserId: string) {
-        console.log('selectEnduser', enduserId)
+        // console.log('selectEnduser', enduserId)
         return this.store.dispatch(EnduserLocalActions.selectEnduser({ enduserId }))
     }
 

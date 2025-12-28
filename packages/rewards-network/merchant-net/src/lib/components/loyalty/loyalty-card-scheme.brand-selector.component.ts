@@ -178,11 +178,11 @@ export class LoyaltyCardSchemeBrandSelectorComponent implements OnInit, OnDestro
     }
 
     onSelectAllBrands() {
-        console.log('Select All Brands clicked')
+        // console.log('Select All Brands clicked')
     }
 
     onDeselectAllBrands() {
-        console.log('Deselect All Brands clicked')
+        // console.log('Deselect All Brands clicked')
     }
 
     onAddBrandToLoyaltyCardScheme(brandId: string) {

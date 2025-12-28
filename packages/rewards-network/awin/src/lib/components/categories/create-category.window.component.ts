@@ -106,7 +106,7 @@ export class CreateCategoryWindowComponent extends BaseWindowComponent implement
     }
 
     ngOnDestroy() {
-        console.log('CreateCategoryWindowComponent destroyed')
+        // console.log('CreateCategoryWindowComponent destroyed')
         this.subscriptions.unsubscribe()
     }
 }

@@ -56,7 +56,7 @@ import { PageEvent } from '@angular/material/paginator'
         </div>
     `
 })
-export class IndustryListComponent implements OnInit {
+export class IndustryListComponent {
     private occupationFacade = inject(EIM32712OccupationFacade)
     occupationFilters$ = this.occupationFacade.occupationFilters$
     occupationIndustryFilters$ = this.occupationFacade.occupationFilters$
@@ -68,9 +68,9 @@ export class IndustryListComponent implements OnInit {
     industryIconPipeSignature: TransformEnumPipeSignature = { input: Model.EIM32712Industry, output: Model.EIM32712IndustryIcon }
 
     
-    ngOnInit() {
-        console.log('IndustryListComponent')
-    }
+    // ngOnInit() {
+        // console.log('IndustryListComponent')
+    // }
 
     selectAllIndustries() {
         this.occupationFacade.resetFilters()

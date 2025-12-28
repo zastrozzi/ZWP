@@ -130,7 +130,7 @@ export class AdminAccountActivityComponent implements OnInit, OnDestroy {
     }
 
     onRowClicked(row: Model.AdminUserActivityWithAdminUserResponse) {
-        console.log('row clicked', row)
+        // console.log('row clicked', row)
         // this.routerFacade.navigate([`/admin/users/${row.id}`])
     }
 
@@ -155,10 +155,10 @@ export class AdminAccountActivityComponent implements OnInit, OnDestroy {
     }
 
     testDelete(row: Model.AdminUserActivityWithAdminUserResponse) {
-        console.log('delete', row)
+        // console.log('delete', row)
     }
 
     testExpand(row: Model.AdminUserActivityWithAdminUserResponse) {
-        console.log('expand', row)
+        // console.log('expand', row)
     }
 }

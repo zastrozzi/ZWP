@@ -137,7 +137,7 @@ export class CategoryPaginatedTreeComponent implements OnInit, OnDestroy {
     // Lifecycle Hooks
     ngOnInit() {
         if (this.categoryListContextIsCategoryTree) {
-            console.log('Category List Context is Category Tree')
+            // console.log('Category List Context is Category Tree')
             this.paginatedFilteredCategories$ = this.categoryFacade.topLevelPaginatedFilteredCategoriesWithSubcategoriesNested$
         } else {
             this.paginatedFilteredCategories$ = this.categoryFacade.paginatedFilteredCategories$

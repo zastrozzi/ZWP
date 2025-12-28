@@ -28,7 +28,8 @@ import { ZWPWindowLayoutFacade } from '@zwp/platform.layout'
                 [label]="fileExplorerNavControlsData.navigationButtonLabel"
                 [textStyle]="'button1'"
                 icon="arrow_back"
-                [labelColor]="'primary' | zwpColorTheme"
+                [labelColor]="buttonUnselectedColorTheme | zwpColorTheme"
+                [backgroundColor]="'quaternary-system-fill' | zwpColorTheme"
                 [disabled]="!fileExplorerNavControlsData.hasCurrentDirectory"
             ></zwp-md-button>
             <zwp-md-button
@@ -37,7 +38,8 @@ import { ZWPWindowLayoutFacade } from '@zwp/platform.layout'
                 icon="add_box"
                 textStyle="button1"
                 layoutGap="7px"
-                [labelColor]="'primary' | zwpColorTheme"
+                [labelColor]="buttonUnselectedColorTheme | zwpColorTheme"
+                [backgroundColor]="'quaternary-system-fill' | zwpColorTheme"
                 [matMenuTriggerFor]="newFileExplorerItemNavMenu"
                 #newFileExplorerItemNavMenuTrigger="matMenuTrigger"
             ></zwp-md-button>
@@ -53,6 +55,7 @@ import { ZWPWindowLayoutFacade } from '@zwp/platform.layout'
                 textStyle="button1"
                 layoutGap="7px"
                 [labelColor]="'destructive' | zwpColorTheme"
+                [backgroundColor]="'quaternary-system-fill' | zwpColorTheme"
                 (btnClick)="deleteItems(fileExplorerNavControlsData.selectedItemIds)"
             ></zwp-md-button>
             <mat-menu #newFileExplorerItemNavMenu="matMenu">
@@ -66,14 +69,14 @@ import { ZWPWindowLayoutFacade } from '@zwp/platform.layout'
                     zwpPadding="5px"
                 >
                     <zwp-md-button
-                        (btnClick)="createRandomFile(fileExplorerNavControlsData.currentDirectoryId)"
+                        (btnClick)="onNewFileClicked()"
                         materialType="flat"
                         layoutGap="7px"
                         label="New File"
                         textStyle="button1"
                         icon="description"
-                        [labelColor]="'primary' | zwpColorTheme"
-                        [backgroundColor]="'clear' | zwpColorTheme"
+                        [labelColor]="buttonUnselectedColorTheme | zwpColorTheme"
+                        [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme"
                         fxFlexAlign="stretch"
                         [padding]="'10 25 10 15'"
                     ></zwp-md-button>
@@ -86,21 +89,8 @@ import { ZWPWindowLayoutFacade } from '@zwp/platform.layout'
                         label="New Folder"
                         textStyle="button1"
                         icon="folder"
-                        [labelColor]="'primary' | zwpColorTheme"
-                        [backgroundColor]="'clear' | zwpColorTheme"
-                        [padding]="'10 25 10 15'"
-                    ></zwp-md-button>
-                    <zwp-divider></zwp-divider>
-                    <zwp-md-button
-                        fxFlexAlign="stretch"
-                        (btnClick)="createRandomDirectory(fileExplorerNavControlsData.currentDirectoryId)"
-                        materialType="flat"
-                        layoutGap="7px"
-                        label="New Random Folder"
-                        textStyle="button1"
-                        icon="folder"
-                        [labelColor]="'primary' | zwpColorTheme"
-                        [backgroundColor]="'clear' | zwpColorTheme"
+                        [labelColor]="buttonUnselectedColorTheme | zwpColorTheme"
+                        [backgroundColor]="buttonBackgroundColorTheme | zwpColorTheme"
                         [padding]="'10 25 10 15'"
                     ></zwp-md-button>
                 </div>
@@ -124,16 +114,6 @@ export class FileExplorerNavigationControlsComponent {
     navigateDirectory(id: Nullable<string>) {
         this.fileExplorerFacade.navigateDirectory(id)
     }
-    createRandomDirectory(parentId: Nullable<string>) {
-        isNull(parentId)
-            ? this.fileExplorerFacade.createRandomFileData(true)
-            : this.fileExplorerFacade.createRandomFileDataInDirectory(parentId, true)
-    }
-    createRandomFile(parentId: Nullable<string>) {
-        isNull(parentId)
-            ? this.fileExplorerFacade.createRandomFileData(false)
-            : this.fileExplorerFacade.createRandomFileDataInDirectory(parentId, false)
-    }
 
     deleteItems(ids: string[]) {
         this.fileExplorerFacade.deleteFileExplorerItems(ids)
@@ -141,5 +121,9 @@ export class FileExplorerNavigationControlsComponent {
 
     onNewFolderClicked() {
         this.fileExplorerFacade.presentNewFolderWindow()
+    }
+
+    onNewFileClicked() {
+        this.fileExplorerFacade.presentNewFileWindow()
     }
 }

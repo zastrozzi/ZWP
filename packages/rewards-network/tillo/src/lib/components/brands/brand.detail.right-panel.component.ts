@@ -50,6 +50,6 @@ export class TilloBrandDetailRightPanelComponent implements OnInit {
                 }
             })
         )
-        console.log('Tillo brands', this.tilloBrands$)
+        // console.log('Tillo brands', this.tilloBrands$)
     }
 }
