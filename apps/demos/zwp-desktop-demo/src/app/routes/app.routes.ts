@@ -48,6 +48,15 @@ export const appRoutes: Routes = [
                         },
                     },
                     {
+                        path: 'tables',
+                        component: COMPONENTS.TABLES_COMPONENTS.TablesPageComponent,
+                        data: {
+                            navTitle: 'Data Tables',
+                            navIcon: 'table_view',
+                            leftNavPanelShown: true
+                        },
+                    },
+                    {
                         path: 'file-browser',
                         component: COMPONENTS.FileBrowserPageComponent,
                         data: {

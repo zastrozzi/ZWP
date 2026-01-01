@@ -132,11 +132,11 @@ const _ZWPColorpickerContentBase = mixinColor(
 export class ColorPickerContentComponent extends _ZWPColorpickerContentBase implements CanColor {
     @ViewChild(ColorPaletteComponent) _palette!: ColorPaletteComponent
     @HostBinding('class') hostClass = 'zwp-colorpicker-content'
-    @HostBinding('[@transformPanel]') transformPanel = 'enter'
+    @HostBinding('@transformPanel') transformPanel = 'enter'
     @Input() override color!: ThemePalette
     picker?: ColorPickerComponent
 
-    @HostBinding('[class.zwp-colorpicker-content-touch]') touchUi = this.picker?.touchUi
+    @HostBinding('class.zwp-colorpicker-content-touch') touchUi = this.picker?.touchUi
     _isAbove!: boolean
 
     constructor(elementRef: ElementRef) {

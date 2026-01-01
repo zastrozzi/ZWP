@@ -63,9 +63,9 @@ export const ZWP_COLORPICKER_VALIDATORS: any = {
     exportAs: 'zwpColorPickerInput',
 })
 export class ColorPickerInputDirective implements ControlValueAccessor, OnDestroy, Validator {
-    @HostBinding('[attr.aria-haspopup]') ariaHasPopup = this._picker ? 'dialog' : null
-    @HostBinding('[attr.aria-owns]') ariaOwns = (this._picker?.opened && this._picker?.id) || null
-    @HostBinding('[disabled]') ariaDisabled = this.disabled
+    @HostBinding('attr.aria-haspopup') ariaHasPopup = this._picker ? 'dialog' : null
+    @HostBinding('attr.aria-owns') ariaOwns = (this._picker?.opened && this._picker?.id) || null
+    @HostBinding('disabled') ariaDisabled = this.disabled
 
     @Input()
     set zwpColorPicker(value: ColorPickerComponent) {
@@ -133,8 +133,9 @@ export class ColorPickerInputDirective implements ControlValueAccessor, OnDestro
     private _validator: ValidatorFn | null = Validators.compose([])
     private _lastValueValid = false
 
-    @HostListener('input', ['$event.target.value']) onInput(value: string) {
-        this._onInput(value)
+    @HostListener('input', ['$event']) onInput(event: Event) {
+        const inputEl = event.target as HTMLInputElement
+        this._onInput(inputEl.value)
     }
     @HostListener('change') onChange() {
         this._onChange()

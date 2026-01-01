@@ -1,30 +1,55 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject } from '@angular/core'
 import { ZWPRouterFacade } from '@zwp/platform.common'
 
 @Component({
     selector: 'zwp-home-page',
     template: `
-    <div
-        fxFlexFill
-        zwpBackgroundColor="secondary-system-background"
-        fxLayout="column"
-        fxLayoutAlign="start stretch"
-        fxLayoutGap="10px"
-    >
-        <zwp-flow-grid [tileWidth]="300" [tileHeight]="200" zwpVScroll zwpPadding="10">
-            <div *zwpFlowGridItem fxFlexFill fxLayoutAlign="center center" zwpBackgroundColor="primary" zwpCorners="20">
-                <span zwpTextStyle="title3" zwpColor="system-white">Keyboard</span>
+        <div
+            fxFlexFill
+            zwpBackgroundColor="system-background"
+            fxLayout="column"
+            fxLayoutAlign="start stretch"
+            fxLayoutGap="10px"
+            zwpPadding="10"
+            zwpVScroll
+        >
+            <div
+                fxLayout="row"
+                zwpPadding="5 15"
+                zwpBackgroundColor="quaternary-system-fill"
+                zwpCorners="20"
+                fxLayoutAlign="start center"
+            >
+                <span zwpDisableSelection [zwpTextStyle]="'subheadline'" zwpColor="label">Platform Features</span>
             </div>
-            <div *zwpFlowGridItem fxFlexFill fxLayoutAlign="center center" zwpBackgroundColor="secondary" zwpCorners="20">
-                <span zwpTextStyle="title3" zwpColor="system-white">File Browser</span>
-            </div>
-        </zwp-flow-grid>
-    
         
-    </div>
-    `
+            <zwp-flow-grid [tileWidth]="80" [tileHeight]="80">
+                <zwp-home-page-tile
+                    *zwpFlowGridItem="{ rows: 2, cols: 3 }"
+                    iconName="keyboard"
+                    title="Keyboard Shortcuts"
+                    fxFlexFill
+                    (click)="navigateKeyboardShortcuts()"
+                />
+                <zwp-home-page-tile
+                    *zwpFlowGridItem="{ rows: 2, cols: 3 }"
+                    iconName="snippet_folder"
+                    title="File Browser"
+                    fxFlexFill
+                    (click)="navigateFileBrowser()"
+                />
+            </zwp-flow-grid>
+        </div>
+    `,
 })
 export class HomePageComponent {
-
     private routerFacade = inject(ZWPRouterFacade)
+
+    navigateKeyboardShortcuts() {
+        this.routerFacade.navigate(['platform', 'keyboard'])
+    }
+
+    navigateFileBrowser() {
+        this.routerFacade.navigate(['platform', 'file-browser'])
+    }
 }

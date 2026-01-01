@@ -74,10 +74,10 @@ export class ColorpickerToggleIconDirective {}
 })
 export class ColorToggleComponent implements AfterContentInit, OnChanges, OnDestroy {
     @HostBinding('class') hostClass = 'zwp-color-toggle'
-    @HostBinding('[attr.tabindex]') attrTabIndex = -1
-    @HostBinding('[class.zwp-color-toggle-active]') active = this.picker && this.picker.opened
-    @HostBinding('[class.mat-accent]') accent = this.picker && this.picker.color === 'accent'
-    @HostBinding('[class.mat-warn]') warn = this.picker && this.picker.color === 'warn'
+    @HostBinding('attr.tabindex') attrTabIndex = -1
+    @HostBinding('class.zwp-color-toggle-active') active = this.picker && this.picker.opened
+    @HostBinding('class.mat-accent') accent = this.picker && this.picker.color === 'accent'
+    @HostBinding('class.mat-warn') warn = this.picker && this.picker.color === 'warn'
 
     
 
