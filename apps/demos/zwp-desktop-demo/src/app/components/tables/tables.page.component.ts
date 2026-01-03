@@ -13,13 +13,13 @@ import { PlatformDummyData } from '@zwp/platform.dummy-data'
         <div fxLayout="row" fxLayoutAlign="start stretch" zwpPadding="5" fxLayoutGap="5px">
             <zwp-filter-chip-input fxFlex="grow" [filterDefinitions]="filterDefinitions" (filterChange)="onFiltersChanged($event)"></zwp-filter-chip-input>
             
-            <!-- <zwp-md-button 
-                label="Create Project" icon="add" 
+            <zwp-md-button 
+                label="Generate Projects" icon="add" 
                 textStyle="button1" [iconTextStyle]="'subheadline'"
                 [labelColor]="'system-white' | zwpColorTheme"
                 [backgroundColor]="'system-green' | zwpColorTheme"
-                (btnClick)="newProject()"
-            ></zwp-md-button> -->
+                (btnClick)="generateProjects()"
+            ></zwp-md-button>
             
             
             
@@ -46,9 +46,9 @@ export class TablesPageComponent implements OnInit {
     projectRemotePagination$ = this.dummyDataFacade.projectRemotePagination$
 
     sortDirection: SortDirection = 'asc'
-    sortKey: keyof PlatformDummyData.Model.Project = 'name'
+    sortKey: keyof PlatformDummyData.Model.ProjectResponse = 'name'
 
-    columns: ColumnInterface<PlatformDummyData.Model.Project>[] = [
+    columns: ColumnInterface<PlatformDummyData.Model.ProjectResponse>[] = [
         { displayName: 'Name', dataLabel: 'name', sortable: true },
         { displayName: 'Description', dataLabel: 'description', sortable: true },
         { displayName: 'Status', dataLabel: 'status', sortable: true, transformEnumPipe: PlatformDummyData.Model.projectStatusLabelPipeSignature },
@@ -71,12 +71,12 @@ export class TablesPageComponent implements OnInit {
         return
     }
 
-    onRowClicked(row: PlatformDummyData.Model.Project) {
+    onRowClicked(row: PlatformDummyData.Model.ProjectResponse) {
         // console.log('Table Row Clicked')
     }
 
     onSortChanged(sort: Sort) {
-        this.sortKey = sort.active as keyof PlatformDummyData.Model.Project
+        this.sortKey = sort.active as keyof PlatformDummyData.Model.ProjectResponse
         this.sortDirection = sort.direction
         this.dummyDataFacade.listProjects({ 
             order: this.sortDirection === 'asc' ? 'asc' : 'desc',
@@ -94,5 +94,9 @@ export class TablesPageComponent implements OnInit {
             limit: pagination.pageSize,
             offset: pagination.pageIndex * pagination.pageSize
         })
+    }
+
+    generateProjects() {
+        this.dummyDataFacade.generateProjects()
     }
 }

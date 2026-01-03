@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core'
 import { isNil, isNull, ZWPDebuggableInjectable, ZWPRouterFacade, Nullable, randomEnumCase } from '@zwp/platform.common'
-import { ZWPDummyDataService } from '@zwp/platform.dummy-data'
+import { PlatformDummyData } from '@zwp/platform.dummy-data'
 import { select, Store } from '@ngrx/store'
 import { BehaviorSubject } from 'rxjs'
 import { v4 } from 'uuid'
@@ -24,7 +24,7 @@ import { ZWPWindowLayoutFacade } from '@zwp/platform.layout'
 @ZWPDebuggableInjectable({ serviceName: 'ZWPFileExplorerFacade', options: { skipMethodDebugger: true } })
 export class ZWPFileExplorerFacade  {
     private store = inject(Store)
-    private dummyDataService = inject(ZWPDummyDataService)
+    private dummyDataFacade = inject(PlatformDummyData.State.Facades.DummyDataFacade)
     private routerFacade = inject(ZWPRouterFacade)
     private windowLayoutFacade = inject(ZWPWindowLayoutFacade)
     // private activatedRoute = inject(ActivatedRoute)
@@ -120,7 +120,7 @@ export class ZWPFileExplorerFacade  {
     createRandomFileDataInDirectory(directoryId: string, isDir: boolean) {
         const randomFileDataItem: Model.FileDataItem = {
             id: v4(),
-            name: this.dummyDataService.randomName(),
+            name: this.dummyDataFacade.randomName(),
             isDir: isDir,
             parentFileDataItemId: directoryId,
         }
@@ -155,7 +155,7 @@ export class ZWPFileExplorerFacade  {
         const randomFileDataItem: Model.FileDataItem = {
             id: v4(),
 
-            name: this.dummyDataService.randomName(),
+            name: this.dummyDataFacade.randomName(),
             fileType: isDir ? undefined : randomEnumCase(Model.FileExplorerFileType),
             isDir: isDir,
         }

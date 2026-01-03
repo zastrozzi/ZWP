@@ -1,5 +1,5 @@
 import { DateQueryFilter, EnumQueryFilter, Nullable, NumberQueryFilter, QueryFilterEntityMap, StringQueryFilter } from '@zwp/platform.common'
-import { Project } from './project.interfaces'
+import { ProjectResponse } from './project.interfaces'
 import { ProjectStatus } from './project.enums'
 
 export interface ProjectFilters {
@@ -28,7 +28,7 @@ export const initialProjectFilters: ProjectFilters = {
 
 export const projectFilterEntityMap: QueryFilterEntityMap<
     ProjectFilters,
-    Project
+    ProjectResponse
 > = {
     dbCreatedAt: 'dbCreatedAt',
     dbUpdatedAt: 'dbUpdatedAt',

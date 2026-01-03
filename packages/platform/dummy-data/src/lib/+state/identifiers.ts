@@ -1,0 +1,9 @@
+const PLATFORM_DUMMY_DATA_ACTION_IDENTIFIER = 'PlatformDummyData'
+
+const PROJECT_STATE_FEATURE_KEY = 'Project'
+
+export const Identifiers = {
+    PLATFORM_DUMMY_DATA_ACTION_IDENTIFIER,
+
+    PROJECT_STATE_FEATURE_KEY
+}

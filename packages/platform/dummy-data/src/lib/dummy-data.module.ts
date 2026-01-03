@@ -1,6 +1,8 @@
-import { NgModule } from '@angular/core'
+import { ModuleWithProviders, NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { State } from './+state'
+import { PlatformDummyDataModuleConfig } from './config'
+import { Services } from './services'
 
 @NgModule({
     imports: [
@@ -10,4 +12,14 @@ import { State } from './+state'
         ...State.Facades.ALL
     ]
 })
-export class ZWPDummyDataModule {}
+export class PlatformDummyDataModule {
+    public static forRoot(config: PlatformDummyDataModuleConfig): ModuleWithProviders<PlatformDummyDataModule> {
+        
+        return {
+            ngModule: PlatformDummyDataModule,
+            providers: [
+                ...Services.environmentProviders(config)
+            ]
+        }
+    }
+}
