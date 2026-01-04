@@ -1,3 +1,5 @@
+import { ZWPScreenBreakpointSize } from '../breakpoints'
+
 export enum TextStyleType {
     body1 = 'body1',
     body2 = 'body2',
@@ -29,6 +31,11 @@ export type TextStyleSet = {
 }
 
 export type PartialTextStyleSet = Partial<TextStyleSet>
+
+export interface PartialTextStyleSetForBreakpoint {
+    styleSet: PartialTextStyleSet
+    breakpointSize: ZWPScreenBreakpointSize
+}
 
 export const emptyTextStyleSet: TextStyleSet = {
     body1: {},

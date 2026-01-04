@@ -10,7 +10,7 @@ export interface ThemingFeatureState {
     switchDarkModeAutomatically: boolean
     darkModeSafariThemeColor: string
     lightModeSafariThemeColor: string
-    textStyles: {[breakpointSize: string]: TextStyleSet},
+    textStyles: { [breakpointSize: string]: TextStyleSet }
     textScale: number
 }
 
@@ -23,7 +23,7 @@ export const persistentThemingState: PersistentState<ThemingFeatureState> = {
     darkModeSafariThemeColor: true,
     lightModeSafariThemeColor: true,
     textStyles: true,
-    textScale: true
+    textScale: true,
 }
 
 export const initialThemingFeatureState: ThemingFeatureState = {
@@ -41,7 +41,7 @@ export const initialThemingFeatureState: ThemingFeatureState = {
         [ZWPScreenBreakpointSize.LARGE]: emptyTextStyleSet,
         [ZWPScreenBreakpointSize.EXTRA_LARGE]: emptyTextStyleSet
     },
-    textScale: 1
+    textScale: 1,
 }
 
 // const flattenColors = (colors: { colorName: string; colorHexString: string }[]) => {
@@ -50,12 +50,19 @@ export const initialThemingFeatureState: ThemingFeatureState = {
 
 export const themingReducer = createReducer(
     initialThemingFeatureState,
-    on(ThemingActions.setOneThemeColor, (state, { colorName, colorHexString }) => ({ ...state, colors: { ...state.colors, [colorName]: colorHexString } })),
+    on(ThemingActions.setOneThemeColor, (state, { colorName, colorHexString }) => ({
+        ...state,
+        colors: { ...state.colors, [colorName]: colorHexString },
+    })),
     on(ThemingActions.setManyThemeColors, (state, { colorTheme, storeDarkMode, storeLightMode }) => ({
         ...state,
         colors: { ...state.colors, ...colorTheme },
-        storedDarkModeColors: storeDarkMode ? { ...state.storedDarkModeColors, ...colorTheme } : state.storedDarkModeColors,
-        storedLightModeColors: storeLightMode ? { ...state.storedLightModeColors, ...colorTheme } : state.storedLightModeColors
+        storedDarkModeColors: storeDarkMode
+            ? { ...state.storedDarkModeColors, ...colorTheme }
+            : state.storedDarkModeColors,
+        storedLightModeColors: storeLightMode
+            ? { ...state.storedLightModeColors, ...colorTheme }
+            : state.storedLightModeColors,
     })),
     on(ThemingActions.setInitialThemeColors, (state, { colorThemeSet }) => ({
         ...state,
@@ -63,15 +70,48 @@ export const themingReducer = createReducer(
         storedDarkModeColors: colorThemeSet.darkColors,
         storedLightModeColors: colorThemeSet.lightColors,
         darkModeSafariThemeColor: colorThemeSet.darkSafariThemeColor,
-        lightModeSafariThemeColor: colorThemeSet.lightSafariThemeColor
+        lightModeSafariThemeColor: colorThemeSet.lightSafariThemeColor,
     })),
-    on(ThemingActions.setAutomaticDarkModePreference, (state, { automatic }) => ({ ...state, switchDarkModeAutomatically: automatic })),
+    on(ThemingActions.setAutomaticDarkModePreference, (state, { automatic }) => ({
+        ...state,
+        switchDarkModeAutomatically: automatic,
+    })),
     on(ThemingActions.setDarkMode, (state, { isDarkMode }) => ({ ...state, darkMode: isDarkMode })),
-    on(ThemingActions.setSafariThemeColorLight, (state, { colorHexString }) => ({ ...state, lightModeSafariThemeColor: colorHexString })),
-    on(ThemingActions.setSafariThemeColorDark, (state, { colorHexString }) => ({ ...state, darkModeSafariThemeColor: colorHexString })),
-    on(ThemingActions.setTextStyles, (state, { styleSet, breakpointSize }) => ({ ...state, textStyles: { ...state.textStyles, [breakpointSize]: {...state.textStyles[breakpointSize], ...styleSet } } })),
-    on(ThemingActions.setTextStyle, (state, { styleType, textStyle, breakpointSize }) => ({ ...state, textStyles: { ...state.textStyles, [breakpointSize]: {[styleType]: textStyle, ...state.textStyles[breakpointSize]} } })),
-    on(ThemingActions.incrementTextScale, (state, { amount }) => ({ ...state, textScale: Math.min(2.5, state.textScale + amount) })),
-    on(ThemingActions.decrementTextScale, (state, { amount }) => ({ ...state, textScale: Math.max(0.5, state.textScale - amount) })),
-    on(ThemingActions.setTextScale, (state, { textScale }) => ({ ...state, textScale: Math.min(2.5, Math.max(0.5, textScale)) }))
+    on(ThemingActions.setSafariThemeColorLight, (state, { colorHexString }) => ({
+        ...state,
+        lightModeSafariThemeColor: colorHexString,
+    })),
+    on(ThemingActions.setSafariThemeColorDark, (state, { colorHexString }) => ({
+        ...state,
+        darkModeSafariThemeColor: colorHexString,
+    })),
+    on(ThemingActions.setManyTextStyles, (state, { breakpointStyleSets }) => ({
+        ...state,
+        textStyles: {
+            ...state.textStyles
+        }
+    })),
+    on(ThemingActions.setTextStyles, (state, { styleSet, breakpointSize }) => ({
+        ...state,
+        textStyles: { ...state.textStyles, [breakpointSize]: { ...state.textStyles[breakpointSize], ...styleSet } },
+    })),
+    on(ThemingActions.setTextStyle, (state, { styleType, textStyle, breakpointSize }) => ({
+        ...state,
+        textStyles: {
+            ...state.textStyles,
+            [breakpointSize]: { [styleType]: textStyle, ...state.textStyles[breakpointSize] },
+        },
+    })),
+    on(ThemingActions.incrementTextScale, (state, { amount }) => ({
+        ...state,
+        textScale: Math.min(2.5, state.textScale + amount),
+    })),
+    on(ThemingActions.decrementTextScale, (state, { amount }) => ({
+        ...state,
+        textScale: Math.max(0.5, state.textScale - amount),
+    })),
+    on(ThemingActions.setTextScale, (state, { textScale }) => ({
+        ...state,
+        textScale: Math.min(2.5, Math.max(0.5, textScale)),
+    }))
 )

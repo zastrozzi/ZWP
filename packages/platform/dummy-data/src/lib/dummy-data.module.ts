@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { State } from './+state'
-import { PlatformDummyDataModuleConfig } from './config'
+import { DUMMY_DATA_MODULE_CONFIG, PlatformDummyDataModuleConfig } from './config'
 import { Services } from './services'
 
 @NgModule({
@@ -18,6 +18,8 @@ export class PlatformDummyDataModule {
         return {
             ngModule: PlatformDummyDataModule,
             providers: [
+                { provide: DUMMY_DATA_MODULE_CONFIG, useValue: config },
+                ...State.environmentProviders(config),
                 ...Services.environmentProviders(config)
             ]
         }

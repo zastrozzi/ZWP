@@ -8,6 +8,7 @@ import {
     createActionType,
     createRemoteActionCRUDMap,
     createRemoteActionGroup,
+    createRemoteActionMap,
 } from '@zwp/platform.common'
 import { Identifiers } from '../identifiers'
 import { createAction, props } from '@ngrx/store'
@@ -75,10 +76,10 @@ export const ProjectLocalActions = {
     resetPagination,
 }
 
-export const ProjectRemoteActions = createRemoteActionCRUDMap(PROJECT_ACTION_IDENTIFIERS, {
-    create: createProject,
-    get: getProject,
-    list: listProjects,
-    update: updateProject,
-    delete: deleteProject,
+export const ProjectRemoteActions = createRemoteActionMap(PROJECT_ACTION_IDENTIFIERS, {
+    createProject,
+    getProject,
+    listProjects,
+    updateProject,
+    deleteProject,
 })

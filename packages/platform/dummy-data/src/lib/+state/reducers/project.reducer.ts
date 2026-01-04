@@ -61,28 +61,28 @@ export const projectReducer = createReducer(
     on(remoteStateUpdateFailure(ProjectRemoteActions.identifiers), (state, { error }) =>
         remoteFailureState(state, error)
     ),
-    on(ProjectRemoteActions.create.success, (state, { response }) => ({
+    on(ProjectRemoteActions.createProject.success, (state, { response }) => ({
         ...state,
         projects: projectEntityAdapter.setOne(response, state.projects),
         projectsRemotePagination: incrementRemotePaginationStateTotalConditionally(state, {
             entityStateKey: 'projects',
             remotePaginationStateKey: 'projectsRemotePagination',
-            ids: [response.id]
-        })
+            ids: [response.id],
+        }),
     })),
-    on(ProjectRemoteActions.get.success, (state, { response }) => ({
+    on(ProjectRemoteActions.getProject.success, (state, { response }) => ({
         ...state,
         projects: projectEntityAdapter.setOne(response, state.projects),
         selectedProjectId: response.id,
     })),
-    on(ProjectRemoteActions.list.request, (state, { pagination }) => ({
+    on(ProjectRemoteActions.listProjects.request, (state, { pagination }) => ({
         ...state,
         projectsRemotePagination: {
             ...state.projectsRemotePagination,
             ...pagination,
         },
     })),
-    on(ProjectRemoteActions.list.success, (state, { response }) => ({
+    on(ProjectRemoteActions.listProjects.success, (state, { response }) => ({
         ...state,
         projects: projectEntityAdapter.setMany(response.results, state.projects),
         projectsRemotePagination: {
@@ -90,18 +90,18 @@ export const projectReducer = createReducer(
             total: response.total,
         },
     })),
-    on(ProjectRemoteActions.update.success, (state, { response }) => ({
+    on(ProjectRemoteActions.updateProject.success, (state, { response }) => ({
         ...state,
         projects: projectEntityAdapter.updateOne({ id: response.id, changes: response }, state.projects),
     })),
-    on(ProjectRemoteActions.delete.success, (state, { projectId }) => ({
+    on(ProjectRemoteActions.deleteProject.success, (state, { projectId }) => ({
         ...state,
         projects: projectEntityAdapter.removeOne(projectId, state.projects),
         selectedProjectId: state.selectedProjectId === projectId ? null : state.selectedProjectId,
         projectsRemotePagination: decrementRemotePaginationStateTotalConditionally(state, {
             entityStateKey: 'projects',
             remotePaginationStateKey: 'projectsRemotePagination',
-            ids: [projectId]
-        })
+            ids: [projectId],
+        }),
     }))
 )

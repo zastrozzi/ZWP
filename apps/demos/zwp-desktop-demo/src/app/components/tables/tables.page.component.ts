@@ -39,11 +39,12 @@ import { PlatformDummyData } from '@zwp/platform.dummy-data'
 export class TablesPageComponent implements OnInit {
     
     private dummyDataFacade = inject(PlatformDummyData.State.Facades.DummyDataFacade)
+    private projectsFacade = inject(PlatformDummyData.State.Facades.PlatformDummyDataProjectFacade)
     private routerFacade = inject(ZWPRouterFacade)
     private windowLayoutFacade = inject(ZWPWindowLayoutFacade)
 
-    projects$ = this.dummyDataFacade.projects$
-    projectRemotePagination$ = this.dummyDataFacade.projectRemotePagination$
+    projects$ = this.projectsFacade.projects$
+    projectRemotePagination$ = this.projectsFacade.projectRemotePagination$
 
     sortDirection: SortDirection = 'asc'
     sortKey: keyof PlatformDummyData.Model.ProjectResponse = 'name'
@@ -78,7 +79,7 @@ export class TablesPageComponent implements OnInit {
     onSortChanged(sort: Sort) {
         this.sortKey = sort.active as keyof PlatformDummyData.Model.ProjectResponse
         this.sortDirection = sort.direction
-        this.dummyDataFacade.listProjects({ 
+        this.projectsFacade.listProjects({ 
             order: this.sortDirection === 'asc' ? 'asc' : 'desc',
             orderBy: this.sortKey
         })
@@ -90,7 +91,7 @@ export class TablesPageComponent implements OnInit {
     }
 
     onPaginationChanged(pagination: PageEvent) {
-        this.dummyDataFacade.listProjects({
+        this.projectsFacade.listProjects({
             limit: pagination.pageSize,
             offset: pagination.pageIndex * pagination.pageSize
         })

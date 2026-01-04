@@ -12,29 +12,6 @@ export class DummyDataFacade {
     private dummyDataService = inject(Services.PlatformDummyDataService)
     private projectService = inject(Services.PROJECT_API_SERVICE)
 
-    projects$: Observable<Model.ProjectResponse[]> = of([])
-    projectRemotePagination$: Observable<RemotePaginationState<Model.ProjectResponse>> = of({
-        limit: 0,
-        offset: 0,
-        order: 'asc',
-        orderBy: 'name',
-        total: 0
-    })
-
-    listProjects(
-        pagination: Nullable<Partial<PaginatedQueryParams<Model.ProjectResponse>>> = null
-    ) {
-        return
-    }
-
-    getProject(projectId: string) {
-        return
-    }
-
-    deleteProject(projectId: string) {
-        return
-    }
-
     randomName(options?: { sex?: 'male' | 'female' | 'any', givenName?: boolean, familyName?: boolean}): string {
         return this.dummyDataService.randomName(options)
     }
