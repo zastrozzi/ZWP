@@ -7,7 +7,7 @@ import { allEnumCases } from '../../utils'
     selector: 'zwp-chip-grid-input',
     // changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="5px">
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
             <mat-chip-set>
             <ng-container *ngFor="let option of getAllOptions()">
                 <mat-chip-row *ngIf="optionIsSelected(option) as optionSelection"
@@ -15,7 +15,7 @@ import { allEnumCases } from '../../utils'
                     [zwpBackgroundColor]="optionSelection.isSelected ? 'primary' : 'quaternary-system-fill'"
                     zwpCorners="4"
                     zwpPadding="0 8 0 8"
-                    zwpMargin="0 0 8 8"
+                    zwpMargin="0 0 0 8"
                     [zwpMatchHeight]="square ? 1 : 0"
                     (click)="toggleSelection(option)"
                 >

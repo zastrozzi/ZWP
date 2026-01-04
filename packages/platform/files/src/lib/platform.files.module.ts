@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 import { ZWPLayoutModule } from '@zwp/platform.layout'
 import { ZWPCommonModule, ZWP_NGRX_MODULE_ROOT_CONFIG, _provideHistoryFeature, createNamespacedFeatureKey } from '@zwp/platform.common'
 import { State } from './+state'
-import { ZWPDummyDataModule } from '@zwp/platform.dummy-data'
+import { PlatformDummyDataModule } from '@zwp/platform.dummy-data'
 import { EXPORTABLE_COMPONENTS, INTERNAL_COMPONENTS } from './components'
 import { ZWP_FILES_MODULE_ROOT_CONFIG, ZWPFilesModuleRootConfig } from './config'
 
@@ -12,7 +12,7 @@ import { ZWP_FILES_MODULE_ROOT_CONFIG, ZWPFilesModuleRootConfig } from './config
         CommonModule,
         ZWPCommonModule,
         ZWPLayoutModule,
-        ZWPDummyDataModule,
+        PlatformDummyDataModule,
         // StoreModule.forFeature(FILE_EXPLORER_STATE_FEATURE_KEY, fileExplorerReducer),
         // StoreModule.forFeature(FILE_DATA_STATE_FEATURE_KEY, fileDataReducer),
         // EffectsModule.forFeature([FileExplorerEffects]),

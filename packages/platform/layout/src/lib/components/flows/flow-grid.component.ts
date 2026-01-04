@@ -18,23 +18,39 @@ import { FlowGridItemDirective } from './flow-grid-item.directive'
     selector: 'zwp-flow-grid',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <div #flowGrid *ngIf="{ gridWidth: (gridWidth$ | async) ?? 0, gridColumns: gridColumns$ | async } as gridData" zwpVScroll>
+        <div
+            #flowGrid
+            fxFlex="column"
+            zwpVScroll
+            *ngIf="{ gridWidth: (gridWidth$ | async) ?? 0, gridColumns: gridColumns$ | async } as gridData"
+        >
             <mat-grid-list
                 [cols]="gridData.gridColumns"
                 [rowHeight]="tileHeight + 'px'"
                 [gutterSize]="gutterSize + 'px'"
-                [style.width]="(gridData.gridWidth) + 'px'"
+                [style.width]="gridData.gridWidth + 'px'"
             >
-                <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let item of flowItems">
-                    <ng-container *ngTemplateOutlet="item.template" ></ng-container>
-                </mat-grid-tile>
+                <ng-container *ngFor="let item of flowItems">
+                    <mat-grid-tile
+                        [colspan]="calcCol(item.gridItemCols, gridData.gridColumns)"
+                        [rowspan]="calcRow(item.gridItemRows)"
+                    >
+                        <ng-template [ngTemplateOutlet]="item.template"></ng-template>
+                    </mat-grid-tile>
+                </ng-container>
             </mat-grid-list>
         </div>
-    `
+    `,
+    styles: [`
+        :host {
+  display: block;
+}
+        `]
 })
 export class FlowGridComponent implements AfterViewInit, OnDestroy {
     @ViewChild('flowGrid', { static: false }) flowGrid!: ElementRef
-    @ContentChildren(FlowGridItemDirective, { descendants: true }) flowItems!: QueryList<FlowGridItemDirective>
+    @ContentChildren(FlowGridItemDirective, { descendants: true })
+    flowItems: QueryList<FlowGridItemDirective> = new QueryList()
 
     @Input() tileWidth = 115
     @Input() tileHeight = 110
@@ -44,9 +60,7 @@ export class FlowGridComponent implements AfterViewInit, OnDestroy {
 
     gridWidthObserver: ResizeObserver | undefined
     gridWidth$ = new BehaviorSubject<number>(0)
-    gridColumns$ = this.gridWidth$.pipe(
-        map((w) => Math.max(1, Math.floor((w - 20) / this.tileWidth)))
-    )
+    gridColumns$ = this.gridWidth$.pipe(map((w) => Math.max(1, Math.floor((w - 20) / this.tileWidth))))
 
     private zone = inject(NgZone)
 
@@ -57,9 +71,17 @@ export class FlowGridComponent implements AfterViewInit, OnDestroy {
             })
         })
 
-        if (this.flowGrid?.nativeElement) {
-            this.gridWidthObserver.observe(this.flowGrid.nativeElement)
-        }
+        this.gridWidthObserver.observe(this.flowGrid.nativeElement)
+    }
+
+    calcCol(itemCols: number | undefined | null, availableCols: number | undefined | null): number {
+        const want = Math.max(1, itemCols ?? 1)
+        const avail = Math.max(1, availableCols ?? 1)
+        return Math.min(want, avail)
+    }
+
+    calcRow(itemRows: number | undefined | null): number {
+        return Math.max(1, itemRows ?? 1)
     }
 
     ngOnDestroy(): void {

@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { randomNameGenerator } from "../generators";
+import { Generators } from "../generators";
 
-@Injectable({ providedIn: 'platform' })
-export class ZWPDummyDataService {
+@Injectable({ providedIn: 'root' })
+export class PlatformDummyDataService {
 
     randomName(options?: { sex?: 'male' | 'female' | 'any', givenName?: boolean, familyName?: boolean}): string {
-        return randomNameGenerator(options)
+        return Generators.randomNameGenerator(options)
     }
 }

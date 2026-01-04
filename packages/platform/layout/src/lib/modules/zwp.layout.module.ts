@@ -5,7 +5,7 @@ import { LAYOUT_EXPORTABLE_DIRECTIVES } from '../directives'
 import { provideState } from '@ngrx/store'
 import { Identifiers } from '../+state/identifiers'
 import { mainPanelReducer, panelLayoutReducer, persistentPanelLayout, persistentWindowLayoutState, tableLayoutReducer, windowLayoutReducer } from '../+state/reducers'
-import { LAYOUT_EXPORTABLE_COMPONENTS, WindowDirective } from '../components'
+import { FLOWS_INTERNAL_DIRECTIVES, LAYOUT_EXPORTABLE_COMPONENTS, WindowDirective } from '../components'
 import { ZWPMainPanelFacade, ZWPMenuLayoutFacade, ZWPPanelLayoutFacade, ZWPPopupLayoutFacade, ZWPWindowLayoutFacade } from '../+state/facades'
 import { LAYOUT_EXPORTABLE_PIPES } from '../pipes'
 import { provideEffects } from '@ngrx/effects'
@@ -34,6 +34,7 @@ export const ZWP_LAYOUT_MODULE_ROOT_CONFIG = new InjectionToken<ZWPLayoutModuleR
     ],
     declarations: [
         ...LAYOUT_EXPORTABLE_DIRECTIVES,
+        ...FLOWS_INTERNAL_DIRECTIVES,
         ...LAYOUT_EXPORTABLE_COMPONENTS,
         ...LAYOUT_EXPORTABLE_PIPES,
         WindowDirective
@@ -46,6 +47,7 @@ export const ZWP_LAYOUT_MODULE_ROOT_CONFIG = new InjectionToken<ZWPLayoutModuleR
         ...LAYOUT_EXPORTABLE_DIRECTIVES,
         ...LAYOUT_EXPORTABLE_COMPONENTS,
         ...LAYOUT_EXPORTABLE_PIPES,
+        ...FLOWS_INTERNAL_DIRECTIVES,
         WindowDirective
     ]
 })

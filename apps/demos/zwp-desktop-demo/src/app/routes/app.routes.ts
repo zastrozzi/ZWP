@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router'
 import { COMPONENTS } from '../components'
+import { PlatformDummyData } from '@zwp/platform.dummy-data'
 
 export const appRoutes: Routes = [
     {
@@ -77,6 +78,15 @@ export const appRoutes: Routes = [
                     },
                 ],
             },
+            {
+                path: 'dummy-data',
+                data: {
+                    featureNavShown: true,
+                    featureNavTitle: 'Data Tables',
+                    featureNavIcon: 'table_view',
+                },
+                children: PlatformDummyData.dummyDataRoutes
+            }
         ],
     },
 ]

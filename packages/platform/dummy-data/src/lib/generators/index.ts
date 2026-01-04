@@ -1,1 +1,2 @@
-export * from './random-name.generator'
+import * as Generators from './generators'
+export { Generators }

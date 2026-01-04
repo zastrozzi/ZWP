@@ -13,6 +13,7 @@ import {
     ModuleAPIState,
 } from '@zwp/platform.common'
 import { ZWPPrivacyModule, ZWPPrivacyModuleIPLocationAPIProvider } from '@zwp/platform.privacy'
+import { PlatformDummyDataModule } from '@zwp/platform.dummy-data'
 import { COMPONENTS } from './components'
 import { RouterModule } from '@angular/router'
 import { ZWPLayoutModule, PanelLayoutActions } from '@zwp/platform.layout'
@@ -115,6 +116,9 @@ import { appRoutes } from './routes/app.routes'
         ZWPFlowsModule.mock(),
         ZWPFilesModule.forRoot({
             persist: true
+        }),
+        PlatformDummyDataModule.forRoot({
+            includeProjectsState: true
         })
     ],
     providers: [

@@ -125,10 +125,10 @@ export const incrementRemotePaginationStateTotal = <T extends object>(
     return { ...state, total: state.total + increment }
 }
 
-const countEntityStateIds = <E extends object>(entityState: EntityState<E>, ids: string[] | number[]) => {
+const countEntityStateIds = <E extends object>(entityState: EntityState<E>, ids: string[] | number[], increment: boolean) => {
     const entityStrIds = entityState.ids.map((id) => coerceString(id))
     const strIds = ids.map((id) => coerceString(id))
-    return strIds.filter((id) => !entityStrIds.includes(id)).length
+    return strIds.filter((id) => (increment ? !entityStrIds.includes(id) : entityStrIds.includes(id))).length
 }
 
 export const incrementRemotePaginationStateTotalConditionally = <S extends object, E extends object>(
@@ -143,7 +143,7 @@ export const incrementRemotePaginationStateTotalConditionally = <S extends objec
         ...(state[options.remotePaginationStateKey] as RemotePaginationState<E>),
         total:
             (state[options.remotePaginationStateKey] as RemotePaginationState<E>).total +
-            countEntityStateIds(state[options.entityStateKey] as EntityState<E>, options.ids)
+            countEntityStateIds(state[options.entityStateKey] as EntityState<E>, options.ids, true)
     }
 }
 
@@ -159,6 +159,6 @@ export const decrementRemotePaginationStateTotalConditionally = <S extends objec
         ...(state[options.remotePaginationStateKey] as RemotePaginationState<E>),
         total:
             (state[options.remotePaginationStateKey] as RemotePaginationState<E>).total -
-            countEntityStateIds(state[options.entityStateKey] as EntityState<E>, options.ids)
+            countEntityStateIds(state[options.entityStateKey] as EntityState<E>, options.ids, false)
     }
 }
