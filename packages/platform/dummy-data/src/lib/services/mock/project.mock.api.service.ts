@@ -7,13 +7,13 @@ import {
     PaginatedResponse,
     ZWPDictionary,
     selectFilteredElements,
-    isNull,
     initialRemotePaginationState,
     selectPaginatedElements,
 } from '@zwp/platform.common'
 import { Observable, of, throwError } from 'rxjs'
 import { PlatformDummyDataProjectAPIService } from '../abstract'
 import { Generators } from '../../generators'
+import { v4 } from 'uuid'
 
 @Injectable({ providedIn: 'root' })
 @ZWPDebuggableInjectable({
@@ -34,12 +34,27 @@ export class PlatformDummyDataProjectMockAPIService implements PlatformDummyData
         this.mockProjectStorage = {}
     }
 
-    createProject(_request: Model.CreateProjectRequest): Observable<Model.ProjectResponse> {
-        return throwError(() => new Error('Not implemented'))
+    createProject(
+        request: Model.CreateProjectRequest
+    ): Observable<Model.ProjectResponse> {
+        const newProjectTimestamp = new Date()
+        const newProjectId = v4()
+        const newProject: Model.ProjectResponse = {
+            id: newProjectId,
+            dbCreatedAt: newProjectTimestamp,
+            dbUpdatedAt: newProjectTimestamp,
+            ...request
+        }
+        this.mockProjectStorage[newProjectId] = newProject
+        return of(newProject)
     }
 
-    getProject(_projectId: string): Observable<Model.ProjectResponse> {
-        return throwError(() => new Error('Not implemented'))
+    getProject(projectId: string): Observable<Model.ProjectResponse> {
+        if (Object.keys(this.mockProjectStorage).includes(projectId)) {
+            return of(this.mockProjectStorage[projectId])
+        } else {
+            return throwError(() => new Error('Project not found'))
+        }
     }
 
     listProjects(
@@ -63,12 +78,28 @@ export class PlatformDummyDataProjectMockAPIService implements PlatformDummyData
         )
     }
 
-    updateProject(_projectId: string, _request: Model.UpdateProjectRequest): Observable<Model.ProjectResponse> {
-        return throwError(() => new Error('Not implemented'))
+    updateProject(
+        projectId: string, 
+        request: Model.UpdateProjectRequest
+    ): Observable<Model.ProjectResponse> {
+        if (Object.keys(this.mockProjectStorage).includes(projectId)) {
+            let projectToUpdate = this.mockProjectStorage[projectId]
+            projectToUpdate = { ...projectToUpdate, ...request }
+            projectToUpdate.dbUpdatedAt = new Date()
+            this.mockProjectStorage[projectId] = projectToUpdate
+            return of(projectToUpdate)
+        } else {
+            return throwError(() => new Error('Project not found'))
+        }
     }
 
     deleteProject(projectId: string): Observable<void> {
-        delete this.mockProjectStorage[projectId]
-        return throwError(() => new Error('Not implemented'))
+        if (Object.keys(this.mockProjectStorage).includes(projectId)) {
+            delete this.mockProjectStorage[projectId]
+            return of()
+        } else {
+            return throwError(() => new Error('Project not found'))
+        }
+        
     }
 }
