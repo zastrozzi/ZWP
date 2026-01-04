@@ -1,9 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core'
-import { ColumnInterface, ZWPWindowLayoutFacade } from '@zwp/platform.layout'
-import { FilterChipEvent, FilterDefinition, ZWPFilterChipInputType, ZWPRouterFacade, handleFilterChipEvent } from '@zwp/platform.common'
-import { Sort, SortDirection } from '@angular/material/sort'
-import { PageEvent } from '@angular/material/paginator'
-import { PlatformDummyData } from '@zwp/platform.dummy-data'
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core'
 import { State } from '../+state'
 
 @Component({
@@ -40,26 +35,6 @@ import { State } from '../+state'
                     (btnClick)="clearProjects()"
                 ></zwp-md-button>
             </div>
-            <!-- <div fxLayout="row" *ngIf="{ trackingActive: trackingActive$ | async } as trackingSettings" zwpPadding="10">
-                <zwp-md-button
-                    (btnClick)="toggleTrackingActive()"
-                    [label]="trackingSettings.trackingActive ? 'Keyboard Tracking On' : 'Keyboard Tracking Off'"
-                    [icon]="trackingSettings.trackingActive ? 'check_box' : 'check_box_outline_blank'"
-                    [iconTextStyle]="'subheadline'"
-                    [textStyle]="'button1'"
-                    [textStyle]="'button1'"
-                    [backgroundColor]="
-                        trackingSettings.trackingActive
-                            ? ('primary' | zwpColorTheme)
-                            : ('quaternary-system-fill' | zwpColorTheme)
-                    "
-                    [labelColor]="
-                        trackingSettings.trackingActive ? ('system-white' | zwpColorTheme) : ('primary-label' | zwpColorTheme)
-                    "
-                    [padding]="'10 15 10 15'"
-                    [layoutGap]="'10px'"
-                ></zwp-md-button>
-            </div> -->
         </div>
     `
 })
