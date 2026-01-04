@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { select, Store } from '@ngrx/store'
 import { ZWPDebuggableInjectable } from '../../decorators/zwp.debuggable.decorator'
-import { ColorTheme, ColorThemeSet, ZWPScreenBreakpointSize, PartialTextStyleSet, TextStyle, TextStyleType } from '../../model'
+import { ColorTheme, ColorThemeSet, ZWPScreenBreakpointSize, PartialTextStyleSet, TextStyle, TextStyleType, PartialTextStyleSetForBreakpoint } from '../../model'
 import { ThemingActions } from '../actions'
 import { ThemingSelectors } from '../selectors'
 
@@ -50,6 +50,10 @@ export class ZWPThemingFacade {
 
     setSafariThemeColorLight(colorHexString: string) {
         this.store.dispatch(ThemingActions.setSafariThemeColorLight({ colorHexString }))
+    }
+
+    setManyTextStyles(breakpointStyleSets: PartialTextStyleSetForBreakpoint[]) {
+        this.store.dispatch(ThemingActions.setManyTextStyles({ breakpointStyleSets }))
     }
 
     setTextStyles(styleSet: PartialTextStyleSet, breakpointSize: ZWPScreenBreakpointSize) {

@@ -66,6 +66,11 @@ const deleteProject = createRemoteActionGroup<{ projectId: string }, { projectId
     ...PROJECT_ACTION_IDENTIFIERS
 )
 
+const deleteProjects = createRemoteActionGroup<{ projectIds: string[] }, { projectIds: string[] }>(
+    'Delete Projects',
+    ...PROJECT_ACTION_IDENTIFIERS
+)
+
 export const ProjectLocalActions = {
     initialiseProjectState,
     updateProjectFilters,
@@ -82,4 +87,5 @@ export const ProjectRemoteActions = createRemoteActionMap(PROJECT_ACTION_IDENTIF
     listProjects,
     updateProject,
     deleteProject,
+    deleteProjects
 })

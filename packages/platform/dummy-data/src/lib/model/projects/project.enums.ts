@@ -15,9 +15,9 @@ export enum ProjectStatusLabel {
 }
 
 export enum ProjectStatusColor {
-    draft = 'system-gray',
+    draft = 'system-blue',
     active = 'system-green',
-    hidden = 'system-yellow',
+    hidden = 'system-gray',
     archived = 'system-red'
 }
 

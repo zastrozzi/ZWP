@@ -10,6 +10,7 @@ import {
     incrementRemotePaginationStateTotalConditionally,
     initialBaseRemoteFeatureState,
     initialRemotePaginationState,
+    isNull,
     remoteFailureState,
     remoteRequestState,
     remoteStateUpdateFailure,
@@ -102,6 +103,19 @@ export const projectReducer = createReducer(
             entityStateKey: 'projects',
             remotePaginationStateKey: 'projectsRemotePagination',
             ids: [projectId],
+        }),
+    })),
+    on(ProjectRemoteActions.deleteProjects.success, (state, { projectIds }) => ({
+        ...state,
+        projects: projectEntityAdapter.removeMany(projectIds, state.projects),
+        selectedProjectId:
+            !isNull(state.selectedProjectId) && projectIds.includes(state.selectedProjectId)
+                ? null
+                : state.selectedProjectId,
+        projectsRemotePagination: decrementRemotePaginationStateTotalConditionally(state, {
+            entityStateKey: 'projects',
+            remotePaginationStateKey: 'projectsRemotePagination',
+            ids: projectIds,
         }),
     }))
 )

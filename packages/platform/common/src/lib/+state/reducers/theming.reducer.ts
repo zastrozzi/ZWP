@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store'
-import { ColorTheme, ZWPScreenBreakpointSize, PersistentState, TextStyleSet, emptyTextStyleSet } from '../../model'
+import { ColorTheme, ZWPScreenBreakpointSize, PersistentState, TextStyleSet, emptyTextStyleSet, PartialTextStyleSetForBreakpoint, PartialTextStyleSet } from '../../model'
 import { ThemingActions } from '../actions'
 
 export interface ThemingFeatureState {
@@ -88,7 +88,11 @@ export const themingReducer = createReducer(
     on(ThemingActions.setManyTextStyles, (state, { breakpointStyleSets }) => ({
         ...state,
         textStyles: {
-            ...state.textStyles
+            ...state.textStyles,
+            ...breakpointStyleSets.reduce((acc, { styleSet, breakpointSize }) => {
+                acc[breakpointSize] = { ...state.textStyles[breakpointSize], ...styleSet }
+                return acc
+            }, {} as Record<ZWPScreenBreakpointSize, TextStyleSet>)
         }
     })),
     on(ThemingActions.setTextStyles, (state, { styleSet, breakpointSize }) => ({

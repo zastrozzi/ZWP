@@ -4,6 +4,7 @@ import { ZWPDebuggableInjectable, Nullable, PaginatedQueryParams, RemotePaginati
 import { Model } from "../../model";
 import { Observable, of } from 'rxjs'
 import { Services } from '../../services'
+import { DataGenerationActions } from '../actions'
 
 @Injectable()
 @ZWPDebuggableInjectable({serviceName: 'DummyDataFacade', options: { skipMethodDebugger: true } })
@@ -16,7 +17,11 @@ export class DummyDataFacade {
         return this.dummyDataService.randomName(options)
     }
 
-    generateProjects(count: number = 500) {
-        this.projectService.generateMockProjects(count)
+    generateProjects(count: number) {
+        this.store.dispatch(DataGenerationActions.generateProjects({ count }))
+    }
+
+    clearProjects() {
+        this.store.dispatch(DataGenerationActions.clearProjects())
     }
 }

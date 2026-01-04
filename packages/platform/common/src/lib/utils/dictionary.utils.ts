@@ -6,6 +6,17 @@ export type ZWPEnumDictionary<E extends object, T> = {
 }
 export type ZWPEnumDictionaryPartial<E extends object, T> = Partial<ZWPEnumDictionary<E, T>>
 
+export const hasAllKeys = <K extends readonly string[]>(
+    obj: Record<string, unknown>,
+    keys: K
+): obj is Record<K[number], unknown> => keys.every((key) => key in obj)
+
+export const deleteKeys = <K extends readonly string[]>(obj: Record<string, unknown>, keys: K): void => {
+    for (const key of keys) {
+        delete obj[key]
+    }
+}
+
 export const filterDictionary = <T>(input: ZWPDictionary<T>, predicate: (item: T) => boolean): ZWPDictionary<T> => {
     const obj: ZWPDictionary<T> = {}
     for (const k in input) {

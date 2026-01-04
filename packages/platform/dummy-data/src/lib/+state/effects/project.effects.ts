@@ -80,7 +80,13 @@ export class PlatformDummyDataProjectEffects implements OnInitEffects {
     )
 
     deleteProject$ = createRemoteEffect(this.actions$, ProjectRemoteActions.deleteProject, (action) =>
-        this.projectAPI.deleteProject(action.projectId)
+        this.projectAPI.deleteProject(action.projectId),
+        (action) => ({ projectId: action.projectId })
+    )
+
+    deleteProjects$ = createRemoteEffect(this.actions$, ProjectRemoteActions.deleteProjects, (action) =>
+        this.projectAPI.deleteProjects(action.projectIds),
+        (action) => ({ projectIds: action.projectIds })
     )
 
     // OnInitEffects

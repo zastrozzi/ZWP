@@ -25,10 +25,6 @@ export class PlatformDummyDataProjectFacade {
 
     projectById$ = (id: string) => this.store.pipe(select(Selectors.ProjectSelectors.selectProjectById(id)))
 
-    generateProjects(count: number = 500) {
-        this.projectService.generateMockProjects(count)
-    }
-
     createProject(request: Model.CreateProjectRequest) {
         return this.store.dispatch(ProjectRemoteActions.createProject.request({ request }))
     }
@@ -52,6 +48,10 @@ export class PlatformDummyDataProjectFacade {
 
     deleteProject(projectId: string) {
         return this.store.dispatch(ProjectRemoteActions.deleteProject.request({ projectId }))
+    }
+
+    deleteProjects(projectIds: string[]) {
+        return this.store.dispatch(ProjectRemoteActions.deleteProjects.request({ projectIds }))
     }
 
     selectProject(projectId: string) {

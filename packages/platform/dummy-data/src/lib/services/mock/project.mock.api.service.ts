@@ -9,6 +9,8 @@ import {
     selectFilteredElements,
     initialRemotePaginationState,
     selectPaginatedElements,
+    hasAllKeys,
+    deleteKeys,
 } from '@zwp/platform.common'
 import { Observable, of, throwError } from 'rxjs'
 import { PlatformDummyDataProjectAPIService } from '../abstract'
@@ -96,10 +98,19 @@ export class PlatformDummyDataProjectMockAPIService implements PlatformDummyData
     deleteProject(projectId: string): Observable<void> {
         if (Object.keys(this.mockProjectStorage).includes(projectId)) {
             delete this.mockProjectStorage[projectId]
-            return of()
+            console.log('DELETED!')
+            return of(undefined)
         } else {
             return throwError(() => new Error('Project not found'))
         }
-        
+    }
+
+    deleteProjects(projectIds: string[]): Observable<void> {
+        if (hasAllKeys(this.mockProjectStorage, projectIds)) {
+            deleteKeys(this.mockProjectStorage, projectIds)
+            return of(undefined)
+        } else {
+            return throwError(() => new Error('Projects not found'))
+        }
     }
 }

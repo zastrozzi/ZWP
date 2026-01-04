@@ -30,10 +30,10 @@ export class BackgroundColorDirective implements OnChanges, OnInit, OnDestroy {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['zwpBackgroundColor']) {
-            this.setColorForElement(changes['zwpBackgroundColor'].currentValue)
+            this.setColorForElement(changes['zwpBackgroundColor'].currentValue, this.zwpBackgroundColorOptions)
         }
         if (changes['zwpBackgroundColorOptions']) {
-            this.setColorForElement(this.zwpBackgroundColor, this.zwpBackgroundColorOptions)
+            this.setColorForElement(this.zwpBackgroundColor, changes['zwpBackgroundColorOptions'].currentValue)
         }
     }
 

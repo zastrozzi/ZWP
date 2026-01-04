@@ -21,11 +21,13 @@ export class RootComponent implements OnInit {
     ngOnInit() {
         this.themingFacade.setInitialThemeColors(AppConfig.ColorThemeConfig)
         this.themingFacade.setAutomaticDarkModePreference(false)
-        this.themingFacade.setTextStyles(AppConfig.TextStyleConfig.mobile, ZWPScreenBreakpointSize.EXTRA_SMALL)
-        this.themingFacade.setTextStyles(AppConfig.TextStyleConfig.mobile, ZWPScreenBreakpointSize.SMALL)
-        this.themingFacade.setTextStyles(AppConfig.TextStyleConfig.tablet, ZWPScreenBreakpointSize.MEDIUM)
-        this.themingFacade.setTextStyles(AppConfig.TextStyleConfig.web, ZWPScreenBreakpointSize.LARGE)
-        this.themingFacade.setTextStyles(AppConfig.TextStyleConfig.web, ZWPScreenBreakpointSize.EXTRA_LARGE)
+        this.themingFacade.setManyTextStyles([
+            { styleSet: AppConfig.TextStyleConfig.mobile, breakpointSize: ZWPScreenBreakpointSize.EXTRA_SMALL },
+            { styleSet: AppConfig.TextStyleConfig.mobile, breakpointSize: ZWPScreenBreakpointSize.SMALL },
+            { styleSet: AppConfig.TextStyleConfig.tablet, breakpointSize: ZWPScreenBreakpointSize.MEDIUM },
+            { styleSet: AppConfig.TextStyleConfig.web, breakpointSize: ZWPScreenBreakpointSize.LARGE },
+            { styleSet: AppConfig.TextStyleConfig.web, breakpointSize: ZWPScreenBreakpointSize.EXTRA_LARGE }
+        ])
     }
 }
 

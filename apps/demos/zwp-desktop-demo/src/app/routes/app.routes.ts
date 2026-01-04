@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router'
 import { COMPONENTS } from '../components'
+import { PlatformDummyData } from '@zwp/platform.dummy-data'
 
 export const appRoutes: Routes = [
     {
@@ -48,15 +49,6 @@ export const appRoutes: Routes = [
                         },
                     },
                     {
-                        path: 'tables',
-                        component: COMPONENTS.TABLES_COMPONENTS.TablesPageComponent,
-                        data: {
-                            navTitle: 'Data Tables',
-                            navIcon: 'table_view',
-                            leftNavPanelShown: true
-                        },
-                    },
-                    {
                         path: 'file-browser',
                         component: COMPONENTS.FileBrowserPageComponent,
                         data: {
@@ -86,6 +78,15 @@ export const appRoutes: Routes = [
                     },
                 ],
             },
+            {
+                path: 'dummy-data',
+                data: {
+                    featureNavShown: true,
+                    featureNavTitle: 'Data Tables',
+                    featureNavIcon: 'table_view',
+                },
+                children: PlatformDummyData.dummyDataRoutes
+            }
         ],
     },
 ]
