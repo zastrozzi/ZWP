@@ -7,7 +7,7 @@ export class DoubleTapDirective implements OnInit {
     constructor(private el: ElementRef) {}
 
     ngOnInit(): void {
-        this.setDoubleTapForElement('none')
+        this.setDoubleTapForElement('pan-x pan-y')
     }
 
     // ngOnChanges(changes: SimpleChanges): void {
