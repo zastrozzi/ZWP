@@ -12,6 +12,7 @@ import { ZWPRouterFacade, ZWPThemingFacade } from '@zwp/platform.common'
             [style.overflow]="'hidden'"
             [style.height]="'100dvh'"
             [style.width]="'100dvw'"
+            zwpDisableSelection
         >
             <div fxLayout="row" fxLayoutAlign="stretch center" zwpPadding="7" fxLayoutGap="10px">
                 <zwp-feature-nav-button buttonLabelColor="primary-label"></zwp-feature-nav-button>

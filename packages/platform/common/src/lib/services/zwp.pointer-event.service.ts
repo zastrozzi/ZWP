@@ -10,6 +10,7 @@ export class ZWPPointerEventService implements OnDestroy {
     protected pointerDown$: Observable<PointerEventCoordinate>
     protected pointerMove$: Observable<PointerEventCoordinate>
     protected pointerUp$: Observable<PointerEventCoordinate>
+    // protected pointerDoubleClick$: Observable<PointerEventCoordinate>
     private renderer: Renderer2
 
     constructor(rendererFactory: RendererFactory2, private zone: NgZone) {
@@ -17,12 +18,11 @@ export class ZWPPointerEventService implements OnDestroy {
         this.renderer = rendererFactory.createRenderer(null, null)
         // this.renderer.destroy()
         this.pointerDown$ = new Observable((observer: Observer<PointerEventCoordinate>) => {
-            let unsubscribeMouseDown: () => void
+            let unsubscribeMouseDown: (() => void)
             let unsubscribeTouchStart: (() => void)
 
             this.zone.runOutsideAngular(() => {
                 unsubscribeMouseDown = this.renderer.listen('document', 'mousedown', (event: MouseEvent) => {
-                    
                     observer.next({ location: {x: event.clientX, y: event.clientY}, event: event, inputType: PointerEventInputType.MOUSE, buttonType: event.button })
                 })
 
@@ -35,6 +35,7 @@ export class ZWPPointerEventService implements OnDestroy {
 
             return () => {
                 unsubscribeMouseDown()
+                
                 if (isTouchDevice() && !isUndefined(unsubscribeTouchStart)) { unsubscribeTouchStart() }
             }
         }).pipe(share())

@@ -89,7 +89,10 @@ import { ColumnInterface } from '../../model'
                     
                 </ng-container>
                 <ng-container *ngIf="actionable" matColumnDef="actions" stickyEnd>
-                    <th mat-header-cell *matHeaderCellDef [style.borderLeft]="'1px solid ' + ('separator' | zwpColorTheme)">Actions</th>
+                    <th 
+                        mat-header-cell *matHeaderCellDef [style.borderLeft]="'1px solid ' + ('separator' | zwpColorTheme)"
+                        zwpTextStyle="body1" zwpFontWeight="600" zwpColor="secondary-label" 
+                    >Actions</th>
                     <td mat-cell *matCellDef="let row">
                         <ng-template [ngTemplateOutlet]="rowActions" [ngTemplateOutletContext]="{$implicit: row}"></ng-template>
                     </td>

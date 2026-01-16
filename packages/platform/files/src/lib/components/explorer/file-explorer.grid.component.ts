@@ -99,6 +99,7 @@ import { Model } from '../../model'
                                 [isSelected]="fileExplorerGridData.selectedItemIds.includes(child.id)"
                                 (clicked)="handleFileExplorerItemSelection($event)"
                                 (doubleClicked)="handleFileExplorerItemDoubleClick($event)"
+                                
                             />
                         </mat-grid-tile>
 

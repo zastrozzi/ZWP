@@ -25,7 +25,10 @@ export class ZWPSelectionService implements OnDestroy {
     }
 
     getOverlayElement(): HTMLElement {
-        if (isUndefined(this._overlayElement)) { this._createOverlay() }
+        if (isUndefined(this._overlayElement)) { 
+            // console.log('no overlay element')
+            this._createOverlay() 
+        }
         return this._overlayElement as HTMLElement
     }
 
@@ -54,6 +57,8 @@ export class ZWPSelectionService implements OnDestroy {
         selectionBox.style.setProperty('bottom', `${overlayBoundingRect.bottom - point.y}px`)
         selectionBox.style.setProperty('left', `${point.x}px`)
         selectionBox.style.setProperty('right', `${overlayBoundingRect.right - point.x}px`)
+        selectionBox.style.setProperty('user-select', 'none')
+        selectionBox.style.setProperty('-webkit-user-select', 'none')
         // selectionBox.style.setProperty('width', '100%')
         // selectionBox.style.setProperty('height', '100%')
         selectionBox.style.setProperty('border', 'solid 1px #007aff88')
@@ -115,6 +120,8 @@ export class ZWPSelectionService implements OnDestroy {
         overlay.style.setProperty('left', '0')
         overlay.style.setProperty('height', '100%')
         overlay.style.setProperty('width', '100%')
+        overlay.style.setProperty('user-select', 'none')
+        overlay.style.setProperty('-webkit-user-select', 'none')
         this._document.body.appendChild(overlay)
         this._overlayElement = overlay
     }

@@ -62,10 +62,7 @@ import { Model } from '../../model'
                     </div>
                 </ng-template>
                 <ng-template zwpTableCellTemplate="budget" let-row="row">
-                    <span
-                            
-                            >{{ row.budget | currency }}
-                        </span>
+                    <span zwpColor="label">{{ row.budget | currency }}</span>
                 </ng-template>
                 <ng-template #rowActions let-row>
                     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">

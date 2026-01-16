@@ -39,7 +39,29 @@ import { ZWPRouterFacade } from '@zwp/platform.common'
                     (click)="navigateFileBrowser()"
                 />
             </zwp-flow-grid>
+
+            <div
+                fxLayout="row"
+                zwpPadding="5 15"
+                zwpBackgroundColor="quaternary-system-fill"
+                zwpCorners="20"
+                fxLayoutAlign="start center"
+            >
+                <span zwpDisableSelection [zwpTextStyle]="'subheadline'" zwpColor="label">Data Tables</span>
+            </div>
+
+            <zwp-flow-grid [tileWidth]="80" [tileHeight]="80">
+                <zwp-home-page-tile
+                    *zwpFlowGridItem="{ rows: 2, cols: 3 }"
+                    iconName="business_center"
+                    title="Projects"
+                    fxFlexFill
+                    (click)="navigateProjects()"
+                />
+            </zwp-flow-grid>
         </div>
+
+        
     `,
 })
 export class HomePageComponent {
@@ -51,5 +73,9 @@ export class HomePageComponent {
 
     navigateFileBrowser() {
         this.routerFacade.navigate(['platform', 'file-browser'])
+    }
+
+    navigateProjects() {
+        this.routerFacade.navigate(['dummy-data', 'projects'])
     }
 }
