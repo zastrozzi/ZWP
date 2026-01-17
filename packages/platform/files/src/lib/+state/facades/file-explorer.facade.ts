@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core'
 import { isNil, isNull, ZWPDebuggableInjectable, ZWPRouterFacade, Nullable, randomEnumCase } from '@zwp/platform.common'
 import { PlatformDummyData } from '@zwp/platform.dummy-data'
 import { select, Store } from '@ngrx/store'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, firstValueFrom } from 'rxjs'
 import { v4 } from 'uuid'
 import { Model } from '../../model'
 import { FileDataActions } from '../actions'
@@ -56,7 +56,9 @@ export class ZWPFileExplorerFacade  {
     fileExplorerPreviewTouch$ = new BehaviorSubject<boolean>(false)
 
     fileDataItemsByParentId$ = (parentId: string) => this.store.pipe(select(Selectors.FileDataSelectors.fileDataItemsByParentId(parentId)))
-
+    fileDataItemById$ = (id: string) => this.store.pipe(select(Selectors.FileDataSelectors.fileDataItemById(id)))
+    parentFileDataItemIdForFileDataItem$ = (id: string) => this.store.pipe(select(Selectors.FileDataSelectors.parentFileDataItemIdForFileDataItem(id)))
+    
     explorerItemIsSelected$ = (id: string) =>
         this.store.pipe(select(Selectors.FileExplorerSelectors.explorerItemIsSelected(id)))
 
@@ -194,6 +196,29 @@ export class ZWPFileExplorerFacade  {
         this.store.dispatch(FileDataActions.create({ item: newDirectoryItem }))
     }
 
+    async duplicateFileData(id: string, withNewParent: boolean = false, newParentId: string | undefined = undefined) {
+        const fileData = await this.getFileDataItem(id)
+        const fileDataChildren = await this.getChildFileDataItems(id)
+        if (!isNull(fileData)) {
+            const saveDate = new Date()
+            const newDirectoryItem: Model.FileDataItem = {
+                ...fileData,
+                ...(withNewParent ? { parentFileDataItemId: newParentId } : {}),
+                id: v4(),
+                name: fileData.name + ' copy',
+                createdAt: saveDate,
+                updatedAt: saveDate
+            }
+            this.store.dispatch(FileDataActions.create({ item: newDirectoryItem }))
+
+            if (fileDataChildren.length > 0) {
+                for (const child of fileDataChildren) {
+                    await this.duplicateFileData(child.id, true, newDirectoryItem.id)
+                }
+            }
+        }
+    }
+
     handleDragDropped(event: CdkDragDrop<any>, drops: CdkDropList[]) {
         let dropPointData: any
         drops.forEach((container) =>
@@ -260,5 +285,17 @@ export class ZWPFileExplorerFacade  {
 
     async getCurrentDirectoryIdFromRoute(): Promise<Nullable<string>> {
         return await this.routerFacade.getNestedRouteParam('directoryId')
+    }
+
+    getParentFileDataItemId = async (id: string): Promise<string | null> => {
+        return await firstValueFrom(this.parentFileDataItemIdForFileDataItem$(id)) ?? null
+    }
+
+    getFileDataItem = async (id: string): Promise<Model.FileDataItem | null> => {
+        return await firstValueFrom(this.fileDataItemById$(id)) ?? null
+    }
+
+    getChildFileDataItems = async (id: string): Promise<Model.FileDataItem[]> => {
+        return await firstValueFrom(this.fileDataItemsByParentId$(id))
     }
 }

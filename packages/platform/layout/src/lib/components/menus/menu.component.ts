@@ -23,7 +23,6 @@ import { MENU_OVERLAY_STYLES } from "../../model/menus/menu-overlay.styles";
     styles: [MENU_OVERLAY_STYLES]
 })
 export class MenuComponent {
-    @Input() menuOverlayData: any | null = null
     private clickIsInside = false
     comp: any | null
     darkMode$ = this.themingFacade.darkMode$

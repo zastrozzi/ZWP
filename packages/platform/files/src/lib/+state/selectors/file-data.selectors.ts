@@ -87,6 +87,8 @@ const fileDataItemsByParentIds = (parentIds: string[]) =>
         }, {} as { [id: string]: Model.FileDataItem[] })
     )
 
+const parentFileDataItemIdForFileDataItem = (id: string) => createSelector(fileDataItemById(id), (item) => item?.parentFileDataItemId)
+
 export const FileDataSelectors = {
     fileDataItemIds,
     fileDataItemEntities,
@@ -100,4 +102,5 @@ export const FileDataSelectors = {
     fileDataItemsByIds,
     fileDataItemsByParentId,
     fileDataItemsByParentIds,
+    parentFileDataItemIdForFileDataItem
 }

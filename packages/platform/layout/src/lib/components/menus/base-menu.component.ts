@@ -9,8 +9,7 @@ import { MenuRef } from "../../model/menus/menu.ref";
     template: ``
 })
 export abstract class BaseMenuComponent {
-    @Input() menuOverlayData: any | null = null
-    @Input() menuRef: MenuRef | null = null
+    @Input() menuId!: string
 
     _menuLayoutFacade: ZWPMenuLayoutFacade
 
@@ -31,8 +30,6 @@ export abstract class BaseMenuComponent {
     // }
 
     close() {
-        if (isNil(this.menuRef) || isNil(this.menuRef.refId)) { return } else {
-            this._menuLayoutFacade.closeMenu(this.menuRef.refId)
-        }
+        this._menuLayoutFacade.closeMenu(this.menuId)
     }
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { isUndefined } from '@zwp/platform.common'
-import { BaseMenuComponent, ZWPMenuComponent, ZWPMenuLayoutFacade } from '@zwp/platform.layout'
+import { BaseMenuComponent, MENU_COMPONENT_DATA, ZWPMenuComponent, ZWPMenuLayoutFacade } from '@zwp/platform.layout'
 import { Facades } from '../../+state/facades'
 import { Model } from '../../model'
 
@@ -9,10 +9,10 @@ import { Model } from '../../model'
     selector: 'zwp-file-explorer-item-context-menu',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <zwp-menu [menuOverlayData]="menuOverlayData">
+        <zwp-menu>
             <div fxLayout="column" fxFlexFill>
                 <zwp-md-button
-                    *ngIf="menuOverlayData?.isDir === true"
+                    *ngIf="menuData.isDir"
                     (btnClick)="navigateDirectory()"
                     materialType="flat"
                     [backgroundColor]="'system-background' | zwpColorTheme"
@@ -25,12 +25,39 @@ import { Model } from '../../model'
                     [iconTextStyle]="'headline'"
                 ></zwp-md-button>
                 <zwp-md-button
-                    *ngIf="menuOverlayData?.isDir === false"
+                    *ngIf="!menuData.isDir"
                     (btnClick)="previewFile()"
                     materialType="flat"
                     [backgroundColor]="'system-background' | zwpColorTheme"
                     icon="preview"
                     label="Preview File"
+                    [labelColor]="'label' | zwpColorTheme"
+                    [iconColor]="'primary' | zwpColorTheme"
+                    [horizontalAlign]="'start'"
+                    [textStyle]="'body1'"
+                    [iconTextStyle]="'headline'"
+                ></zwp-md-button>
+                <zwp-divider></zwp-divider>
+                <zwp-md-button
+                    *ngIf="menuData.parentFileDataItemId !== undefined"
+                    (btnClick)="moveToParent()"
+                    materialType="flat"
+                    [backgroundColor]="'system-background' | zwpColorTheme"
+                    icon="preview"
+                    label="Move to Enclosing Folder"
+                    [labelColor]="'label' | zwpColorTheme"
+                    [iconColor]="'primary' | zwpColorTheme"
+                    [horizontalAlign]="'start'"
+                    [textStyle]="'body1'"
+                    [iconTextStyle]="'headline'"
+                ></zwp-md-button>
+                <zwp-divider *ngIf="menuData.parentFileDataItemId !== undefined"></zwp-divider>
+                <zwp-md-button
+                    (btnClick)="duplicate()"
+                    materialType="flat"
+                    [backgroundColor]="'system-background' | zwpColorTheme"
+                    icon="preview"
+                    label="Duplicate"
                     [labelColor]="'label' | zwpColorTheme"
                     [iconColor]="'primary' | zwpColorTheme"
                     [horizontalAlign]="'start'"
@@ -59,6 +86,7 @@ import { Model } from '../../model'
 })
 export class FileExplorerItemContextMenuComponent extends BaseMenuComponent {
     private menuFacade = inject(ZWPMenuLayoutFacade)
+    menuData = inject(MENU_COMPONENT_DATA) as Model.FileDataItem
     private fileExplorerFacade = inject(Facades.ZWPFileExplorerFacade)
 
     constructor() {
@@ -67,22 +95,33 @@ export class FileExplorerItemContextMenuComponent extends BaseMenuComponent {
     }
 
     navigateDirectory() {
-        const data: Model.FileDataItem = this.menuOverlayData
-        if (!isUndefined(data) && data.isDir) {
-            this.fileExplorerFacade.navigateDirectory(data.id)
-        }
+        this.fileExplorerFacade.navigateDirectory(this.menuData.id)
         this.close()
     }
 
     deleteEntity() {
-        const data: Model.FileDataItem = this.menuOverlayData
-        if (!isUndefined(data)) {
-            this.fileExplorerFacade.deleteFileExplorerItem(data.id)
-        }
+        this.fileExplorerFacade.deleteFileExplorerItem(this.menuData.id)
         this.close()
     }
 
     previewFile() {
+        this.close()
+    }
+
+    async moveToParent() {
+        if (!isUndefined(this.menuData.parentFileDataItemId)) {
+            const newParentId = await this.fileExplorerFacade.getParentFileDataItemId(this.menuData.parentFileDataItemId)
+            this.fileExplorerFacade.updateFileExplorerItemParent(
+                this.menuData.id,
+                this.menuData.parentFileDataItemId,
+                newParentId
+            )
+        }
+        this.close()
+    }
+
+    async duplicate() {
+        await this.fileExplorerFacade.duplicateFileData(this.menuData.id)
         this.close()
     }
 }

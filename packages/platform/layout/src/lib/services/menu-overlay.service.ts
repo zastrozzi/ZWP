@@ -1,9 +1,9 @@
 import { Overlay, OverlayConfig, ComponentType } from "@angular/cdk/overlay";
 import { ComponentPortal } from "@angular/cdk/portal";
-import { ComponentRef, Injectable } from "@angular/core";
+import { ComponentRef, Injectable, Injector } from "@angular/core";
 import { GeometryPoint, isUndefined, ZWPDebuggableInjectable } from "@zwp/platform.common";
 import { v4 } from "uuid";
-import { getZWPMenuComponent } from "../decorators";
+import { getZWPMenuComponent, MENU_COMPONENT_DATA } from "../decorators";
 import { MenuOverlayRef } from "../model";
 import { MenuPositionHorizontal, MenuPositionVertical } from "../model/menus/menu.position";
 import { MenuRef } from "../model/menus/menu.ref";
@@ -21,10 +21,10 @@ export class ZWPMenuOverlayService {
         menuRef.refId = v4()
         const newMenuOverlayRef = this.createMenuOverlayRef(triggerPoint, menuRef.horizontalPosition, menuRef.verticalPosition)
         const componentType = getZWPMenuComponent(menuRef.componentName)
-        this.attachPortalToOverlay(newMenuOverlayRef, componentType)
+        this.attachPortalToOverlay(newMenuOverlayRef, componentType, data)
         this.attachMenuRefToOverlay(newMenuOverlayRef, menuRef)
         this.setMenuOverlayRef(menuRef.refId, newMenuOverlayRef)
-        this.updateComponentData(menuRef.refId, data)
+        this.updateComponentData(menuRef.refId)
     }
 
     removeMenuOverlay(id: string, removeParent?: boolean) {
@@ -71,8 +71,16 @@ export class ZWPMenuOverlayService {
         return { overlayRef: newOverlayRef }
     }
 
-    private attachPortalToOverlay<C>(menuOverlayRef: MenuOverlayRef<any>, component: ComponentType<C>) {
-        const overlayPortal = new ComponentPortal(component)
+    private attachPortalToOverlay<C>(menuOverlayRef: MenuOverlayRef<any>, component: ComponentType<C>, data: object) {
+        const overlayPortal = new ComponentPortal(
+            component,
+            null,
+            Injector.create({
+                providers: [
+                    { provide: MENU_COMPONENT_DATA, useValue: data }
+                ]
+            })
+        )
         const componentRef: ComponentRef<C> | undefined = menuOverlayRef?.overlayRef?.attach(overlayPortal)
         menuOverlayRef.componentRef = componentRef
         menuOverlayRef.overlayRef?.hostElement.style.setProperty('z-index', '3000')
@@ -90,12 +98,13 @@ export class ZWPMenuOverlayService {
         this.menuOverlayReferences[id] = menuOverlayRef
     }
 
-    updateComponentData(refId: string, data: any) {
-        const menuOverlayRef = this.getMenuOverlayRef(refId)
-        menuOverlayRef?.componentRef?.setInput('menuOverlayData', data)
-        menuOverlayRef?.componentRef?.setInput('menuRef', menuOverlayRef?.menuRef)
-        if (!isUndefined(menuOverlayRef)) {
-            this.setMenuOverlayRef(refId, menuOverlayRef)
+    updateComponentData(menuId: string): boolean {
+        const menuOverlayRef = this.getMenuOverlayRef(menuId)
+        if (isUndefined(menuOverlayRef) || isUndefined(menuOverlayRef.componentRef)) {
+            return false
         }
+        menuOverlayRef.componentRef.setInput('menuId', menuId)
+        this.setMenuOverlayRef(menuId, menuOverlayRef)
+        return true
     }
 }
