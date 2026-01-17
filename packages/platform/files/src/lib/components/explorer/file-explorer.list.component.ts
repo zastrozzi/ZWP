@@ -10,7 +10,7 @@ import {
     ViewChildren,
 } from '@angular/core'
 import { ZWPColorThemePipe, isUndefined, Nullable } from '@zwp/platform.common'
-import { ZWPMenuLayoutFacade } from '@zwp/platform.layout'
+import { ColumnInterface, ZWPMenuLayoutFacade } from '@zwp/platform.layout'
 import { Subscription } from 'rxjs'
 import { ZWPFileExplorerFacade } from '../../+state/facades/file-explorer.facade'
 import { Model } from '../../model'
@@ -388,6 +388,22 @@ export class FileExplorerListComponent implements AfterViewInit, OnDestroy {
     selectedExplorerItemIds$ = this.fileExplorerFacade.selectedItemIds$
     explorerAllFilesByFileType$ = this.fileExplorerFacade.explorerAllFilesByFileType$
 
+    columns: ColumnInterface<Omit<Model.FileDataItem, 'childFileDataItems'>>[] = [
+        { displayName: 'Name', dataLabel: 'name', sortable: true },
+        {
+            displayName: 'Created At',
+            dataLabel: 'createdAt',
+            sortable: true,
+            datePipe: { format: 'yyyy/MM/dd HH:mm:ss' },
+        },
+        {
+            displayName: 'Updated At',
+            dataLabel: 'updatedAt',
+            sortable: true,
+            datePipe: { format: 'yyyy/MM/dd HH:mm:ss' },
+        }
+    ]
+
     ngAfterViewInit(): void {
         const dropsQueryChangesSub = this.dropsQuery?.changes.subscribe(() => {
             this.drops = this.dropsQuery?.toArray()
@@ -402,6 +418,10 @@ export class FileExplorerListComponent implements AfterViewInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.subscriptions.unsubscribe()
+    }
+
+    onRowClicked(row: Model.FileDataItem) {
+        // console.log('Table Row Clicked')
     }
 
     deleteExplorerItem(id: string) {

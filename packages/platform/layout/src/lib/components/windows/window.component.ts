@@ -56,6 +56,7 @@ import { Subscription } from 'rxjs'
             cdkDrag
             (cdkDragStarted)="this.onDragStart($event)"
             (cdkDragEnded)="this.onDragEnd($event)"
+            cdkTrapFocus cdkTrapFocusAutoCapture
         >
             <div
                 [style.position]="'absolute'"

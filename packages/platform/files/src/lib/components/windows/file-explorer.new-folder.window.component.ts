@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core'
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChild, inject, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { Nullable } from '@zwp/platform.common'
 import { BaseWindowComponent, WINDOW_COMPONENT_DATA, ZWPWindowComponent } from '@zwp/platform.layout'
 import { ZWPFileExplorerFacade } from '../../+state/facades/file-explorer.facade'
-import { Subscription } from 'rxjs'
+import { Subscription, timer } from 'rxjs'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { MatInput } from '@angular/material/input'
 
 @ZWPWindowComponent('FileExplorerNewFolderWindowComponent')
 @Component({
@@ -26,7 +27,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
                         zwpCorners="4"
                         zwpBackgroundColor="tertiary-system-fill"
                     >
-                        <input matInput formControlName="name" placeholder="Folder Name" cdkFocusInitial />
+                        <input matInput #folderNameInput formControlName="name" placeholder="Folder Name" cdkFocusInitial/>
                     </mat-form-field>
                     <div fxFlex="grow"></div>
                     <zwp-md-button
@@ -42,6 +43,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
     `,
 })
 export class FileExplorerNewFolderWindowComponent extends BaseWindowComponent implements OnDestroy {
+    @ViewChild(MatInput) folderNameInput!: MatInput
+
     private windowData = inject(WINDOW_COMPONENT_DATA) as {
         currentDirectoryId: Nullable<string>
     }
@@ -52,10 +55,6 @@ export class FileExplorerNewFolderWindowComponent extends BaseWindowComponent im
     createNewFolderForm = new FormGroup({
         name: new FormControl<string>('', [Validators.required, Validators.minLength(1)]),
     })
-
-    // ngOnInit() {
-    //     console.log('adding new folder window')
-    // }
 
     ngOnDestroy(): void {
         this.subscriptions.unsubscribe()

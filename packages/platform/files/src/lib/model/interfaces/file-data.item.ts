@@ -4,7 +4,6 @@ import { FileExplorerFileType } from '../enums'
 export interface FileDataItem {
     id: string
     name: string
-    ext?: string
     fileType?: FileExplorerFileType
 
     isDir: boolean
@@ -12,14 +11,9 @@ export interface FileDataItem {
     isSymlink?: boolean
     isEncrypted?: boolean
 
-    openable?: boolean
-    selectable?: boolean
-    draggable?: boolean
-    droppable?: boolean
-    dndOpenable?: boolean
-
     size?: number
-    modDate?: Date | string
+    createdAt: Date
+    updatedAt: Date
 
     color?: string
     icon?: string

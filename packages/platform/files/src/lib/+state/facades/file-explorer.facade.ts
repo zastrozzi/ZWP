@@ -118,10 +118,13 @@ export class ZWPFileExplorerFacade  {
     }
 
     createRandomFileDataInDirectory(directoryId: string, isDir: boolean) {
+        const saveDate = new Date()
         const randomFileDataItem: Model.FileDataItem = {
             id: v4(),
             name: this.dummyDataFacade.randomName(),
             isDir: isDir,
+            createdAt: saveDate,
+            updatedAt: saveDate,
             parentFileDataItemId: directoryId,
         }
         this.store.dispatch(FileDataActions.create({ item: randomFileDataItem }))
@@ -152,10 +155,12 @@ export class ZWPFileExplorerFacade  {
     }
 
     createRandomFileData(isDir: boolean) {
+        const saveDate = new Date()
         const randomFileDataItem: Model.FileDataItem = {
             id: v4(),
-
             name: this.dummyDataFacade.randomName(),
+            createdAt: saveDate,
+            updatedAt: saveDate,
             fileType: isDir ? undefined : randomEnumCase(Model.FileExplorerFileType),
             isDir: isDir,
         }
@@ -163,10 +168,13 @@ export class ZWPFileExplorerFacade  {
     }
 
     createNewFile(parentDirectoryId: Nullable<string>, name: string, fileType: Model.FileExplorerFileType) {
+        const saveDate = new Date()
         const newFileItem: Model.FileDataItem = {
             id: v4(),
             name: name,
             isDir: false,
+            createdAt: saveDate,
+            updatedAt: saveDate,
             parentFileDataItemId: isNull(parentDirectoryId) ? undefined : parentDirectoryId,
             fileType: fileType
         }
@@ -174,10 +182,13 @@ export class ZWPFileExplorerFacade  {
     }
 
     createNewDirectory(parentDirectoryId: Nullable<string>, name: string) {
+        const saveDate = new Date()
         const newDirectoryItem: Model.FileDataItem = {
             id: v4(),
             name: name,
             isDir: true,
+            createdAt: saveDate,
+            updatedAt: saveDate,
             parentFileDataItemId: isNull(parentDirectoryId) ? undefined : parentDirectoryId
         }
         this.store.dispatch(FileDataActions.create({ item: newDirectoryItem }))
@@ -228,7 +239,7 @@ export class ZWPFileExplorerFacade  {
             label: 'New Folder',
             icon: 'folder',
             componentName: 'FileExplorerNewFolderWindowComponent',
-            position: { top: 'calc(50vh - 100px)', left: 'calc(50vw - 100px)', width: '400px', height: '200px' },
+            position: { top: 'calc(50vh - 100px)', left: 'calc(50vw - 200px)', width: '400px', height: '200px' },
             data: {
                 currentDirectoryId: await this.getCurrentDirectoryIdFromRoute()
             },
@@ -240,7 +251,7 @@ export class ZWPFileExplorerFacade  {
             label: 'New File',
             icon: 'description',
             componentName: 'FileExplorerNewFileWindowComponent',
-            position: { top: 'calc(50vh - 130px)', left: 'calc(50vw - 100px)', width: '400px', height: '260px' },
+            position: { top: 'calc(50vh - 130px)', left: 'calc(50vw - 200px)', width: '400px', height: '260px' },
             data: {
                 currentDirectoryId: await this.getCurrentDirectoryIdFromRoute()
             },

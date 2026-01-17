@@ -395,8 +395,6 @@ export class ZWPFilterChipInputComponent {
         }
     }
 
-    
-
     openDatePicker() {
         this.datePicker.open()
     }

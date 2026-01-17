@@ -17,7 +17,7 @@ import { ColumnInterface } from '../../model'
             <table
                 mat-table recycleRows
                 [dataSource]="this.dataSource"
-                class="kernel-table"
+                class="zwp-table"
                 matSort
                 [matSortActive]="this.getSortActive()"
                 [matSortDirection]="this.getSortDirection()"

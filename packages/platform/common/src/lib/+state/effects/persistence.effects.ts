@@ -19,6 +19,7 @@ export class ZWPPersistenceEffects {
         ofType(PersistenceActions.serialisePersistentState),
         withLatestFrom(this.persistenceProfileFacade.selectedPersistenceProfileId$),
         map(pair => ({ stateUpdate: pair[0].stateUpdate, selectedPersistenceProfileId: pair[1] })),
+        map(update => ({ ...update, stateUpdate: DiffingUtils.convertDatePropertiesToISOStrings(update.stateUpdate) })),
         tap((persistenceUpdate) => {
             const persistentStateIdentifier = persistenceUpdate.selectedPersistenceProfileId === null ? 'zwp-persistent-state' : `zwp-persistent-state-${persistenceUpdate.selectedPersistenceProfileId}`
             const persistentState = localStorage.getItem(persistentStateIdentifier)

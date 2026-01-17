@@ -22,6 +22,20 @@ const isEmptyObject = (o: any) => isObject(o) && isEmpty(o)
 const isNonEmptyObject = (o: any) => isObject(o) && !isEmpty(o)
 const makeObjectWithoutPrototype = () => Object.create(null)
 
+const convertDatePropertiesToISOStrings = <T>(value: T): T => {
+    if (isDate(value)) { return (value as Date).toISOString() as unknown as T }
+    if (isArray(value)) { return (value as []).map(item => convertDatePropertiesToISOStrings(item)) as unknown as T }
+
+    if (isObject(value)) {
+        const result: any = {}
+        for (const key of Object.keys(value as object)) {
+            result[key] = convertDatePropertiesToISOStrings((value as any)[key])
+        }
+        return result
+    }
+    return value
+}
+
 const calculateDiff = (lhs: any, rhs: any, exclusive: boolean = false) => {
     if (lhs === rhs) return {}
     if (isArray(lhs) || isArray(rhs)) {
@@ -249,5 +263,6 @@ export const DiffingUtils = {
     subtractDeep,
     subtractDeep2,
     addDeep,
-    deletedDiff
+    deletedDiff,
+    convertDatePropertiesToISOStrings
 }
