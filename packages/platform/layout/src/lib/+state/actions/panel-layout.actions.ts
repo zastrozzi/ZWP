@@ -54,7 +54,7 @@ const defocusDetailPanelDragHandle = createAction(createActionType(PANEL_LAYOUT_
 
 const createRightPanelRequest = createAction(
     createActionType(PANEL_LAYOUT_REQUEST_ACTION_IDENTIFIERS, 'Create Right Panel'), 
-    props<{ rightPanelEntity: RightPanelEntity }>()
+    props<{ rightPanelEntity: RightPanelEntity, allowsMultiple: boolean }>()
 )
 
 const createRightPanelFailure = createAction(
@@ -84,6 +84,11 @@ const removeRightPanelSuccess = createAction(
 
 const removeAllRightPanels = createAction(
     createActionType(PANEL_LAYOUT_ACTION_IDENTIFIERS, 'Remove All Right Panels')
+)
+
+const removeRightPanelsForDataId = createAction(
+    createActionType(PANEL_LAYOUT_ACTION_IDENTIFIERS, 'Remove Right Panels for Data ID'),
+    props<{ id: string }>()
 )
 
 const removeRightPanelsForCategory = createAction(
@@ -146,6 +151,7 @@ export const PanelLayoutActions = {
     removeRightPanelSuccess,
     removeAllRightPanels,
     removeRightPanelsForCategory,
+    removeRightPanelsForDataId,
     selectRightPanel,
     deselectRightPanel
 }

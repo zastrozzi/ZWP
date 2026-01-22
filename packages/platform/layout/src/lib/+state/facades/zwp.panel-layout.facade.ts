@@ -58,7 +58,7 @@ export class ZWPPanelLayoutFacade {
     rightPanelCategories$ = this.store.pipe(select(PanelLayoutSelectors.RightPanelSelectors.rightPanelCategories))
     rightPanelsByCategory$ = this.store.pipe(select(PanelLayoutSelectors.RightPanelSelectors.rightPanelsByCategory))
     getRightPanelById$ = (id: string) => this.store.pipe(select(PanelLayoutSelectors.RightPanelSelectors.getRightPanelById(id)))
-    
+    hasRightPanelsForDataId$ = (id: string) => this.store.pipe(select(PanelLayoutSelectors.RightPanelSelectors.hasRightPanelsForDataId(id)))
     
     openPanel(panelPosition: PanelPosition): void {
         switch (panelPosition) {
@@ -154,7 +154,7 @@ export class ZWPPanelLayoutFacade {
         }
     }
 
-    addRightPanel(newRightPanel: Partial<RightPanelEntity>) {
+    addRightPanel(newRightPanel: Partial<RightPanelEntity>, allowsMultiple: boolean = false) {
         if (newRightPanel.componentName === undefined) { throw new Error('Component name must be defined') }
         const fullRightPanel: RightPanelEntity = {
             id: newRightPanel.id ?? v4(), 
@@ -164,9 +164,10 @@ export class ZWPPanelLayoutFacade {
             color: newRightPanel.color, 
             themeColor: newRightPanel.themeColor ?? 'primary',
             componentName: newRightPanel.componentName,
-            data: newRightPanel.data ?? {}
+            data: newRightPanel.data ?? {},
+            dataId: newRightPanel.dataId
         }
-        this.store.dispatch(PanelLayoutActions.createRightPanelRequest({ rightPanelEntity: fullRightPanel }))
+        this.store.dispatch(PanelLayoutActions.createRightPanelRequest({ rightPanelEntity: fullRightPanel, allowsMultiple }))
     }
 
     removeRightPanel(rightPanelId: string) {
@@ -175,6 +176,10 @@ export class ZWPPanelLayoutFacade {
 
     selectRightPanel(rightPanelId: string) {
         this.store.dispatch(PanelLayoutActions.selectRightPanel({ id: rightPanelId }))
+    }
+
+    removeRightPanelsForDataId(dataId: string) {
+        this.store.dispatch(PanelLayoutActions.removeRightPanelsForDataId({ id: dataId }))
     }
 
     deselectRightPanel() {

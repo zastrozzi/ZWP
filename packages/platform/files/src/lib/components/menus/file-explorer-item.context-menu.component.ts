@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { isUndefined } from '@zwp/platform.common'
-import { BaseMenuComponent, MENU_COMPONENT_DATA, ZWPMenuComponent, ZWPMenuLayoutFacade } from '@zwp/platform.layout'
+import { BaseMenuComponent, MENU_COMPONENT_DATA, ZWPMenuComponent, ZWPMenuLayoutFacade, ZWPPanelLayoutFacade } from '@zwp/platform.layout'
 import { Facades } from '../../+state/facades'
 import { Model } from '../../model'
 
@@ -39,11 +39,37 @@ import { Model } from '../../model'
                 ></zwp-md-button>
                 <zwp-divider></zwp-divider>
                 <zwp-md-button
+                    (btnClick)="openInInspector()"
+                    materialType="flat"
+                    [backgroundColor]="'system-background' | zwpColorTheme"
+                    icon="vertical_split"
+                    label="Open in Inspector"
+                    [labelColor]="'label' | zwpColorTheme"
+                    [iconColor]="'primary' | zwpColorTheme"
+                    [horizontalAlign]="'start'"
+                    [textStyle]="'body1'"
+                    [iconTextStyle]="'headline'"
+                ></zwp-md-button>
+                <zwp-divider></zwp-divider>
+                <zwp-md-button
+                    (btnClick)="openInNewInspector()"
+                    materialType="flat"
+                    [backgroundColor]="'system-background' | zwpColorTheme"
+                    icon="vertical_split"
+                    label="Open in New Inspector"
+                    [labelColor]="'label' | zwpColorTheme"
+                    [iconColor]="'primary' | zwpColorTheme"
+                    [horizontalAlign]="'start'"
+                    [textStyle]="'body1'"
+                    [iconTextStyle]="'headline'"
+                ></zwp-md-button>
+                <zwp-divider></zwp-divider>
+                <zwp-md-button
                     *ngIf="menuData.parentFileDataItemId !== undefined"
                     (btnClick)="moveToParent()"
                     materialType="flat"
                     [backgroundColor]="'system-background' | zwpColorTheme"
-                    icon="preview"
+                    icon="move_up"
                     label="Move to Enclosing Folder"
                     [labelColor]="'label' | zwpColorTheme"
                     [iconColor]="'primary' | zwpColorTheme"
@@ -56,7 +82,7 @@ import { Model } from '../../model'
                     (btnClick)="duplicate()"
                     materialType="flat"
                     [backgroundColor]="'system-background' | zwpColorTheme"
-                    icon="preview"
+                    icon="content_copy"
                     label="Duplicate"
                     [labelColor]="'label' | zwpColorTheme"
                     [iconColor]="'primary' | zwpColorTheme"
@@ -86,6 +112,7 @@ import { Model } from '../../model'
 })
 export class FileExplorerItemContextMenuComponent extends BaseMenuComponent {
     private menuFacade = inject(ZWPMenuLayoutFacade)
+    private panelLayoutFacade = inject(ZWPPanelLayoutFacade)
     menuData = inject(MENU_COMPONENT_DATA) as Model.FileDataItem
     private fileExplorerFacade = inject(Facades.ZWPFileExplorerFacade)
 
@@ -105,6 +132,34 @@ export class FileExplorerItemContextMenuComponent extends BaseMenuComponent {
     }
 
     previewFile() {
+        this.close()
+    }
+
+    openInInspector() {
+        this.panelLayoutFacade.addRightPanel({
+            id: `file-explorer-item-details`,
+            label: `File Explorer - ${this.menuData.name}`,
+            icon: 'perm_media',
+            componentName: 'FileExplorerItemRightPanelComponent',
+            data: {
+                ...this.menuData
+            },
+            dataId: this.menuData.id
+        })
+        this.close()
+    }
+
+    openInNewInspector() {
+        this.panelLayoutFacade.addRightPanel({
+            id: `file-explorer-item-details`,
+            label: `File Explorer - ${this.menuData.name}`,
+            icon: 'perm_media',
+            componentName: 'FileExplorerItemRightPanelComponent',
+            data: {
+                ...this.menuData
+            },
+            dataId: this.menuData.id
+        }, true)
         this.close()
     }
 

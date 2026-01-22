@@ -18,6 +18,11 @@ const createMany = createAction(
     props<{ items: Model.FileDataItem[] }>()
 )
 
+const update = createAction(
+    createActionType(FILE_DATA_ACTION_IDENTIFIERS, 'Update'),
+    props<{ itemId: string, update: Partial<Model.FileDataItem> }>()
+)
+
 const remove = createAction(createActionType(FILE_DATA_ACTION_IDENTIFIERS, 'Remove'), props<{ id: string }>())
 
 const removeMany = createAction(createActionType(FILE_DATA_ACTION_IDENTIFIERS, 'Remove Many'), props<{ ids: string[] }>())
@@ -40,6 +45,7 @@ const updateParentsFailure = createAction(
 export const FileDataActions = {
     create,
     createMany,
+    update,
     remove,
     removeMany,
     updateParent,

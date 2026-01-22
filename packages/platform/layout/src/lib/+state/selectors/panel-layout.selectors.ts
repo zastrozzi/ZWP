@@ -1,7 +1,7 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { PanelDisplayMode, RightPanelEntity, RightPanelTypeEntity } from "../../model";
-import { Identifiers } from "../identifiers";
-import { PanelLayoutFeatureState, rightPanelEntityAdapter } from "../reducers";
+import { createFeatureSelector, createSelector } from '@ngrx/store'
+import { PanelDisplayMode, RightPanelEntity, RightPanelTypeEntity } from '../../model'
+import { Identifiers } from '../identifiers'
+import { PanelLayoutFeatureState, rightPanelEntityAdapter } from '../reducers'
 import { ComponentPortal } from '@angular/cdk/portal'
 import { getZWPRightPanelComponent, RIGHT_PANEL_COMPONENT_DATA } from '../../decorators'
 import { Injector } from '@angular/core'
@@ -20,30 +20,39 @@ const selectLeftPanelCollapsedSize = createSelector(panelLayoutState, (state) =>
 const selectLeftPanelExpandedSize = createSelector(panelLayoutState, (state) => state.leftPanelExpandedSize)
 const selectLeftPanelDisplayMode = createSelector(panelLayoutState, (state) => state.leftPanelDisplayMode)
 const selectLeftPanelSize = createSelector(
-    selectLeftPanelExpanded, 
-    selectLeftPanelExpandedSize, 
-    selectLeftPanelCollapsedSize, 
-    (isExpanded, expandedSize, collapsedSize) => isExpanded ? expandedSize : collapsedSize
+    selectLeftPanelExpanded,
+    selectLeftPanelExpandedSize,
+    selectLeftPanelCollapsedSize,
+    (isExpanded, expandedSize, collapsedSize) => (isExpanded ? expandedSize : collapsedSize)
 )
 const selectLeftPanelHasShadow = createSelector(
     selectLeftPanelDisplayMode,
     selectLeftPanelOpen,
     selectLeftPanelExpanded,
-    (displayMode, isOpen, isExpanded) => displayMode === PanelDisplayMode.over ? true : displayMode === PanelDisplayMode.inlineAndOver ? isOpen && isExpanded ? true : false : false
+    (displayMode, isOpen, isExpanded) =>
+        displayMode === PanelDisplayMode.over
+            ? true
+            : displayMode === PanelDisplayMode.inlineAndOver
+            ? isOpen && isExpanded
+                ? true
+                : false
+            : false
 )
 
 const selectLeftPanelHasMouseEnter = createSelector(
     selectLeftPanelDisplayMode,
     selectLeftPanelOpen,
     selectLeftPanelExpanded,
-    (displayMode, isOpen, isExpanded) => displayMode === PanelDisplayMode.inlineAndOver && isOpen && !isExpanded ? true : false
+    (displayMode, isOpen, isExpanded) =>
+        displayMode === PanelDisplayMode.inlineAndOver && isOpen && !isExpanded ? true : false
 )
 
 const selectLeftPanelHasMouseOut = createSelector(
     selectLeftPanelDisplayMode,
     selectLeftPanelOpen,
     selectLeftPanelExpanded,
-    (displayMode, isOpen, isExpanded) => displayMode === PanelDisplayMode.inlineAndOver && isOpen && isExpanded ? true : false
+    (displayMode, isOpen, isExpanded) =>
+        displayMode === PanelDisplayMode.inlineAndOver && isOpen && isExpanded ? true : false
 )
 
 const selectLeftPanelMouseEvents = createSelector(
@@ -66,30 +75,39 @@ const selectRightPanelCollapsedSize = createSelector(panelLayoutState, (state) =
 const selectRightPanelExpandedSize = createSelector(panelLayoutState, (state) => state.rightPanelExpandedSize)
 const selectRightPanelDisplayMode = createSelector(panelLayoutState, (state) => state.rightPanelDisplayMode)
 const selectRightPanelSize = createSelector(
-    selectRightPanelExpanded, 
-    selectRightPanelExpandedSize, 
-    selectRightPanelCollapsedSize, 
-    (isExpanded, expandedSize, collapsedSize) => isExpanded ? expandedSize : collapsedSize
+    selectRightPanelExpanded,
+    selectRightPanelExpandedSize,
+    selectRightPanelCollapsedSize,
+    (isExpanded, expandedSize, collapsedSize) => (isExpanded ? expandedSize : collapsedSize)
 )
 const selectRightPanelHasShadow = createSelector(
     selectRightPanelDisplayMode,
     selectRightPanelOpen,
     selectRightPanelExpanded,
-    (displayMode, isOpen, isExpanded) => displayMode === PanelDisplayMode.over ? true : displayMode === PanelDisplayMode.inlineAndOver ? isOpen && isExpanded ? true : false : false
+    (displayMode, isOpen, isExpanded) =>
+        displayMode === PanelDisplayMode.over
+            ? true
+            : displayMode === PanelDisplayMode.inlineAndOver
+            ? isOpen && isExpanded
+                ? true
+                : false
+            : false
 )
 
 const selectRightPanelHasMouseEnter = createSelector(
     selectRightPanelDisplayMode,
     selectRightPanelOpen,
     selectRightPanelExpanded,
-    (displayMode, isOpen, isExpanded) => displayMode === PanelDisplayMode.inlineAndOver && isOpen && !isExpanded ? true : false
+    (displayMode, isOpen, isExpanded) =>
+        displayMode === PanelDisplayMode.inlineAndOver && isOpen && !isExpanded ? true : false
 )
 
 const selectRightPanelHasMouseOut = createSelector(
     selectRightPanelDisplayMode,
     selectRightPanelOpen,
     selectRightPanelExpanded,
-    (displayMode, isOpen, isExpanded) => displayMode === PanelDisplayMode.inlineAndOver && isOpen && isExpanded ? true : false
+    (displayMode, isOpen, isExpanded) =>
+        displayMode === PanelDisplayMode.inlineAndOver && isOpen && isExpanded ? true : false
 )
 
 const selectRightPanelMouseEvents = createSelector(
@@ -112,12 +130,15 @@ const selectBottomPanelCollapsedSize = createSelector(panelLayoutState, (state) 
 const selectBottomPanelExpandedSize = createSelector(panelLayoutState, (state) => state.bottomPanelExpandedSize)
 const selectBottomPanelDisplayMode = createSelector(panelLayoutState, (state) => state.bottomPanelDisplayMode)
 const selectBottomPanelSize = createSelector(
-    selectBottomPanelExpanded, 
-    selectBottomPanelExpandedSize, 
-    selectBottomPanelCollapsedSize, 
-    (isExpanded, expandedSize, collapsedSize) => isExpanded ? expandedSize : collapsedSize
+    selectBottomPanelExpanded,
+    selectBottomPanelExpandedSize,
+    selectBottomPanelCollapsedSize,
+    (isExpanded, expandedSize, collapsedSize) => (isExpanded ? expandedSize : collapsedSize)
 )
-const selectBottomPanelDragHandleFocused = createSelector(panelLayoutState, (state) => state.bottomPanelDragHandleFocused)
+const selectBottomPanelDragHandleFocused = createSelector(
+    panelLayoutState,
+    (state) => state.bottomPanelDragHandleFocused
+)
 const selectBottomPanelDragHandleExpanded = createSelector(
     selectBottomPanelDragHandleFocused,
     selectBottomPanelOpen,
@@ -126,14 +147,26 @@ const selectBottomPanelDragHandleExpanded = createSelector(
 )
 
 const selectDetailPanelSize = createSelector(panelLayoutState, (state) => state.detailPanelSize)
-const selectDetailPanelDragHandleFocused = createSelector(panelLayoutState, (state) => state.detailPanelDragHandleFocused)
+const selectDetailPanelDragHandleFocused = createSelector(
+    panelLayoutState,
+    (state) => state.detailPanelDragHandleFocused
+)
 
 const selectMainPanelMarginLeft = createSelector(
     selectLeftPanelDisplayMode,
     selectLeftPanelOpen,
     selectLeftPanelCollapsedSize,
     selectLeftPanelSize,
-    (displayMode, isOpen, collapsedSize, size) => displayMode === PanelDisplayMode.inlineAndOver ? isOpen ? collapsedSize : 0 : displayMode === PanelDisplayMode.inline ? isOpen ? size : 0 : 0
+    (displayMode, isOpen, collapsedSize, size) =>
+        displayMode === PanelDisplayMode.inlineAndOver
+            ? isOpen
+                ? collapsedSize
+                : 0
+            : displayMode === PanelDisplayMode.inline
+            ? isOpen
+                ? size
+                : 0
+            : 0
 )
 
 const selectMainPanelMarginRight = createSelector(
@@ -141,7 +174,16 @@ const selectMainPanelMarginRight = createSelector(
     selectRightPanelOpen,
     selectRightPanelCollapsedSize,
     selectRightPanelSize,
-    (displayMode, isOpen, collapsedSize, size) => displayMode === PanelDisplayMode.inlineAndOver ? isOpen ? collapsedSize : 0 : displayMode === PanelDisplayMode.inline ? isOpen ? size : 0 : 0
+    (displayMode, isOpen, collapsedSize, size) =>
+        displayMode === PanelDisplayMode.inlineAndOver
+            ? isOpen
+                ? collapsedSize
+                : 0
+            : displayMode === PanelDisplayMode.inline
+            ? isOpen
+                ? size
+                : 0
+            : 0
 )
 
 const selectMainPanelMarginBottom = createSelector(
@@ -149,52 +191,77 @@ const selectMainPanelMarginBottom = createSelector(
     selectBottomPanelOpen,
     selectBottomPanelCollapsedSize,
     selectBottomPanelSize,
-    (displayMode, isOpen, collapsedSize, size) => displayMode === PanelDisplayMode.inlineAndOver ? isOpen ? collapsedSize : 0 : displayMode === PanelDisplayMode.inline ? isOpen ? size : 0 : 0
+    (displayMode, isOpen, collapsedSize, size) =>
+        displayMode === PanelDisplayMode.inlineAndOver
+            ? isOpen
+                ? collapsedSize
+                : 0
+            : displayMode === PanelDisplayMode.inline
+            ? isOpen
+                ? size
+                : 0
+            : 0
 )
 
 const selectPanelClickDismissLeftPanel = createSelector(
     selectLeftPanelDisplayMode,
     selectLeftPanelOpen,
     selectLeftPanelExpanded,
-    (displayMode, isOpen, isExpanded) => displayMode === PanelDisplayMode.inlineAndOver && isOpen && isExpanded ? true : false
+    (displayMode, isOpen, isExpanded) =>
+        displayMode === PanelDisplayMode.inlineAndOver && isOpen && isExpanded ? true : false
 )
 
 const selectPanelClickDismissRightPanel = createSelector(
     selectRightPanelDisplayMode,
     selectRightPanelOpen,
     selectRightPanelExpanded,
-    (displayMode, isOpen, isExpanded) => displayMode === PanelDisplayMode.inlineAndOver && isOpen && isExpanded ? true : false
+    (displayMode, isOpen, isExpanded) =>
+        displayMode === PanelDisplayMode.inlineAndOver && isOpen && isExpanded ? true : false
 )
 
 const selectPanelClickDismissBottomPanel = createSelector(
     selectBottomPanelDisplayMode,
     selectBottomPanelOpen,
     selectBottomPanelExpanded,
-    (displayMode, isOpen, isExpanded) => displayMode === PanelDisplayMode.inlineAndOver && isOpen && isExpanded ? true : false
+    (displayMode, isOpen, isExpanded) =>
+        displayMode === PanelDisplayMode.inlineAndOver && isOpen && isExpanded ? true : false
 )
 
 const selectMainPanelClickDismissals = createSelector(
     selectPanelClickDismissLeftPanel,
     selectPanelClickDismissRightPanel,
     selectPanelClickDismissBottomPanel,
-    (leftPanel, rightPanel, bottomPanel) => ({left: leftPanel, right: rightPanel, bottom: bottomPanel})
+    (leftPanel, rightPanel, bottomPanel) => ({ left: leftPanel, right: rightPanel, bottom: bottomPanel })
 )
 
-const selectLeftPanelClickDismissals = createSelector(
-    selectPanelClickDismissLeftPanel,
-    (leftPanel) => ({left: leftPanel})
-)
+const selectLeftPanelClickDismissals = createSelector(selectPanelClickDismissLeftPanel, (leftPanel) => ({
+    left: leftPanel,
+}))
 
 const rightPanelEntitySelectors = rightPanelEntityAdapter.getSelectors()
+const extractBaseIds = (ids: string[]) => ids.map((id) => id?.split('#', 1)[0] ?? '')
 
-const rightPanelUntypedIds = createSelector(panelLayoutState, (state) => rightPanelEntitySelectors.selectIds(state.rightPanels))
+const rightPanelUntypedIds = createSelector(panelLayoutState, (state) =>
+    rightPanelEntitySelectors.selectIds(state.rightPanels)
+)
 const rightPanelIds = createSelector(rightPanelUntypedIds, (ids) => ids as string[])
-const rightPanelEntities = createSelector(panelLayoutState, (state) => rightPanelEntitySelectors.selectEntities(state.rightPanels))
-const allRightPanels = createSelector(panelLayoutState, (state) => rightPanelEntitySelectors.selectAll(state.rightPanels))
-const totalRightPanels = createSelector(panelLayoutState, (state) => rightPanelEntitySelectors.selectTotal(state.rightPanels))
+const rightPanelBaseIds = createSelector(rightPanelIds, (ids) => extractBaseIds(ids))
+const rightPanelEntities = createSelector(panelLayoutState, (state) =>
+    rightPanelEntitySelectors.selectEntities(state.rightPanels)
+)
+const allRightPanels = createSelector(panelLayoutState, (state) =>
+    rightPanelEntitySelectors.selectAll(state.rightPanels)
+)
+const totalRightPanels = createSelector(panelLayoutState, (state) =>
+    rightPanelEntitySelectors.selectTotal(state.rightPanels)
+)
 const getRightPanelById = (id: string) => createSelector(rightPanelEntities, (entities) => entities[id])
 const selectedRightPanelId = createSelector(panelLayoutState, (state) => state.selectedRightPanelId)
-const selectedRightPanel = createSelector(rightPanelEntities, selectedRightPanelId, (entities, id) => entities[id ?? ''])
+const selectedRightPanel = createSelector(
+    rightPanelEntities,
+    selectedRightPanelId,
+    (entities, id) => entities[id ?? '']
+)
 
 const selectedRightPanelPortal = createSelector(selectedRightPanel, (rightPanel) => {
     if (rightPanel) {
@@ -202,9 +269,7 @@ const selectedRightPanelPortal = createSelector(selectedRightPanel, (rightPanel)
             getZWPRightPanelComponent(rightPanel.componentName),
             null,
             Injector.create({
-                providers: [
-                    { provide: RIGHT_PANEL_COMPONENT_DATA, useValue: rightPanel.data }
-                ]
+                providers: [{ provide: RIGHT_PANEL_COMPONENT_DATA, useValue: rightPanel.data }],
             })
         )
     }
@@ -213,22 +278,34 @@ const selectedRightPanelPortal = createSelector(selectedRightPanel, (rightPanel)
 
 const rightPanelCategories = createSelector(allRightPanels, (rightPanels) => {
     const categories = new Set<RightPanelTypeEntity>()
-    rightPanels.forEach(rightPanel => categories.add({
-        category: rightPanel.category, icon: rightPanel.icon
-    }))
+    rightPanels.forEach((rightPanel) =>
+        categories.add({
+            category: rightPanel.category,
+            icon: rightPanel.icon,
+        })
+    )
     return Array.from(categories)
 })
 
-const rightPanelsByCategory = createSelector(
-    rightPanelCategories,
-    allRightPanels,
-    (categories, rightPanels) => {
-        const panelsByCategory = new Map<RightPanelTypeEntity, RightPanelEntity[]>()
-        categories.forEach(category => {
-            panelsByCategory.set(category, rightPanels.filter(panel => panel.category === category.category))
-        })
-        return panelsByCategory
-    }
+const rightPanelsByCategory = createSelector(rightPanelCategories, allRightPanels, (categories, rightPanels) => {
+    const panelsByCategory = new Map<RightPanelTypeEntity, RightPanelEntity[]>()
+    categories.forEach((category) => {
+        panelsByCategory.set(
+            category,
+            rightPanels.filter((panel) => panel.category === category.category)
+        )
+    })
+    return panelsByCategory
+})
+
+const rightPanelIdsByDataId = (id: string) =>
+    createSelector(allRightPanels, (rightPanels) =>
+        rightPanels.filter((panel) => panel.dataId === id).map((panel) => panel.id)
+    )
+
+const hasRightPanelsForDataId = (id: string) => createSelector(
+    rightPanelIdsByDataId(id),
+    ids => ids.length > 0
 )
 
 export const LeftPanelSelectors = {
@@ -244,7 +321,7 @@ export const LeftPanelSelectors = {
     selectLeftPanelMouseEvents,
     selectLeftPanelDragHandleFocused,
     selectLeftPanelDragHandleExpanded,
-    selectLeftPanelClickDismissals
+    selectLeftPanelClickDismissals,
 }
 
 export const RightPanelSelectors = {
@@ -261,6 +338,7 @@ export const RightPanelSelectors = {
     selectRightPanelDragHandleFocused,
     selectRightPanelDragHandleExpanded,
     rightPanelIds,
+    rightPanelBaseIds,
     rightPanelEntities,
     allRightPanels,
     totalRightPanels,
@@ -269,7 +347,9 @@ export const RightPanelSelectors = {
     selectedRightPanel,
     selectedRightPanelPortal,
     rightPanelCategories,
-    rightPanelsByCategory
+    rightPanelsByCategory,
+    rightPanelIdsByDataId,
+    hasRightPanelsForDataId
 }
 
 export const BottomPanelSelectors = {
@@ -280,17 +360,17 @@ export const BottomPanelSelectors = {
     selectBottomPanelDisplayMode,
     selectBottomPanelSize,
     selectBottomPanelDragHandleFocused,
-    selectBottomPanelDragHandleExpanded
+    selectBottomPanelDragHandleExpanded,
 }
 
 export const DetailPanelSelectors = {
     selectDetailPanelSize,
-    selectDetailPanelDragHandleFocused
+    selectDetailPanelDragHandleFocused,
 }
 
 export const MainPanelSelectors = {
     selectMainPanelMarginLeft,
     selectMainPanelMarginRight,
     selectMainPanelMarginBottom,
-    selectMainPanelClickDismissals
+    selectMainPanelClickDismissals,
 }

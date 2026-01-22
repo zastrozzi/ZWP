@@ -10,4 +10,5 @@ export interface RightPanelEntity {
     component?: ComponentType<any>
     componentName: string
     data: object
+    dataId?: string
 }

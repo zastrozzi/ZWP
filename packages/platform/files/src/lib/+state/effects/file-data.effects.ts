@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core'
 import { createNamespacedFeatureKey, DiffingUtils, isNil, PersistenceActions, ZWPDebuggableInjectable, ZWPKeyboardFacade, ZWPRouterFacade } from '@zwp/platform.common'
-import { ZWPMenuLayoutFacade } from '@zwp/platform.layout'
-import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects'
+import { PanelLayoutActions, ZWPMenuLayoutFacade, ZWPPanelLayoutFacade } from '@zwp/platform.layout'
+import { Actions, concatLatestFrom, createEffect, ofType, OnInitEffects } from '@ngrx/effects'
 import { ROUTER_NAVIGATED, routerNavigatedAction } from '@ngrx/router-store'
 import { concatMap, filter, map, mergeMap, of, tap, withLatestFrom } from 'rxjs'
 import { FileExplorerItemContextMenuComponent } from '../../components'
@@ -15,6 +15,7 @@ import { Action } from '@ngrx/store'
 export class ZWPFileDataEffects implements OnInitEffects {
     private actions$ = inject(Actions)
     private fileExplorerFacade = inject(Facades.ZWPFileExplorerFacade)
+    private panelLayoutFacade = inject(ZWPPanelLayoutFacade)
 
     deleteChildrenOnParentDelete$ = createEffect(() => this.actions$.pipe(
         ofType(FileDataActions.remove),
@@ -31,6 +32,14 @@ export class ZWPFileDataEffects implements OnInitEffects {
         map(action => action.ids),
         filter(ids => ids.length > 0),
         concatMap((ids) => ids.map(id => FileDataActions.remove({ id })))
+    ))
+
+    removeRightPanelsOnDelete$ = createEffect(() => this.actions$.pipe(
+        ofType(FileDataActions.remove),
+        map(action => action.id),
+        concatLatestFrom(id => this.panelLayoutFacade.hasRightPanelsForDataId$(id)),
+        filter(([_, hasRightPanels]) => hasRightPanels),
+        map(([id, _]) => PanelLayoutActions.removeRightPanelsForDataId({ id }))
     ))
 
     ngrxOnInitEffects(): Action {

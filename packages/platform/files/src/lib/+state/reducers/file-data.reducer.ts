@@ -29,6 +29,19 @@ export const fileDataReducer = createReducer(
         ...state,
         items: fileDataItemEntityAdapter.setMany(items, state.items),
     })),
+    on(FileDataActions.update, (state, { itemId, update }) => ({
+        ...state,
+        items: fileDataItemEntityAdapter.updateOne(
+            {
+                id: itemId,
+                changes: {
+                    ...update,
+                    updatedAt: new Date()
+                }
+            },
+            state.items
+        )
+    })),
     on(FileDataActions.remove, (state, { id }) => ({
         ...state,
         items: fileDataItemEntityAdapter.removeOne(id, state.items),
@@ -36,7 +49,10 @@ export const fileDataReducer = createReducer(
     on(FileDataActions.updateParent, (state, { itemId, parentId }) => ({
         ...state,
         items: fileDataItemEntityAdapter.updateOne(
-            { id: itemId, changes: { parentFileDataItemId: parentId ?? undefined } },
+            { id: itemId, changes: { 
+                parentFileDataItemId: parentId ?? undefined,
+                updatedAt: new Date()
+            } },
             state.items
         ),
     })),
@@ -45,7 +61,10 @@ export const fileDataReducer = createReducer(
         items: fileDataItemEntityAdapter.updateMany(
             updates.map((update) => ({
                 id: update.itemId,
-                changes: { parentFileDataItemId: update.parentId ?? undefined },
+                changes: { 
+                    parentFileDataItemId: update.parentId ?? undefined,
+                    updatedAt: new Date()
+                },
             })),
             state.items
         ),

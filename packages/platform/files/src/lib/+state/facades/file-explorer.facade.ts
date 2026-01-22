@@ -196,6 +196,10 @@ export class ZWPFileExplorerFacade  {
         this.store.dispatch(FileDataActions.create({ item: newDirectoryItem }))
     }
 
+    updateFileData(id: string, update: Partial<Model.FileDataItem>) {
+        this.store.dispatch(FileDataActions.update({ itemId: id, update: update }))
+    }
+
     async duplicateFileData(id: string, withNewParent: boolean = false, newParentId: string | undefined = undefined) {
         const fileData = await this.getFileDataItem(id)
         const fileDataChildren = await this.getChildFileDataItems(id)
