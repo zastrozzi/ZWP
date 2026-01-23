@@ -5,9 +5,11 @@ import { FileBrowserPageComponent } from './file-browser.page.component'
 import { KEYBOARD_COMPONENTS } from './keyboard'
 import { HomePageTileComponent } from './home-page.tile.component'
 import { TABLES_COMPONENTS } from './tables'
+import { UnifiedSearchComponent } from './unified-search.component'
 
 export * from './root.component'
 export * from './routing-container.component'
+export * from './unified-search.component'
 export * from './home.page.component'
 export * from './home-page.tile.component'
 export * from './file-browser.page.component'
@@ -20,6 +22,7 @@ export const COMPONENTS = {
     HomePageComponent,
     HomePageTileComponent,
     FileBrowserPageComponent,
+    UnifiedSearchComponent,
     
     KEYBOARD_COMPONENTS,
     TABLES_COMPONENTS,
@@ -30,6 +33,7 @@ export const COMPONENTS = {
         HomePageComponent,
         HomePageTileComponent,
         FileBrowserPageComponent,
+        UnifiedSearchComponent,
         ...KEYBOARD_COMPONENTS.ALL,
         ...TABLES_COMPONENTS.ALL
     ]

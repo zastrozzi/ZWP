@@ -67,6 +67,21 @@ const createRightPanelSuccess = createAction(
     props<{ rightPanelEntity: RightPanelEntity }>()
 )
 
+const updateRightPanelRequest = createAction(
+    createActionType(PANEL_LAYOUT_REQUEST_ACTION_IDENTIFIERS, 'Update Right Panel'), 
+    props<{ id: string, update: Partial<RightPanelEntity> }>()
+)
+
+const updateRightPanelFailure = createAction(
+    createActionType(PANEL_LAYOUT_FAILURE_ACTION_IDENTIFIERS, 'Update Right Panel'), 
+    props<{ id: string, update: Partial<RightPanelEntity> }>()
+)
+
+const updateRightPanelSuccess = createAction(
+    createActionType(PANEL_LAYOUT_SUCCESS_ACTION_IDENTIFIERS, 'Update Right Panel'), 
+    props<{ id: string, update: Partial<RightPanelEntity> }>()
+)
+
 const removeRightPanelRequest = createAction(
     createActionType(PANEL_LAYOUT_REQUEST_ACTION_IDENTIFIERS, 'Remove Right Panel'), 
     props<{ id: string }>()
@@ -146,6 +161,9 @@ export const PanelLayoutActions = {
     createRightPanelRequest,
     createRightPanelFailure,
     createRightPanelSuccess,
+    updateRightPanelRequest,
+    updateRightPanelFailure,
+    updateRightPanelSuccess,
     removeRightPanelRequest,
     removeRightPanelFailure,
     removeRightPanelSuccess,

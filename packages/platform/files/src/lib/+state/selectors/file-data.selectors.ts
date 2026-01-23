@@ -78,6 +78,7 @@ const fileDataItemsByIds = (ids: string[]) =>
     createSelector(fileDataItemEntities, (dict) => ids.compactMap((id) => dict[id]))
 const fileDataItemsByParentId = (parentId: string) =>
     createSelector(allFileDataItems, (items) => items.filter((e) => e.parentFileDataItemId === parentId))
+const childFileDataItemsCount = (id: string) => createSelector(fileDataItemsByParentId(id), ids => ids.length)
 
 const fileDataItemsByParentIds = (parentIds: string[]) =>
     createSelector(allFileDataItems, (items) =>
@@ -102,5 +103,6 @@ export const FileDataSelectors = {
     fileDataItemsByIds,
     fileDataItemsByParentId,
     fileDataItemsByParentIds,
-    parentFileDataItemIdForFileDataItem
+    parentFileDataItemIdForFileDataItem,
+    childFileDataItemsCount
 }

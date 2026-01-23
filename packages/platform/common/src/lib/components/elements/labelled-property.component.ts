@@ -52,7 +52,7 @@ export class LabelledPropertyComponent {
     @Input() property: Nilable<string | string[]> = 'Property'
     @Input() backgroundColor = 'quaternary-system-fill'
     @Input() labelColor = 'label'
-    @Input() propertyColor = 'primary'
+    @Input() propertyColor = 'primary-label'
     @Input() textStyle = 'body1'
     @Input() layout: 'row wrap' | 'column' = 'row wrap'
 

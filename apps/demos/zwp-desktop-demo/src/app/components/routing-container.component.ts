@@ -16,23 +16,7 @@ import { ZWPRouterFacade, ZWPThemingFacade } from '@zwp/platform.common'
         >
             <div fxLayout="row" fxLayoutAlign="stretch center" zwpPadding="7" fxLayoutGap="10px">
                 <zwp-feature-nav-button buttonLabelColor="primary-label"></zwp-feature-nav-button>
-                <div fxFlex="10%"></div>
-                <mat-form-field
-                    appearance="outline"
-                    fxFlex="grow"
-                    class="noHintFormField flexFormField noOutlineFormField"
-                    zwpCorners="4"
-                    zwpBackgroundColor="quaternary-system-fill"
-                >
-                    <input
-                        matInput
-                        placeholder="Search for anything..."
-                        class="placeholderInheritColor"
-                        [zwpTextStyle]="'body1'"
-                        zwpColor="label"
-                    />
-                </mat-form-field>
-                <div fxFlex="10%"></div>
+                <zwp-unified-search fxFlex="grow"/>
                 <zwp-md-icon-button
                     (btnClick)="toggleDarkMode()"
                     textStyle="headline"

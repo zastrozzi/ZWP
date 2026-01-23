@@ -170,6 +170,10 @@ export class ZWPPanelLayoutFacade {
         this.store.dispatch(PanelLayoutActions.createRightPanelRequest({ rightPanelEntity: fullRightPanel, allowsMultiple }))
     }
 
+    updateRightPanelLabel(rightPanelId: string, label: string) {
+        this.store.dispatch(PanelLayoutActions.updateRightPanelRequest({ id: rightPanelId, update: { label } }))
+    }
+
     removeRightPanel(rightPanelId: string) {
         this.store.dispatch(PanelLayoutActions.removeRightPanelRequest({ id: rightPanelId }))
     }

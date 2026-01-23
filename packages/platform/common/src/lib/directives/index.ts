@@ -24,6 +24,7 @@ import { ColorDirective } from './color.directive'
 // import { BaseColorCanvasDirective } from './base.color-canvas.directive'
 import { BackgroundColorDirective } from './background-color.directive'
 import { BorderColorDirective } from './border-color.directive'
+import { BoxShadowDirective } from './box-shadow.directive'
 import { StopPropagationDirective } from './stop-propagation.directive'
 import { TableCellTemplateDirective } from './table-cell-template.directive'
 import { FileUploadDragDropDirective } from './file-upload.drag-drop.directive'
@@ -60,6 +61,7 @@ export * from './color.directive'
 export * from './base.color-canvas.directive'
 export * from './background-color.directive'
 export * from './border-color.directive'
+export * from './box-shadow.directive'
 export * from './stop-propagation.directive'
 export * from './table-cell-template.directive'
 export * from './full-height.directive'
@@ -97,6 +99,7 @@ export const COMMON_EXPORTABLE_DIRECTIVES = [
     // BaseColorCanvasComponent,
     BackgroundColorDirective,
     BorderColorDirective,
+    BoxShadowDirective,
     StopPropagationDirective,
     TableCellTemplateDirective,
     FullHeightDirective,

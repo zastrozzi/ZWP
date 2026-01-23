@@ -138,7 +138,7 @@ export class FileExplorerItemContextMenuComponent extends BaseMenuComponent {
     openInInspector() {
         this.panelLayoutFacade.addRightPanel({
             id: `file-explorer-item-details`,
-            label: `File Explorer - ${this.menuData.name}`,
+            label: `File Explorer Details`,
             icon: 'perm_media',
             componentName: 'FileExplorerItemRightPanelComponent',
             data: {
@@ -152,7 +152,7 @@ export class FileExplorerItemContextMenuComponent extends BaseMenuComponent {
     openInNewInspector() {
         this.panelLayoutFacade.addRightPanel({
             id: `file-explorer-item-details`,
-            label: `File Explorer - ${this.menuData.name}`,
+            label: `File Explorer Details`,
             icon: 'perm_media',
             componentName: 'FileExplorerItemRightPanelComponent',
             data: {

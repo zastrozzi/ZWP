@@ -58,6 +58,7 @@ export class ZWPFileExplorerFacade  {
     fileDataItemsByParentId$ = (parentId: string) => this.store.pipe(select(Selectors.FileDataSelectors.fileDataItemsByParentId(parentId)))
     fileDataItemById$ = (id: string) => this.store.pipe(select(Selectors.FileDataSelectors.fileDataItemById(id)))
     parentFileDataItemIdForFileDataItem$ = (id: string) => this.store.pipe(select(Selectors.FileDataSelectors.parentFileDataItemIdForFileDataItem(id)))
+    childFileDataItemsCount$ = (id: string) => this.store.pipe(select(Selectors.FileDataSelectors.childFileDataItemsCount(id)))
     
     explorerItemIsSelected$ = (id: string) =>
         this.store.pipe(select(Selectors.FileExplorerSelectors.explorerItemIsSelected(id)))

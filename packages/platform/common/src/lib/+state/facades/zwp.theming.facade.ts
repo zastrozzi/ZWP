@@ -4,6 +4,7 @@ import { ZWPDebuggableInjectable } from '../../decorators/zwp.debuggable.decorat
 import { ColorTheme, ColorThemeSet, ZWPScreenBreakpointSize, PartialTextStyleSet, TextStyle, TextStyleType, PartialTextStyleSetForBreakpoint } from '../../model'
 import { ThemingActions } from '../actions'
 import { ThemingSelectors } from '../selectors'
+import { firstValueFrom } from 'rxjs'
 
 @Injectable()
 @ZWPDebuggableInjectable({serviceName: 'ZWPThemingFacade', options: { skipMethodDebugger: true }})
@@ -74,5 +75,9 @@ export class ZWPThemingFacade {
 
     decrementTextScale(amount: number) {
         this.store.dispatch(ThemingActions.decrementTextScale({ amount }))
+    }
+
+    getDarkMode = async (): Promise<boolean> => {
+        return await firstValueFrom(this.darkMode$)
     }
 }
